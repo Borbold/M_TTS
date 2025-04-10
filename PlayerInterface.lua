@@ -5,7 +5,7 @@ local procuredXMLForm = {
     children = {}
 }
 -- Helper function to create a row with name and value
-local function createRow(name, value, valueType, nameClass, valueClass)
+local function createRow(name, value, valueType, nameClass, valueClass, valueTag)
     return {
         tag = "Row",
         children = {
@@ -41,7 +41,7 @@ local function createRow(name, value, valueType, nameClass, valueClass)
                             }
                         } or {
                             {
-                                tag = "Text",
+                                tag = valueTag,
                                 attributes = {id = value, text = "10", class = valueClass}
                             }
                         }
@@ -89,100 +89,104 @@ end
 -- Create the main XML structure
 procuredXMLForm.children = {
     createTableLayout({
-        createRow("Health", "Health", "progress", "mainInfo", "stateV"),
-        createRow("Mana", "Mana", "progress", "mainInfo", "stateV"),
-        createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV")
+        createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
+        createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
+        createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
     }),
     createTableLayout({
-        createRow("Level", "Level", "value", "mainInfo", "stateV"),
-        createRow("Race", "Race", "value", "mainInfo", "stateV"),
-        createRow("Class", "Class", "value", "mainInfo", "stateV")
+        createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
+        createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
+        createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
     }),
     createCharacteristicsTableLayout({
-        createRow("Strenght", "Strenght", "value", "gameInfo", "stateV"),
-        createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV"),
-        createRow("Willpower", "Willpower", "value", "gameInfo", "stateV"),
-        createRow("Agility", "Agility", "value", "gameInfo", "stateV"),
-        createRow("Speed", "Speed", "value", "gameInfo", "stateV"),
-        createRow("Endurance", "Endurance", "value", "gameInfo", "stateV"),
-        createRow("Personality", "Personality", "value", "gameInfo", "stateV"),
-        createRow("Luck", "Luck", "value", "gameInfo", "stateV")
+        createRow("Strenght", "Strenght", "value", "gameInfo", "stateV", "Button"),
+        createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
+        createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
+        createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
+        createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
+        createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
+        createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
+        createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
     }),
     createSkillsTableLayout({
-        createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill"),
-        createRow("Long Blade", "LongBlade", "value", "skillsInfo", "stateV"),
-        createRow("Axe", "Axe", "value", "skillsInfo", "stateV"),
-        createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "stateV"),
-        createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV"),
-        createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "stateV"),
-        createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill"),
-        createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "stateV"),
-        createRow("Spear", "Spear", "value", "skillsInfo", "stateV"),
-        createRow("Block", "Block", "value", "skillsInfo", "stateV"),
-        createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV"),
-        createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV"),
-        createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill"),
-        createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV"),
-        createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV"),
-        createRow("Alteration", "Alteration", "value", "skillsInfo", "stateV"),
-        createRow("Destruction", "Destruction", "value", "skillsInfo", "stateV"),
-        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "stateV"),
-        createRow("Restoration", "Restoration", "value", "skillsInfo", "stateV"),
-        createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV"),
-        createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV"),
-        createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV"),
-        createRow("Security", "Security", "value", "skillsInfo", "stateV"),
-        createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV"),
-        createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV"),
-        createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV"),
-        createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV"),
-        createRow("Hand-to-Hand", "HandToHand", "value", "skillsInfo", "stateV"),
-        createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV"),
-        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV")
+        createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"),
+        createRow("Long Blade", "LongBlade", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Axe", "Axe", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"),
+        createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Spear", "Spear", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Block", "Block", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
+        createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Alteration", "Alteration", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Destruction", "Destruction", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Restoration", "Restoration", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Hand-to-Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button")
     })
 }
 -- Default XML information --
 
 -- Global variable --
-saveInfoPlayer = {
-    -- f77b1d - Guid player Red info
-    Red = {
-        Health = {current = 30, max = 100},
-        Mana = {current = 30, max = 100},
-        Stamina = {current = 30, max = 100},
-        Level = "1", Race = "Default", Class = "Default", Sign = "Default",
-        Characteristics = {
-            Strenght = 5, Intelligence = 5, Willpower = 5, Agility = 5, Speed = 5,
-            Endurance = 5, Personality = 5, Luck = 5
-        },
-        Skills = {
-            LongBlade = 5, Axe = 5, BluntWeapon = 5, Armorer = 5, MediumArmor = 5,
-            HeavyArmor = 5, Spear = 5, Block = 5, Athletics = 5, Alchemy = 5,
-            Enchant = 5, Conjuration = 5, Alteration = 5, Destruction = 5, Mysticism = 5,
-            Restoration = 5, Illusion = 5, Unarmored = 5, Acrobatics = 5, Security = 5,
-            Sneak = 5, LightArmor = 5, Marksman = 5, ShortBlade = 5, HandToHand = 5,
-            Mercantile = 5, Speechcraft = 5
-        }
+local baseInfoPlayer = {
+    Health = {current = 30, max = 100},
+    Mana = {current = 30, max = 100},
+    Stamina = {current = 30, max = 100},
+    Level = "1", Race = "Default", Class = "Default", Sign = "Default",
+    Characteristics = {
+        Strenght = 5, Intelligence = 5, Willpower = 5, Agility = 5, Speed = 5,
+        Endurance = 5, Personality = 5, Luck = 5
+    },
+    Skills = {
+        LongBlade = 5, Axe = 5, BluntWeapon = 5, Armorer = 5, MediumArmor = 5,
+        HeavyArmor = 5, Spear = 5, Block = 5, Athletics = 5, Alchemy = 5,
+        Enchant = 5, Conjuration = 5, Alteration = 5, Destruction = 5, Mysticism = 5,
+        Restoration = 5, Illusion = 5, Unarmored = 5, Acrobatics = 5, Security = 5,
+        Sneak = 5, LightArmor = 5, Marksman = 5, ShortBlade = 5, HandToHand = 5,
+        Mercantile = 5, Speechcraft = 5
     }
+}
+-- f77b1d - Guid player save cube
+local saveInfoPlayer = {
+    Red = {}, White = {}, Blue = {},
+}
+local enumColor = {
+    Red = 1, White = 2, Blue = 3,
 }
 -- Global variable --
 
 function UpdateSave()
-    local dataToSave = {
-        saveInfoPlayer = saveInfoPlayer,
-    }
-    local savedData = JSON.encode(dataToSave)
+    local savedData = JSON.encode(saveInfoPlayer)
     getObjectFromGUID("f77b1d").setGMNotes(savedData)
 end
 
 function onLoad()
     addHotkey("Inventory", function() self.UI.setAttribute("mainPanel","active", self.UI.getAttribute("mainPanel","active") == "true" and "false" or "true") end)
+    for color,_ in pairs(enumColor) do
+        saveInfoPlayer[color] = DeepCopy(baseInfoPlayer)
+    end
     Wait.time(function()
         RebuildXMLTable()
         local savedData = getObjectFromGUID("f77b1d").getGMNotes()
-        --local loadedData = JSON.decode(savedData)
-        if(loadedData) then
-            Wait.time(|| Confer(loadedData), 1)
+        --local saveInfoPlayer = JSON.decode(savedData)
+        if(saveInfoPlayer) then
+            Wait.time(|| Confer(saveInfoPlayer), 1)
         else
             print("Fail get save. ReSave.")
             Wait.time(|| Confer(), 1)
@@ -191,9 +195,12 @@ function onLoad()
     end, 1)
 end
 
-function Confer(loadedData)
-    --saveInfoPlayer = loadedData.saveInfoPlayer
-    CalculateInfo("Red") SetUI()
+function Confer(saveInfoPlayer)
+    --saveInfoPlayer = saveInfoPlayer
+    for color,_ in pairs(saveInfoPlayer) do
+        CalculateInfo(color)
+    end
+    SetUI()
 end
 
 function CalculateInfo(colorPlayer)
@@ -208,6 +215,19 @@ function CalculateInfo(colorPlayer)
     player.Stamina.max = player.Characteristics.Strenght + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
     if(player.Stamina.current > player.Stamina.max) then player.Stamina.current = player.Stamina.max end
     -------------
+    local xmlTable = {} xmlTable = self.UI.getXmlTable()
+    -- Major Skills +30, Main Skills +15, Misc Skills +5
+    local locId = ""
+    for index,state in ipairs(xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children) do
+        if(index < 7) then
+            locId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+            player.Skills[locId] = 30
+        elseif(index < 13) then
+            locId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+            player.Skills[locId] = 15
+        end
+    end
+    -------------
     UpdateSave()
 end
 
@@ -219,9 +239,10 @@ function SetUI()
             else
                 if(v.current and v.max) then -- HP, MP, SP
                     self.UI.setAttribute(colorPlayer..n, "text", v.current.."/"..v.max)
-                else
+                else -- Characteristics, Skills
                     for sN,sV in pairs(v) do
                         self.UI.setAttribute(colorPlayer..sN, "text", sV)
+                        self.UI.setAttribute(colorPlayer..sN, "textColor", self.UI.getAttribute(colorPlayer..sN, "textColor"))
                     end
                 end
             end
@@ -233,17 +254,12 @@ function SetUI()
     end
 end
 
-function Test()
-    saveInfoPlayer.Red.HP.current = 50
-    SetUI()
-end
-
 function RebuildXMLTable()
     local xmlTable = {} xmlTable = self.UI.getXmlTable()
     local mainPanel = xmlTable[2].children
-    local newPXMLF = {} newPXMLF = procuredXMLForm
     local locId = ""
     for colorPlayer,_ in pairs(saveInfoPlayer) do
+        local newPXMLF = {} newPXMLF = DeepCopy(procuredXMLForm)
         newPXMLF.attributes.visibility = colorPlayer
         for i = 1, #procuredXMLForm.children do
             -- HP, MP, SP, Level, Race, Class
@@ -267,6 +283,21 @@ function RebuildXMLTable()
         table.insert(mainPanel, newPXMLF)
     end
     self.UI.setXmlTable(xmlTable)
-    --print(JSON.encode(newPXMLF.children[4].children.children.children[5].children))
-    --Wait.time(function() print(self.UI.getAttribute("RedAxe", "text")) end, 1)
+end
+
+function ThrowSkill(player, alt, id)
+    local RV, CV = math.random(1, 100), tonumber(self.UI.getAttribute(id, "text"))
+    print(RV <= CV and "[00ff00]Succses[-]" or "[ff0000]Failure[-]")
+end
+
+-- Thecnics function
+function DeepCopy(original)
+    local copy = {}
+    for key, value in pairs(original) do
+        if type(value) == "table" then
+            value = DeepCopy(value) -- Recursively copy nested tables
+        end
+        copy[key] = value
+    end
+    return copy
 end

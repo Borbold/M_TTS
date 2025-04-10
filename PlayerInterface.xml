@@ -2,18 +2,21 @@
     <Text class='mainInfo' offsetXY='55 0' width='100' height='20' alignment='MiddleLeft' color='#fafada' />
     <Text class='gameInfo' offsetXY='105 0' width='200' height='20' alignment='MiddleLeft' color='#d4af37' />
     <Text class='skillsInfo' offsetXY='115 0' width='200' height='20' alignment='MiddleLeft' color='#d4af37' />
+    <Button class='skillsInfo' offsetXY='115 0' width='200' height='20' textAlignment='MiddleLeft' textColor='#dfaf37' onClick='ThrowSkill' />
     <!---->
     <Cell class='stateName' columnSpan='3' childForceExpandWidth='false' />
     <Cell class='stateValue' columnSpan='5' childForceExpandWidth='false' />
     <!---->
     <ProgressBar class='statePB' width='145' height='18' offsetXY='65 0' />
     <!---->
-    <Text class='stateV' alignment='MiddleRight' width='100' height='20' offsetXY='85 0' />
+    <Button class='stateV' offsetXY='85 0' width='100' height='20' textAlignment='MiddleRight' textColor='#dfaf37' onClick='ThrowSkill' />
+    <Text class='stateV' offsetXY='85 0' width='100' height='20' alignment='MiddleRight' />
     <Text class='infoSkill' active='false' />
     <Text class='progressBarV' width='100' height='18' offsetXY='65 0' />
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' />
+    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' color='#ffffff00' />
     <TableLayout cellSpacing='2' />
     <Row preferredHeight='20' />
     <Cell dontUseTableCellBackground='true' />
@@ -21,5 +24,5 @@
         horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
 </Defaults>
 
-<Panel id='mainPanel' offsetXY='600 -200' width='472' height='500' active='true'>
+<Panel id='mainPanel' offsetXY='600 -200' width='472' height='320' active='true'>
 </Panel>
