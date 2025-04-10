@@ -1,7 +1,7 @@
 -- Default XML information
 local procuredXMLForm = {
     tag = "GridLayout",
-    attributes = {startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 66", color = "Black"},
+    attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 66", color = "Black"},
     children = {}
 }
 -- Helper function to create a row with name and value
@@ -163,11 +163,15 @@ local baseInfoPlayer = {
     }
 }
 -- f77b1d - Guid player save cube
-local saveInfoPlayer = {
+saveInfoPlayer = {
     Red = {}, White = {}, Blue = {},
 }
 local enumColor = {
     Red = 1, White = 2, Blue = 3,
+}
+local indexVisibilityColor = 1
+local listColor = {
+    "Red", "White", "Blue",
 }
 -- Global variable --
 
@@ -177,7 +181,12 @@ function UpdateSave()
 end
 
 function onLoad()
-    addHotkey("Inventory", function() self.UI.setAttribute("mainPanel","active", self.UI.getAttribute("mainPanel","active") == "true" and "false" or "true") end)
+    addHotkey("GM Inventory", function(playerColor)
+        if(playerColor == "Black") then
+            ActivateInventoryForGM(listColor[indexVisibilityColor])
+        end
+    end)
+    addHotkey("Player Inventory", function(playerColor) ActivateInventory(playerColor) end)
     for color,_ in pairs(enumColor) do
         saveInfoPlayer[color] = DeepCopy(baseInfoPlayer)
     end
@@ -195,12 +204,30 @@ function onLoad()
     end, 1)
 end
 
+function ActivateInventory(playerColor)
+    local cId = playerColor.."mainPanel"
+    self.UI.setAttribute(cId, "active", self.UI.getAttribute(cId, "active") == "true" and "false" or "true")
+end
+function ActivateInventoryForGM(playerColor)
+    if(playerColor) then
+        local cId, pId = playerColor.."mainPanel", listColor[indexVisibilityColor > 1 and indexVisibilityColor - 1 or 1].."mainPanel"
+        self.UI.setAttribute(cId, "active", "true")
+        self.UI.setAttribute(pId, "visibility", playerColor)
+        self.UI.setAttribute(cId, "visibility", playerColor.."|Black")
+    end
+    indexVisibilityColor = indexVisibilityColor + 1
+    if(indexVisibilityColor > #listColor + 1) then
+        self.UI.setAttribute(listColor[#listColor].."mainPanel", "visibility", listColor[#listColor])
+        indexVisibilityColor = 1
+    end
+end
+
 function Confer(saveInfoPlayer)
     --saveInfoPlayer = saveInfoPlayer
     for color,_ in pairs(saveInfoPlayer) do
         CalculateInfo(color)
+        SetUI(color)
     end
-    SetUI()
 end
 
 function CalculateInfo(colorPlayer)
@@ -231,27 +258,26 @@ function CalculateInfo(colorPlayer)
     UpdateSave()
 end
 
-function SetUI()
-    for colorPlayer,state in pairs(saveInfoPlayer) do
-        for n,v in pairs(state) do
-            if(type(v) == "string") then -- Other
-                self.UI.setAttribute(colorPlayer..n, "text", v)
-            else
-                if(v.current and v.max) then -- HP, MP, SP
-                    self.UI.setAttribute(colorPlayer..n, "text", v.current.."/"..v.max)
-                else -- Characteristics, Skills
-                    for sN,sV in pairs(v) do
-                        self.UI.setAttribute(colorPlayer..sN, "text", sV)
-                        self.UI.setAttribute(colorPlayer..sN, "textColor", self.UI.getAttribute(colorPlayer..sN, "textColor"))
-                    end
+function SetUI(colorPlayer)
+    local state = saveInfoPlayer[colorPlayer]
+    for n,v in pairs(state) do
+        if(type(v) == "string") then -- Other
+            self.UI.setAttribute(colorPlayer..n, "text", v)
+        else
+            if(v.current and v.max) then -- HP, MP, SP
+                self.UI.setAttribute(colorPlayer..n, "text", v.current.."/"..v.max)
+            else -- Characteristics, Skills
+                for sN,sV in pairs(v) do
+                    self.UI.setAttribute(colorPlayer..sN, "text", sV)
+                    self.UI.setAttribute(colorPlayer..sN, "textColor", self.UI.getAttribute(colorPlayer..sN, "textColor"))
                 end
             end
         end
-        -- Percent state progress bar value
-        self.UI.setAttribute(colorPlayer.."HealthPB", "percentage", (state.Health.current/state.Health.max)*100)
-        self.UI.setAttribute(colorPlayer.."ManaPB", "percentage", (state.Mana.current/state.Mana.max)*100)
-        self.UI.setAttribute(colorPlayer.."StaminaPB", "percentage", (state.Stamina.current/state.Stamina.max)*100)
     end
+    -- Percent state progress bar value
+    self.UI.setAttribute(colorPlayer.."HealthPB", "percentage", (state.Health.current/state.Health.max)*100)
+    self.UI.setAttribute(colorPlayer.."ManaPB", "percentage", (state.Mana.current/state.Mana.max)*100)
+    self.UI.setAttribute(colorPlayer.."StaminaPB", "percentage", (state.Stamina.current/state.Stamina.max)*100)
 end
 
 function RebuildXMLTable()
@@ -260,6 +286,8 @@ function RebuildXMLTable()
     local locId = ""
     for colorPlayer,_ in pairs(saveInfoPlayer) do
         local newPXMLF = {} newPXMLF = DeepCopy(procuredXMLForm)
+        locId = newPXMLF.attributes.id
+        newPXMLF.attributes.id = colorPlayer..locId
         newPXMLF.attributes.visibility = colorPlayer
         for i = 1, #procuredXMLForm.children do
             -- HP, MP, SP, Level, Race, Class
