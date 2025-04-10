@@ -1,0 +1,25 @@
+<Defaults>
+    <Text class='mainInfo' offsetXY='55 0' width='100' height='20' alignment='MiddleLeft' color='#fafada' />
+    <Text class='gameInfo' offsetXY='105 0' width='200' height='20' alignment='MiddleLeft' color='#d4af37' />
+    <Text class='skillsInfo' offsetXY='115 0' width='200' height='20' alignment='MiddleLeft' color='#d4af37' />
+    <!---->
+    <Cell class='stateName' columnSpan='3' childForceExpandWidth='false' />
+    <Cell class='stateValue' columnSpan='5' childForceExpandWidth='false' />
+    <!---->
+    <ProgressBar class='statePB' width='145' height='18' offsetXY='65 0' />
+    <!---->
+    <Text class='stateV' alignment='MiddleRight' width='100' height='20' offsetXY='85 0' />
+    <Text class='infoSkill' active='false' />
+    <Text class='progressBarV' width='100' height='18' offsetXY='65 0' />
+    <!---->
+    <ProgressBar percentageTextFormat='0' showPercentageText='false' />
+    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' />
+    <TableLayout cellSpacing='2' />
+    <Row preferredHeight='20' />
+    <Cell dontUseTableCellBackground='true' />
+    <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
+        horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
+</Defaults>
+
+<Panel id='mainPanel' offsetXY='600 -200' width='472' height='500' active='true'>
+</Panel>
