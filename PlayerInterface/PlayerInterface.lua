@@ -331,7 +331,8 @@ end
 -- Function to confer saved data
 local function confer()
     for color, _ in pairs(saveInfoPlayer) do
-        changeRaceBonus(color) setUI(color)
+        changeRaceBonus(color)
+        Wait.time(|| setUI(color), enumColor[color] / 10)
     end
 end
 
@@ -464,15 +465,22 @@ function updateSave()
     getObjectFromGUID(saveCube).setGMNotes(savedData)
 end
 
-function changeRaceBonus(colorPlayer)
-    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.lua", self, "getRaceInfo")
+local function setRaceInfo(colorPlayer)
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
     calculateInfo(colorPlayer)
 end
-
-function getRaceInfo(request)
-    raceData = JSON.decode(request.text)
+function changeRaceBonus(colorPlayer)
+    if(not raceData) then
+        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.lua",
+            function(request)
+                raceData = JSON.decode(request.text)
+                setRaceInfo(colorPlayer)
+            end
+        )
+    else
+        setRaceInfo(colorPlayer)
+    end
 end
 -- Global functions --
