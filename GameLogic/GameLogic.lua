@@ -7,3 +7,10 @@ function takeDamage(colorPlayer)
     player.Health.current = player.Health.current - 1
     Global.call("setUI", colorPlayer) Global.call("updateSave")
 end
+
+function changeRace(player, race)
+    local colorPlayer = self.getDescription()
+    local player = {} player = Global.getVar("saveInfoPlayer")[colorPlayer]
+    player.Race = race
+    Global.call("changeRaceBonus", colorPlayer) Global.call("setUI", colorPlayer)
+end

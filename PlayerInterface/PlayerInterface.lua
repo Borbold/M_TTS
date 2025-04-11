@@ -1,3 +1,4 @@
+-- XML --
 -- Default XML information
 local procuredXMLForm = {
     tag = "GridLayout",
@@ -14,12 +15,12 @@ local function createRow(name, value, valueType, nameClass, valueClass, valueTag
         },
         {
             tag = "Text",
-            attributes = {id = value, text = "20/100", class = "progressBarV"}
+            attributes = {id = value, class = "progressBarV"}
         }
     } or {
         {
             tag = valueTag,
-            attributes = {id = value, text = "10", class = valueClass}
+            attributes = {id = value, class = valueClass}
         }
     }
 
@@ -153,16 +154,389 @@ procuredXMLForm.children = {
         createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button")
     })
 }
+-- XML --
+-----------------------------------------------------------------
+-- Race --
+-- Starting characteristics and skills for each race in Morrowind
+local raceData = {
+    -- Base Race
+    Base = {
+        characteristics = {
+            Strength = 50,
+            Intelligence = 50,
+            Willpower = 50,
+            Agility = 50,
+            Speed = 50,
+            Endurance = 50,
+            Personality = 50,
+            Luck = 50
+        },
+        skills = {
+            Block = 0,
+            Armorer = 0,
+            MediumArmor = 0,
+            HeavyArmor = 0,
+            Blunt = 0,
+            LongBlade = 0,
+            Axe = 0,
+            Spear = 0,
+            Marksman = 0,
+            ShortBlade = 0,
+            HandToHand = 0,
+            LightArmor = 0,
+            Athletics = 0,
+            Security = 0,
+            Sneak = 0,
+            Acrobatics = 0,
+            Unarmored = 0,
+            Restoration = 0,
+            Alteration = 0,
+            Conjuration = 0,
+            Destruction = 0,
+            Illusion = 0,
+            Mysticism = 0,
+            Enchant = 0,
+            Alchemy = 0,
+            Mercantile = 0,
+            Speechcraft = 0
+        }
+    },
 
+    -- Altmer (High Elf)
+    Altmer = {
+        characteristics = {
+            Strength = 20,
+            Intelligence = 70,
+            Willpower = 40,
+            Agility = 50,
+            Speed = 50,
+            Endurance = 30,
+            Personality = 60,
+            Luck = 50
+        },
+        skills = {
+            Alteration = 15,
+            Conjuration = 15,
+            Destruction = 15,
+            Illusion = 15,
+            Mysticism = 15,
+            Restoration = 15,
+            Enchant = 15,
+            Speechcraft = 15
+        },
+        MagicBonus = 1.5
+    },
+
+    -- Argonian
+    Argonian = {
+        characteristics = {
+            Strength = 40,
+            Intelligence = 30,
+            Willpower = 30,
+            Agility = 60,
+            Speed = 60,
+            Endurance = 50,
+            Personality = 30,
+            Luck = 50
+        },
+        skills = {
+            Athletics = 15,
+            Security = 15,
+            Sneak = 15,
+            Restoration = 15,
+            Alteration = 15,
+            Illusion = 15,
+            Mercantile = 15
+        }
+    },
+
+    -- Bosmer (Wood Elf)
+    Bosmer = {
+        characteristics = {
+            Strength = 30,
+            Intelligence = 40,
+            Willpower = 40,
+            Agility = 70,
+            Speed = 70,
+            Endurance = 40,
+            Personality = 40,
+            Luck = 50
+        },
+        skills = {
+            Marksman = 15,
+            ShortBlade = 15,
+            Athletics = 15,
+            Sneak = 15,
+            Security = 15,
+            Acrobatics = 15,
+            Restoration = 15,
+            Mercantile = 15
+        }
+    },
+
+    -- Breton
+    Breton = {
+        characteristics = {
+            Strength = 30,
+            Intelligence = 60,
+            Willpower = 50,
+            Agility = 40,
+            Speed = 40,
+            Endurance = 40,
+            Personality = 60,
+            Luck = 50
+        },
+        skills = {
+            Alteration = 15,
+            Conjuration = 15,
+            Destruction = 15,
+            Illusion = 15,
+            Mysticism = 15,
+            Restoration = 15,
+            Enchant = 15,
+            Speechcraft = 15
+        },
+        MagicBonus = 0.5
+    },
+
+    -- Dark Elf (Dunmer)
+    Dunmer = {
+        characteristics = {
+            Strength = 40,
+            Intelligence = 50,
+            Willpower = 50,
+            Agility = 50,
+            Speed = 50,
+            Endurance = 50,
+            Personality = 50,
+            Luck = 50
+        },
+        skills = {
+            Destruction = 15,
+            Alteration = 15,
+            Sneak = 15,
+            ShortBlade = 15,
+            Marksman = 15,
+            Illusion = 15,
+            Conjuration = 15,
+            Mysticism = 15
+        }
+    },
+
+    -- Imperial
+    Imperial = {
+        characteristics = {
+            Strength = 40,
+            Intelligence = 50,
+            Willpower = 50,
+            Agility = 40,
+            Speed = 40,
+            Endurance = 50,
+            Personality = 60,
+            Luck = 60
+        },
+        skills = {
+            Restoration = 15,
+            Alteration = 15,
+            Illusion = 15,
+            Conjuration = 15,
+            Mysticism = 15,
+            Speechcraft = 15,
+            Mercantile = 15,
+            Security = 15
+        }
+    },
+
+    -- Khajiit
+    Khajiit = {
+        characteristics = {
+            Strength = 50,
+            Intelligence = 30,
+            Willpower = 30,
+            Agility = 60,
+            Speed = 60,
+            Endurance = 40,
+            Personality = 30,
+            Luck = 50
+        },
+        skills = {
+            ShortBlade = 15,
+            Marksman = 15,
+            Sneak = 15,
+            Acrobatics = 15,
+            Security = 15,
+            Athletics = 15,
+            Restoration = 15,
+            Mercantile = 15
+        }
+    },
+
+    -- Nord
+    Nord = {
+        characteristics = {
+            Strength = 60,
+            Intelligence = 30,
+            Willpower = 50,
+            Agility = 40,
+            Speed = 40,
+            Endurance = 60,
+            Personality = 40,
+            Luck = 50
+        },
+        skills = {
+            Blunt = 15,
+            HeavyArmor = 15,
+            Block = 15,
+            Destruction = 15,
+            Alteration = 15,
+            Illusion = 15,
+            Restoration = 15,
+            Speechcraft = 15
+        }
+    },
+
+    -- Orc (Orsimer)
+    Orsimer = {
+        characteristics = {
+            Strength = 70,
+            Intelligence = 30,
+            Willpower = 50,
+            Agility = 40,
+            Speed = 40,
+            Endurance = 60,
+            Personality = 30,
+            Luck = 50
+        },
+        skills = {
+            Blunt = 15,
+            HeavyArmor = 15,
+            Block = 15,
+            Destruction = 15,
+            Alteration = 15,
+            Illusion = 15,
+            Restoration = 15,
+            Speechcraft = 15
+        }
+    },
+
+    -- Redguard
+    Redguard = {
+        characteristics = {
+            Strength = 60,
+            Intelligence = 40,
+            Willpower = 40,
+            Agility = 60,
+            Speed = 60,
+            Endurance = 50,
+            Personality = 40,
+            Luck = 50
+        },
+        skills = {
+            LongBlade = 15,
+            Axe = 15,
+            Blunt = 15,
+            Athletics = 15,
+            Security = 15,
+            Sneak = 15,
+            Acrobatics = 15,
+            Restoration = 15
+        }
+    }
+}
+-- Race --
+-----------------------------------------------------------------
+-- Sign --
+-- Birth sign effects for each birth sign in Morrowind
+local birthSignData = {
+    -- The Apprentice
+    TheApprentice = {
+        description = "Grants a 10% chance to cast spells for free.",
+        effect = "10% chance to cast spells for free."
+    },
+
+    -- The Atronach
+    TheAtronach = {
+        description = "Absorbs 50% of the magicka cost of spells cast.",
+        effect = "Absorbs 50% of the magicka cost of spells cast."
+    },
+
+    -- The Lady
+    TheLady = {
+        description = "Grants a 10% chance to resist negative spells.",
+        effect = "10% chance to resist negative spells."
+    },
+
+    -- The Lord
+    TheLord = {
+        description = "Grants a 10% chance to resist positive spells.",
+        effect = "10% chance to resist positive spells."
+    },
+
+    -- The Lover
+    TheLover = {
+        description = "Grants a 10% chance to resist disease and poison.",
+        effect = "10% chance to resist disease and poison."
+    },
+
+    -- The Mage
+    TheMage = {
+        description = "Grants a 10% chance to cast spells for free.",
+        effect = "10% chance to cast spells for free."
+    },
+
+    -- The Ritual
+    TheRitual = {
+        description = "Grants a 10% chance to resist negative spells.",
+        effect = "10% chance to resist negative spells."
+    },
+
+    -- The Serpent
+    TheSerpent = {
+        description = "Grants a 10% chance to resist disease and poison.",
+        effect = "10% chance to resist disease and poison."
+    },
+
+    -- The Shadow
+    TheShadow = {
+        description = "Grants a 10% chance to resist negative spells.",
+        effect = "10% chance to resist negative spells."
+    },
+
+    -- The Steed
+    TheSteed = {
+        description = "Grants a 10% chance to resist fatigue.",
+        effect = "10% chance to resist fatigue."
+    },
+
+    -- The Thief
+    TheThief = {
+        description = "Grants a 10% chance to resist traps.",
+        effect = "10% chance to resist traps."
+    },
+
+    -- The Tower
+    TheTower = {
+        description = "Grants a 10% chance to resist negative spells.",
+        effect = "10% chance to resist negative spells."
+    },
+
+    -- The Warrior
+    TheWarrior = {
+        description = "Grants a 10% chance to resist fatigue.",
+        effect = "10% chance to resist fatigue."
+    }
+}
+-- Sigh --
+-----------------------------------------------------------------
 -- Default player information
 local baseInfoPlayer = {
     Health = {current = 30, max = 100},
     Mana = {current = 30, max = 100},
     Stamina = {current = 30, max = 100},
-    Level = "1", Race = "Default", Class = "Default", Sign = "Default",
+    Level = "1", Race = "Base", Class = "Default",
     Characteristics = {
-        Strength = 5, Intelligence = 5, Willpower = 5, Agility = 5, Speed = 5,
-        Endurance = 5, Personality = 5, Luck = 5
+        Strength = 50, Intelligence = 50, Willpower = 50, Agility = 50, Speed = 50,
+        Endurance = 50, Personality = 50, Luck = 50
     },
     Skills = {
         LongBlade = 5, Axe = 5, BluntWeapon = 5, Armorer = 5, MediumArmor = 5,
@@ -171,6 +545,13 @@ local baseInfoPlayer = {
         Restoration = 5, Illusion = 5, Unarmored = 5, Acrobatics = 5, Security = 5,
         Sneak = 5, LightArmor = 5, Marksman = 5, ShortBlade = 5, HandToHand = 5,
         Mercantile = 5, Speechcraft = 5
+    },
+    -- Not see information
+    Sign = "Default",
+    Buffs = {
+        RaceSkills = {}, RaceCharacteristics = {}, StartSkills = {}
+    },
+    Debuffs = {
     }
 }
 
@@ -178,6 +559,8 @@ local baseInfoPlayer = {
 saveInfoPlayer = {
     Red = {}, White = {}, Blue = {}
 }
+-- f77b1d - Guid save cube
+local saveCube = "f77b1d"
 
 local enumColor = {
     Red = 1, White = 2, Blue = 3
@@ -187,9 +570,8 @@ local indexVisibilityColor = 1
 local listColor = {
     "Red", "White", "Blue"
 }
-
+-----------------------------------------------------------------
 -- Local functions --
-
 -- Function to perform a deep copy of a table
 local function deepCopy(original)
     local copy = {}
@@ -237,11 +619,9 @@ local function rebuildXMLTable()
 end
 
 -- Function to confer saved data
-local function confer(savedData)
-    savedData = savedData or saveInfoPlayer
-    for color, _ in pairs(savedData) do
-        calculateInfo(color)
-        setUI(color)
+local function confer()
+    for color, _ in pairs(saveInfoPlayer) do
+        changeRaceBonus(color) setUI(color)
     end
 end
 
@@ -285,9 +665,10 @@ function onLoad()
 
     Wait.time(function()
         rebuildXMLTable()
-        local savedData = getObjectFromGUID("f77b1d").getGMNotes()
-        if savedData then
-            Wait.time(function() confer(JSON.decode(savedData)) end, 1)
+        --local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
+        if loadSave then
+            saveInfoPlayer = loadSave
+            Wait.time(function() confer() end, 1)
         else
             print("Fail to get save. Re-saving.")
             Wait.time(function() confer() end, 1)
@@ -295,22 +676,14 @@ function onLoad()
         end
     end, 1)
 end
-
 -- Local functions --
-
+-----------------------------------------------------------------
 -- Global functions --
-
--- Function to update save data
-function updateSave()
-    local savedData = JSON.encode(saveInfoPlayer)
-    -- f77b1d - Guid save cube
-    getObjectFromGUID("f77b1d").setGMNotes(savedData)
-end
-
 -- Function to set UI elements
 function setUI(colorPlayer)
     local state = saveInfoPlayer[colorPlayer]
     for name, value in pairs(state) do
+        if(name == "Sign") then break end
         if type(value) == "string" then
             self.UI.setAttribute(colorPlayer .. name, "text", value)
         else
@@ -340,27 +713,51 @@ end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
-    player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
-    if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
-
-    player.Mana.max = player.Characteristics.Intelligence * (1 --[[ Racial modifier + Birth sign modifier ]])
-    if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
-
-    player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
-    if player.Stamina.current > player.Stamina.max then player.Stamina.current = player.Stamina.max end
-
+    --Calculate skills
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
         if index < 7 then
-            player.Skills[skillId] = 30
+            player.Buffs.StartSkills[skillId] = 30
         elseif index < 13 then
-            player.Skills[skillId] = 15
+            player.Buffs.StartSkills[skillId] = 15
+        else
+            player.Buffs.StartSkills[skillId] = 5
+        end
+        if(index ~= 1 and index ~= 7) then -- Major and Main which is the name of the column
+            player.Skills[skillId] = (player.Buffs.StartSkills[skillId] or 0) + (player.Buffs.RaceSkills[skillId] or 0)
         end
     end
+    -- Calculate characteristics
+    local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
+    for index, state in ipairs(characteristicsTable) do
+        local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        player.Characteristics[charId] = player.Buffs.RaceCharacteristics[charId]
+    end
+    -- Calculate HP
+    player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
+    if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
+    -- Calculate MP
+    player.Mana.max = player.Characteristics.Intelligence * (1 + (raceData[player.Race].MagicBonus or 0) --[[ Birth sign modifier ]])
+    if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
+    -- Calculate SP
+    player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
+    if player.Stamina.current > player.Stamina.max then player.Stamina.current = player.Stamina.max end
 
     updateSave()
 end
 
+-- Function to update save data
+function updateSave()
+    local savedData = JSON.encode(saveInfoPlayer)
+    getObjectFromGUID(saveCube).setGMNotes(savedData)
+end
+
+function changeRaceBonus(colorPlayer)
+    local race = saveInfoPlayer[colorPlayer].Race
+    saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
+    saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
+    calculateInfo(colorPlayer)
+end
 -- Global functions --

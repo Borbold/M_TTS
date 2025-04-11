@@ -1,0 +1,27 @@
+<Defaults>
+    <ProgressBar percentageTextFormat='0' showPercentageText='false' />
+    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' />
+    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' color='#ffffff00' />
+    <TableLayout cellSpacing='2' />
+    <Row preferredHeight='20' />
+    <Cell dontUseTableCellBackground='true' />
+    <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
+        horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' onValueChanged='changeRace' />
+</Defaults>
+
+<Panel position='0 0 -70' scale='0.5' width='200' height='200' color='White'>
+    <Dropdown width='200' height='50'>
+        <Option selected="true">Base</Option>
+        <Option>Altmer</Option>
+        <Option>Argonian</Option>
+        <Option>Bosmer</Option>
+        <Option>Breton</Option>
+        <Option>Dunmer</Option>
+        <Option>Imperial</Option>
+        <Option>Khajiit</Option>
+        <Option>Nord</Option>
+        <Option>Orsimer</Option>
+        <Option>Redguard</Option>
+    </Dropdown>
+</Panel>
