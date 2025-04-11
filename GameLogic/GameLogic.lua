@@ -1,9 +1,9 @@
 function onLoad()
-    addHotkey("Take Damage", function(playerColor) if(playerColor == "Black") then TakeDamage(self.getDescription()) end end)
+    addHotkey("Take Damage", function(playerColor) if(playerColor == "Black") then takeDamage(self.getDescription()) end end)
 end
 
-function TakeDamage(colorPlayer)
+function takeDamage(colorPlayer)
     local player = {} player = Global.getVar("saveInfoPlayer")[colorPlayer]
     player.Health.current = player.Health.current - 1
-    Global.call("SetUI", colorPlayer)
+    Global.call("setUI", colorPlayer) Global.call("updateSave")
 end

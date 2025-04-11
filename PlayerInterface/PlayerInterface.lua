@@ -4,8 +4,25 @@ local procuredXMLForm = {
     attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 66", color = "Black"},
     children = {}
 }
+
 -- Helper function to create a row with name and value
 local function createRow(name, value, valueType, nameClass, valueClass, valueTag)
+    local valueChildren = valueType == "progress" and {
+        {
+            tag = "ProgressBar",
+            attributes = {id = value .. "PB", class = "statePB", image = "States_Back", fillImage = value .. "_Fill"}
+        },
+        {
+            tag = "Text",
+            attributes = {id = value, text = "20/100", class = "progressBarV"}
+        }
+    } or {
+        {
+            tag = valueTag,
+            attributes = {id = value, text = "10", class = valueClass}
+        }
+    }
+
     return {
         tag = "Row",
         children = {
@@ -30,27 +47,14 @@ local function createRow(name, value, valueType, nameClass, valueClass, valueTag
                 children = {
                     {
                         tag = "Row",
-                        children = valueType == "progress" and {
-                            {
-                                tag = "ProgressBar",
-                                attributes = {id = value .. "PB", class = "statePB", image = "States_Back", fillImage = value .. "_Fill"}
-                            },
-                            {
-                                tag = "Text",
-                                attributes = {id = value, text = "20/100", class = "progressBarV"}
-                            }
-                        } or {
-                            {
-                                tag = valueTag,
-                                attributes = {id = value, text = "10", class = valueClass}
-                            }
-                        }
+                        children = valueChildren
                     }
                 }
             }
         }
     }
 end
+
 -- Helper function to create a table layout with rows
 local function createTableLayout(rows)
     return {
@@ -59,28 +63,36 @@ local function createTableLayout(rows)
         children = rows
     }
 end
+
 -- Helper function to create a characteristics table layout
 local function createCharacteristicsTableLayout(rows)
     return {
         tag = "Row",
         children = {
-            tag = "TableLayout",
-            attributes = {width = "230", height = "175", offsetXY = "0 -55", image = "TableLayout_Back_Long"},
-            children = rows
+            {
+                tag = "TableLayout",
+                attributes = {width = "230", height = "175", offsetXY = "0 -55", image = "TableLayout_Back_Long"},
+                children = rows
+            }
         }
     }
 end
+
 -- Helper function to create a skills table layout
 local function createSkillsTableLayout(rows)
     return {
         tag = "Row",
         children = {
-            tag = "VerticalScrollView",
-            attributes = {width = "230", height = "313", offsetXY = "235 84", image = "TableLayout_Back_Long"},
-            children = {
-                tag = "TableLayout",
-                attributes = {width = "190", height = "666"},
-                children = rows
+            {
+                tag = "VerticalScrollView",
+                attributes = {width = "230", height = "313", offsetXY = "235 84", image = "TableLayout_Back_Long"},
+                children = {
+                    {
+                        tag = "TableLayout",
+                        attributes = {width = "190", height = "666"},
+                        children = rows
+                    }
+                }
             }
         }
     }
@@ -99,7 +111,7 @@ procuredXMLForm.children = {
         createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
     }),
     createCharacteristicsTableLayout({
-        createRow("Strenght", "Strenght", "value", "gameInfo", "stateV", "Button"),
+        createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
         createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
         createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
         createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
@@ -141,16 +153,15 @@ procuredXMLForm.children = {
         createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button")
     })
 }
--- Default XML information --
 
--- Global variable --
+-- Default player information
 local baseInfoPlayer = {
     Health = {current = 30, max = 100},
     Mana = {current = 30, max = 100},
     Stamina = {current = 30, max = 100},
     Level = "1", Race = "Default", Class = "Default", Sign = "Default",
     Characteristics = {
-        Strenght = 5, Intelligence = 5, Willpower = 5, Agility = 5, Speed = 5,
+        Strength = 5, Intelligence = 5, Willpower = 5, Agility = 5, Speed = 5,
         Endurance = 5, Personality = 5, Luck = 5
     },
     Skills = {
@@ -162,170 +173,194 @@ local baseInfoPlayer = {
         Mercantile = 5, Speechcraft = 5
     }
 }
--- f77b1d - Guid player save cube
+
+-- Save information for players
 saveInfoPlayer = {
-    Red = {}, White = {}, Blue = {},
+    Red = {}, White = {}, Blue = {}
 }
+
 local enumColor = {
-    Red = 1, White = 2, Blue = 3,
+    Red = 1, White = 2, Blue = 3
 }
+
 local indexVisibilityColor = 1
 local listColor = {
-    "Red", "White", "Blue",
+    "Red", "White", "Blue"
 }
--- Global variable --
 
-function UpdateSave()
-    local savedData = JSON.encode(saveInfoPlayer)
-    getObjectFromGUID("f77b1d").setGMNotes(savedData)
-end
+-- Local functions --
 
-function onLoad()
-    addHotkey("GM Inventory", function(playerColor)
-        if(playerColor == "Black") then
-            ActivateInventoryForGM(listColor[indexVisibilityColor])
-        end
-    end)
-    addHotkey("Player Inventory", function(playerColor) ActivateInventory(playerColor) end)
-    for color,_ in pairs(enumColor) do
-        saveInfoPlayer[color] = DeepCopy(baseInfoPlayer)
-    end
-    Wait.time(function()
-        RebuildXMLTable()
-        local savedData = getObjectFromGUID("f77b1d").getGMNotes()
-        --local saveInfoPlayer = JSON.decode(savedData)
-        if(saveInfoPlayer) then
-            Wait.time(|| Confer(saveInfoPlayer), 1)
-        else
-            print("Fail get save. ReSave.")
-            Wait.time(|| Confer(), 1)
-            UpdateSave()
-        end
-    end, 1)
-end
-
-function ActivateInventory(playerColor)
-    local cId = playerColor.."mainPanel"
-    self.UI.setAttribute(cId, "active", self.UI.getAttribute(cId, "active") == "true" and "false" or "true")
-end
-function ActivateInventoryForGM(playerColor)
-    if(playerColor) then
-        local cId, pId = playerColor.."mainPanel", listColor[indexVisibilityColor > 1 and indexVisibilityColor - 1 or 1].."mainPanel"
-        self.UI.setAttribute(cId, "active", "true")
-        self.UI.setAttribute(pId, "visibility", playerColor)
-        self.UI.setAttribute(cId, "visibility", playerColor.."|Black")
-    end
-    indexVisibilityColor = indexVisibilityColor + 1
-    if(indexVisibilityColor > #listColor + 1) then
-        self.UI.setAttribute(listColor[#listColor].."mainPanel", "visibility", listColor[#listColor])
-        indexVisibilityColor = 1
-    end
-end
-
-function Confer(saveInfoPlayer)
-    --saveInfoPlayer = saveInfoPlayer
-    for color,_ in pairs(saveInfoPlayer) do
-        CalculateInfo(color)
-        SetUI(color)
-    end
-end
-
-function CalculateInfo(colorPlayer)
-    local player = saveInfoPlayer[colorPlayer]
-    -------------
-    player.Health.max = (player.Characteristics.Strenght + player.Characteristics.Endurance)/2 + (tonumber(player.Level) - 1)*(player.Characteristics.Endurance/10)
-    if(player.Health.current > player.Health.max) then player.Health.current = player.Health.max end
-    -------------
-    player.Mana.max = player.Characteristics.Intelligence*(1--[[Рассовый модификатор + Модификатор знака рождения]])
-    if(player.Mana.current > player.Mana.max) then player.Mana.current = player.Mana.max end
-    -------------
-    player.Stamina.max = player.Characteristics.Strenght + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
-    if(player.Stamina.current > player.Stamina.max) then player.Stamina.current = player.Stamina.max end
-    -------------
-    local xmlTable = {} xmlTable = self.UI.getXmlTable()
-    -- Major Skills +30, Main Skills +15, Misc Skills +5
-    local locId = ""
-    for index,state in ipairs(xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children) do
-        if(index < 7) then
-            locId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-            player.Skills[locId] = 30
-        elseif(index < 13) then
-            locId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-            player.Skills[locId] = 15
-        end
-    end
-    -------------
-    UpdateSave()
-end
-
-function SetUI(colorPlayer)
-    local state = saveInfoPlayer[colorPlayer]
-    for n,v in pairs(state) do
-        if(type(v) == "string") then -- Other
-            self.UI.setAttribute(colorPlayer..n, "text", v)
-        else
-            if(v.current and v.max) then -- HP, MP, SP
-                self.UI.setAttribute(colorPlayer..n, "text", v.current.."/"..v.max)
-            else -- Characteristics, Skills
-                for sN,sV in pairs(v) do
-                    self.UI.setAttribute(colorPlayer..sN, "text", sV)
-                    self.UI.setAttribute(colorPlayer..sN, "textColor", self.UI.getAttribute(colorPlayer..sN, "textColor"))
-                end
-            end
-        end
-    end
-    -- Percent state progress bar value
-    self.UI.setAttribute(colorPlayer.."HealthPB", "percentage", (state.Health.current/state.Health.max)*100)
-    self.UI.setAttribute(colorPlayer.."ManaPB", "percentage", (state.Mana.current/state.Mana.max)*100)
-    self.UI.setAttribute(colorPlayer.."StaminaPB", "percentage", (state.Stamina.current/state.Stamina.max)*100)
-end
-
-function RebuildXMLTable()
-    local xmlTable = {} xmlTable = self.UI.getXmlTable()
-    local mainPanel = xmlTable[2].children
-    local locId = ""
-    for colorPlayer,_ in pairs(saveInfoPlayer) do
-        local newPXMLF = {} newPXMLF = DeepCopy(procuredXMLForm)
-        locId = newPXMLF.attributes.id
-        newPXMLF.attributes.id = colorPlayer..locId
-        newPXMLF.attributes.visibility = colorPlayer
-        for i = 1, #procuredXMLForm.children do
-            -- HP, MP, SP, Level, Race, Class
-            for j = 1, #newPXMLF.children[i].children do
-                for k = 1, #newPXMLF.children[i].children[j].children[2].children[1].children do
-                    locId = newPXMLF.children[i].children[j].children[2].children[1].children[k].attributes.id
-                    newPXMLF.children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer..locId
-                end
-            end
-        end
-        -- Characteristics
-        for j = 1, #newPXMLF.children[3].children.children do
-            locId = newPXMLF.children[3].children.children[j].children[2].children[1].children[1].attributes.id
-            newPXMLF.children[3].children.children[j].children[2].children[1].children[1].attributes.id = colorPlayer..locId
-        end
-        -- Skills
-        for j = 1, #newPXMLF.children[4].children.children.children do
-            locId = newPXMLF.children[4].children.children.children[j].children[2].children[1].children[1].attributes.id
-            newPXMLF.children[4].children.children.children[j].children[2].children[1].children[1].attributes.id = colorPlayer..locId
-        end
-        table.insert(mainPanel, newPXMLF)
-    end
-    self.UI.setXmlTable(xmlTable)
-end
-
-function ThrowSkill(player, alt, id)
-    local RV, CV = math.random(1, 100), tonumber(self.UI.getAttribute(id, "text"))
-    print(RV <= CV and "[00ff00]Succses[-]" or "[ff0000]Failure[-]")
-end
-
--- Thecnics function
-function DeepCopy(original)
+-- Function to perform a deep copy of a table
+local function deepCopy(original)
     local copy = {}
     for key, value in pairs(original) do
         if type(value) == "table" then
-            value = DeepCopy(value) -- Recursively copy nested tables
+            value = deepCopy(value)
         end
         copy[key] = value
     end
     return copy
 end
+
+-- Function to rebuild the XML table
+local function rebuildXMLTable()
+    local xmlTable = self.UI.getXmlTable()
+    local mainPanel = xmlTable[2].children
+    for colorPlayer, _ in pairs(saveInfoPlayer) do
+        local newPanel = deepCopy(procuredXMLForm)
+        newPanel.attributes.id = colorPlayer .. newPanel.attributes.id
+        newPanel.attributes.visibility = colorPlayer
+        -- Base info
+        for i = 1, 2 do
+            for j = 1, #newPanel.children[i].children do
+                for k = 1, #newPanel.children[i].children[j].children[2].children[1].children do
+                    local elementId = newPanel.children[i].children[j].children[2].children[1].children[k].attributes.id
+                    newPanel.children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
+                end
+            end
+        end
+        -- Characteristics
+        for j = 1, #newPanel.children[3].children[1].children do
+            local elementId = newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        end
+        -- Skills
+        for j = 1, #newPanel.children[4].children[1].children[1].children do
+            local elementId = newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        end
+
+        table.insert(mainPanel, newPanel)
+    end
+
+    self.UI.setXmlTable(xmlTable)
+end
+
+-- Function to confer saved data
+local function confer(savedData)
+    savedData = savedData or saveInfoPlayer
+    for color, _ in pairs(savedData) do
+        calculateInfo(color)
+        setUI(color)
+    end
+end
+
+-- Function to activate inventory for a player
+local function activateInventory(playerColor)
+    local panelId = playerColor .. "mainPanel"
+    self.UI.setAttribute(panelId, "active", self.UI.getAttribute(panelId, "active") == "true" and "false" or "true")
+end
+
+-- Function to activate inventory for GM
+local function activateInventoryForGM(playerColor)
+    if playerColor then
+        local currentPanelId = playerColor .. "mainPanel"
+        local previousPanelId = listColor[indexVisibilityColor > 1 and indexVisibilityColor - 1 or 1] .. "mainPanel"
+        self.UI.setAttribute(currentPanelId, "active", "true")
+        self.UI.setAttribute(previousPanelId, "visibility", playerColor)
+        self.UI.setAttribute(currentPanelId, "visibility", playerColor .. "|Black")
+    end
+
+    indexVisibilityColor = indexVisibilityColor + 1
+    if indexVisibilityColor > #listColor + 1 then
+        self.UI.setAttribute(listColor[#listColor] .. "mainPanel", "visibility", listColor[#listColor])
+        indexVisibilityColor = 1
+    end
+end
+
+-- Function to handle loading and initializing the script
+function onLoad()
+    addHotkey("GM Inventory", function(playerColor)
+        if playerColor == "Black" then
+            activateInventoryForGM(listColor[indexVisibilityColor])
+        end
+    end)
+    addHotkey("Player Inventory", function(playerColor)
+        activateInventory(playerColor)
+    end)
+
+    for color, _ in pairs(enumColor) do
+        saveInfoPlayer[color] = deepCopy(baseInfoPlayer)
+    end
+
+    Wait.time(function()
+        rebuildXMLTable()
+        local savedData = getObjectFromGUID("f77b1d").getGMNotes()
+        if savedData then
+            Wait.time(function() confer(JSON.decode(savedData)) end, 1)
+        else
+            print("Fail to get save. Re-saving.")
+            Wait.time(function() confer() end, 1)
+            updateSave()
+        end
+    end, 1)
+end
+
+-- Local functions --
+
+-- Global functions --
+
+-- Function to update save data
+function updateSave()
+    local savedData = JSON.encode(saveInfoPlayer)
+    -- f77b1d - Guid save cube
+    getObjectFromGUID("f77b1d").setGMNotes(savedData)
+end
+
+-- Function to set UI elements
+function setUI(colorPlayer)
+    local state = saveInfoPlayer[colorPlayer]
+    for name, value in pairs(state) do
+        if type(value) == "string" then
+            self.UI.setAttribute(colorPlayer .. name, "text", value)
+        else
+            if value.current and value.max then
+                self.UI.setAttribute(colorPlayer .. name, "text", value.current .. "/" .. value.max)
+            else
+                for subName, subValue in pairs(value) do
+                    self.UI.setAttribute(colorPlayer .. subName, "text", subValue)
+                    self.UI.setAttribute(colorPlayer .. subName, "textColor", self.UI.getAttribute(colorPlayer .. subName, "textColor"))
+                end
+            end
+        end
+    end
+
+    self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (state.Health.current / state.Health.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (state.Mana.current / state.Mana.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
+end
+
+-- Function to throw a skill check
+function throwSkill(player, alt, id)
+    local rollValue = math.random(1, 100)
+    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
+    print(rollValue <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+end
+
+-- Function to calculate player information
+function calculateInfo(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
+    if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
+
+    player.Mana.max = player.Characteristics.Intelligence * (1 --[[ Racial modifier + Birth sign modifier ]])
+    if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
+
+    player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
+    if player.Stamina.current > player.Stamina.max then player.Stamina.current = player.Stamina.max end
+
+    local xmlTable = self.UI.getXmlTable()
+    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
+    for index, state in ipairs(skillsTable) do
+        local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        if index < 7 then
+            player.Skills[skillId] = 30
+        elseif index < 13 then
+            player.Skills[skillId] = 15
+        end
+    end
+
+    updateSave()
+end
+
+-- Global functions --
