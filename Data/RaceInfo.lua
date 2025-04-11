@@ -1,6 +1,4 @@
--- Starting characteristics and skills for each race in Morrowind
 raceData = {
-    -- Base Race
     Base = {
         characteristics = {
             Strength = 50,
@@ -42,8 +40,6 @@ raceData = {
             Speechcraft = 0
         }
     },
-
-    -- Altmer (High Elf)
     Altmer = {
         characteristics = {
             Strength = 20,
@@ -67,8 +63,6 @@ raceData = {
         },
         MagicBonus = 1.5
     },
-
-    -- Argonian
     Argonian = {
         characteristics = {
             Strength = 40,
@@ -90,8 +84,6 @@ raceData = {
             Mercantile = 15
         }
     },
-
-    -- Bosmer (Wood Elf)
     Bosmer = {
         characteristics = {
             Strength = 30,
@@ -114,8 +106,6 @@ raceData = {
             Mercantile = 15
         }
     },
-
-    -- Breton
     Breton = {
         characteristics = {
             Strength = 30,
@@ -139,8 +129,6 @@ raceData = {
         },
         MagicBonus = 0.5
     },
-
-    -- Dark Elf (Dunmer)
     Dunmer = {
         characteristics = {
             Strength = 40,
@@ -163,8 +151,6 @@ raceData = {
             Mysticism = 15
         }
     },
-
-    -- Imperial
     Imperial = {
         characteristics = {
             Strength = 40,
@@ -187,8 +173,6 @@ raceData = {
             Security = 15
         }
     },
-
-    -- Khajiit
     Khajiit = {
         characteristics = {
             Strength = 50,
@@ -211,8 +195,6 @@ raceData = {
             Mercantile = 15
         }
     },
-
-    -- Nord
     Nord = {
         characteristics = {
             Strength = 60,
@@ -235,8 +217,6 @@ raceData = {
             Speechcraft = 15
         }
     },
-
-    -- Orc (Orsimer)
     Orsimer = {
         characteristics = {
             Strength = 70,
@@ -259,8 +239,6 @@ raceData = {
             Speechcraft = 15
         }
     },
-
-    -- Redguard
     Redguard = {
         characteristics = {
             Strength = 60,
