@@ -465,15 +465,14 @@ function updateSave()
 end
 
 function changeRaceBonus(colorPlayer)
-    WebRequest.get("https://github.com/Borbold/M_TTS/blob/main/Data/Data.lua", self, "getRace")
+    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.lua", self, "getRaceInfo")
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
     calculateInfo(colorPlayer)
 end
 
-function getRace(request)
-    print(request.text)
+function getRaceInfo(request)
     raceData = JSON.decode(request.text)
 end
 -- Global functions --
