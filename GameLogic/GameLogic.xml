@@ -1,4 +1,8 @@
 <Defaults>
+    <Dropdown class='colorPlayer' id='colorPlayer' onValueChanged='changeClass' />
+    <Dropdown class='class' onValueChanged='changeClass' />
+    <Dropdown class='race' onValueChanged='changeRace' />
+    <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' color='#ffffff00' />
@@ -7,21 +11,34 @@
     <Cell dontUseTableCellBackground='true' />
     <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
         horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
-    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' onValueChanged='changeRace' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' />
 </Defaults>
 
 <Panel position='0 0 -70' scale='0.5' width='200' height='200' color='White'>
-    <Dropdown width='200' height='50'>
-        <Option selected="true">Base</Option>
-        <Option>Altmer</Option>
-        <Option>Argonian</Option>
-        <Option>Bosmer</Option>
-        <Option>Breton</Option>
-        <Option>Dunmer</Option>
-        <Option>Imperial</Option>
-        <Option>Khajiit</Option>
-        <Option>Nord</Option>
-        <Option>Orsimer</Option>
-        <Option>Redguard</Option>
-    </Dropdown>
+    <GridLayout startAxis='Vertical' spacing='3 3' cellSize='200 50' color='Black'>
+        <Dropdown class='colorPlayer'>
+            <Option selected='true'>White</Option>
+            <Option>Red</Option>
+            <Option>Blue</Option>
+        </Dropdown>
+        <Dropdown class='race'>
+            <Option selected='true'>Base</Option>
+            <Option>Altmer</Option>
+            <Option>Argonian</Option>
+            <Option>Bosmer</Option>
+            <Option>Breton</Option>
+            <Option>Dunmer</Option>
+            <Option>Imperial</Option>
+            <Option>Khajiit</Option>
+            <Option>Nord</Option>
+            <Option>Orsimer</Option>
+            <Option>Redguard</Option>
+        </Dropdown>
+        <Dropdown class='class'>
+            <Option selected='true'>Base</Option>
+            <Option>Acrobat</Option>
+            <Option>Agent</Option>
+            <Option>Archer</Option>
+        </Dropdown>
+    </GridLayout>
 </Panel>
