@@ -11,14 +11,19 @@
             "Willpower": 40
         },
         "skills": {
-            "Alteration": 15,
-            "Conjuration": 15,
-            "Destruction": 15,
-            "Enchant": 15,
-            "Illusion": 15,
-            "Mysticism": 15,
-            "Restoration": 15,
-            "Speechcraft": 15
+            "Athletics": 10,
+            "Alteration": 5,
+            "ShortBlade": 5,
+            "Mercantile": 10,
+            "Enchant": 10,
+            "Illusion": 5
+        },
+        "Vulnerability": {
+            "Frost": 15,
+            "Poison": 15
+        },
+        "Resistance": {
+            "Fire": 50
         },
         "MagicBonus": 2
     },
@@ -41,6 +46,13 @@
             "Restoration": 15,
             "Security": 15,
             "Sneak": 15
+        },
+        "Vulnerability": {
+            "Frost": 15
+        },
+        "Resistance": {
+            "Poison": 50,
+            "Disease": 50
         }
     },
     "Bosmer": {
@@ -63,6 +75,12 @@
             "Security": 15,
             "ShortBlade": 15,
             "Sneak": 15
+        },
+        "Vulnerability": {
+            "Magicka": 15
+        },
+        "Resistance": {
+            "NormalWeapon": 25
         }
     },
     "Breton": {
@@ -86,7 +104,16 @@
             "Restoration": 15,
             "Speechcraft": 15
         },
-        "MagicBonus": 0.5
+        "Vulnerability": {
+            "Frost": 15,
+            "Magicka": 15
+        },
+        "Resistance": {
+            "Fire": 25,
+            "Shock": 25,
+            "Poison": 25
+        },
+        "MagicBonus": 1
     },
     "Dunmer": {
         "characteristics": {
@@ -108,7 +135,14 @@
             "Mysticism": 15,
             "ShortBlade": 15,
             "Sneak": 15
-        }
+        },
+        "Vulnerability": {
+            "Frost": 15
+        },
+        "Resistance": {
+            "Fire": 50
+        },
+        "MagicBonus": 1
     },
     "Imperial": {
         "characteristics": {
@@ -130,6 +164,12 @@
             "Restoration": 15,
             "Security": 15,
             "Speechcraft": 15
+        },
+        "Vulnerability": {
+            "Magicka": 15
+        },
+        "Resistance": {
+            "NormalWeapon": 25
         }
     },
     "Khajiit": {
@@ -152,6 +192,12 @@
             "Security": 15,
             "ShortBlade": 15,
             "Sneak": 15
+        },
+        "Vulnerability": {
+            "Frost": 15
+        },
+        "Resistance": {
+            "NormalWeapon": 25
         }
     },
     "Nord": {
@@ -174,6 +220,12 @@
             "Illusion": 15,
             "Restoration": 15,
             "Speechcraft": 15
+        },
+        "Vulnerability": {
+            "Magicka": 15
+        },
+        "Resistance": {
+            "Fire": 25
         }
     },
     "Orsimer": {
@@ -196,6 +248,12 @@
             "Illusion": 15,
             "Restoration": 15,
             "Speechcraft": 15
+        },
+        "Vulnerability": {
+            "Frost": 15
+        },
+        "Resistance": {
+            "NormalWeapon": 25
         }
     },
     "Redguard": {
@@ -218,6 +276,12 @@
             "Restoration": 15,
             "Security": 15,
             "Sneak": 15
+        },
+        "Vulnerability": {
+            "Magicka": 15
+        },
+        "Resistance": {
+            "Poison": 25
         }
     }
 }

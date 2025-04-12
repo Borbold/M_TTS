@@ -50,7 +50,8 @@
         "RaceSkills": {},
         "RaceCharacteristics": {},
         "ClassSkills": {},
-        "ClassCharacteristics": {}
+        "ClassCharacteristics": {},
+        "ClassSpecialization": {}
     },
     "Debuffs": {}
 }

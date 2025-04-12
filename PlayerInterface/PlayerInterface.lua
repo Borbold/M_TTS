@@ -349,7 +349,7 @@ function calculateInfo(colorPlayer)
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] or 0)
+        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] or 0) + (player.Buffs.ClassSpecialization[charId] or 0)
     end
     -- Calculate HP
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
@@ -390,6 +390,7 @@ local function setClassInfo(colorPlayer, classData)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
+    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(classData[class].specialization)
 end
 function changeClassBonus(colorPlayer)
     WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json",
