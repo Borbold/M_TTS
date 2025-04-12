@@ -11,7 +11,7 @@
     <Cell dontUseTableCellBackground='true' />
     <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
         horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
-    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='10' />
 </Defaults>
 
 <Panel position='0 0 -70' scale='0.5' width='200' height='200' color='White'>

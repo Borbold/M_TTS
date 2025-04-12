@@ -156,34 +156,6 @@ procuredXMLForm.children = {
 }
 -- XML --
 -----------------------------------------------------------------
--- Default player information
-local baseInfoPlayer = {
-    Health = {current = 30, max = 100},
-    Mana = {current = 30, max = 100},
-    Stamina = {current = 30, max = 100},
-    Level = "1", Race = "Altmer", Class = "Acrobat",
-    Characteristics = {
-        Strength = 50, Intelligence = 50, Willpower = 50, Agility = 50, Speed = 50,
-        Endurance = 50, Personality = 50, Luck = 50
-    },
-    Skills = {
-        LongBlade = 5, Axe = 5, BluntWeapon = 5, Armorer = 5, MediumArmor = 5,
-        HeavyArmor = 5, Spear = 5, Block = 5, Athletics = 5, Alchemy = 5,
-        Enchant = 5, Conjuration = 5, Alteration = 5, Destruction = 5, Mysticism = 5,
-        Restoration = 5, Illusion = 5, Unarmored = 5, Acrobatics = 5, Security = 5,
-        Sneak = 5, LightArmor = 5, Marksman = 5, ShortBlade = 5, HandToHand = 5,
-        Mercantile = 5, Speechcraft = 5
-    },
-    -- Not see information
-    Sign = "TheAtronach",
-    MagicBonus = 0,
-    Buffs = {
-        RaceSkills = {}, RaceCharacteristics = {},
-        ClassSkills = {}, ClassCharacteristics = {}
-    },
-    Debuffs = {}
-}
-
 -- Save information for players
 saveInfoPlayer = {
     Red = {}, White = {}, Blue = {}
@@ -254,6 +226,7 @@ end
 
 -- Function to confer saved data
 local function confer()
+    broadcastToAll("[ffee8c]Loading. Please wait.[-]")
     local multiplySleepTime = 3
     for playerColor, _ in pairs(saveInfoPlayer) do
         setCharacter(playerColor)
@@ -261,7 +234,7 @@ local function confer()
         Wait.time(|| calculateInfo(playerColor), (enumColor[playerColor] / 2) * multiplySleepTime)
         Wait.time(|| setUI(playerColor), (enumColor[playerColor]) * multiplySleepTime)
     end
-    Wait.time(|| print("[ffee8c]Download is complete[-]"), #listColor * multiplySleepTime)
+    Wait.time(|| broadcastToAll("[ffee8c]Download is complete.[-]"), #listColor * multiplySleepTime)
 end
 
 -- Function to activate inventory for a player
@@ -298,13 +271,18 @@ function onLoad()
         activateInventory(playerColor)
     end)
 
-    for color, _ in pairs(enumColor) do
-        saveInfoPlayer[color] = deepCopy(baseInfoPlayer)
-    end
+    local baseInfoPlayer = {}
+    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json",
+        function(request)
+            for color, _ in pairs(enumColor) do
+                saveInfoPlayer[color] = deepCopy(JSON.decode(request.text))
+            end
+        end
+    )
 
     Wait.time(function()
         rebuildXMLTable()
-        --local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
+        local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
         if loadSave then
             saveInfoPlayer = loadSave
             Wait.time(function() confer() end, 1)
@@ -319,19 +297,24 @@ end
 -----------------------------------------------------------------
 -- Global functions --
 -- Function to set UI elements
+local seeElement = {Health = "", Mana = "", Stamina = "", Level = "", Race = "", Class = "", Characteristics = "", Skills = ""}
+local function checkSeeElement(name)
+    return seeElement[name]
+end
 function setUI(colorPlayer)
     local state = saveInfoPlayer[colorPlayer]
     for name, value in pairs(state) do
-        if(name == "Sign") then break end
-        if type(value) == "string" then
-            self.UI.setAttribute(colorPlayer .. name, "text", value)
-        else
-            if value.current and value.max then
-                self.UI.setAttribute(colorPlayer .. name, "text", value.current .. "/" .. value.max)
+        if(checkSeeElement(name)) then
+            if type(value) == "string" then
+                self.UI.setAttribute(colorPlayer .. name, "text", value)
             else
-                for subName, subValue in pairs(value) do
-                    self.UI.setAttribute(colorPlayer .. subName, "text", subValue)
-                    self.UI.setAttribute(colorPlayer .. subName, "textColor", self.UI.getAttribute(colorPlayer .. subName, "textColor"))
+                if value.current and value.max then
+                    self.UI.setAttribute(colorPlayer .. name, "text", value.current .. "/" .. value.max)
+                else
+                    for subName, subValue in pairs(value) do
+                        self.UI.setAttribute(colorPlayer .. subName, "text", subValue)
+                        self.UI.setAttribute(colorPlayer .. subName, "textColor", self.UI.getAttribute(colorPlayer .. subName, "textColor"))
+                    end
                 end
             end
         end
