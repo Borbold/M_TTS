@@ -177,10 +177,10 @@ local baseInfoPlayer = {
     -- Not see information
     Sign = "Base",
     Buffs = {
-        RaceSkills = {}, RaceCharacteristics = {}, StartSkills = {}
+        RaceSkills = {}, RaceCharacteristics = {},
+        ClassSkills = {}, ClassCharacteristics = {}
     },
-    Debuffs = {
-    }
+    Debuffs = {}
 }
 
 -- Save information for players
@@ -344,6 +344,9 @@ function throwSkill(player, alt, id)
     print(rollValue <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
 
+local function checkClassSkillsBonus(classSkills, skillId)
+    return (classSkills.majorSkills[skillId] and 30) or (classSkills.minorSkills[skillId] and 15) or 5
+end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
@@ -352,22 +355,13 @@ function calculateInfo(colorPlayer)
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        if index < 7 then
-            player.Buffs.StartSkills[skillId] = 30
-        elseif index < 13 then
-            player.Buffs.StartSkills[skillId] = 15
-        else
-            player.Buffs.StartSkills[skillId] = 5
-        end
-        if(index ~= 1 and index ~= 7) then -- Major and Main which is the name of the column
-            player.Skills[skillId] = (player.Buffs.StartSkills[skillId] or 0) + (player.Buffs.RaceSkills[skillId] or 0)
-        end
+        player.Skills[skillId] = (player.Buffs.RaceSkills[skillId] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, skillId)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = player.Buffs.RaceCharacteristics[charId]
+        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] and 10 or 0)
     end
     -- Calculate HP
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
@@ -408,6 +402,10 @@ function changeRaceBonus(colorPlayer)
 end
 
 local function setClassInfo(colorPlayer)
+    local class = saveInfoPlayer[colorPlayer].Class
+    saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
+    saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
+    calculateInfo(colorPlayer)
 end
 function changeClassBonus(colorPlayer)
     if(not classData) then
