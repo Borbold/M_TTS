@@ -20,14 +20,15 @@ function changeRace(player, race)
     local player = {} player = Global.getVar("saveInfoPlayer")[colorPlayer]
     player.Race = race
     Global.call("changeRaceBonus", colorPlayer)
-    Wait.time(|| reCalculatePlayer(), 0.1)
+    Wait.time(|| reCalculatePlayer(), 0.2)
 end
 
 function changeClass(player, class)
     local player = {} player = Global.getVar("saveInfoPlayer")[colorPlayer]
     player.Class = class
     Global.call("changeClassBonus", colorPlayer)
-    Wait.time(|| reCalculatePlayer(), 0.1)
+    Wait.time(|| Global.call("sortSkillsByImportance", colorPlayer), 0.2)
+    Wait.time(|| reCalculatePlayer(), 0.3)
 end
 
 function changeColor(player, color)
