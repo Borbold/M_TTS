@@ -168,7 +168,7 @@
         "skills": {
             "Alteration": 15,
             "Block": 15,
-            "Blunt": 15,
+            "BluntWeapon": 15,
             "Destruction": 15,
             "HeavyArmor": 15,
             "Illusion": 15,
@@ -190,7 +190,7 @@
         "skills": {
             "Alteration": 15,
             "Block": 15,
-            "Blunt": 15,
+            "BluntWeapon": 15,
             "Destruction": 15,
             "HeavyArmor": 15,
             "Illusion": 15,
@@ -213,7 +213,7 @@
             "Acrobatics": 15,
             "Athletics": 15,
             "Axe": 15,
-            "Blunt": 15,
+            "BluntWeapon": 15,
             "LongBlade": 15,
             "Restoration": 15,
             "Security": 15,

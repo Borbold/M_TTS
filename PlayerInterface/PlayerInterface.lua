@@ -213,6 +213,54 @@ local function deepCopy(original)
     return copy
 end
 
+-- Function to sort skills by importance
+local function sortSkillsByImportance(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    local sortedSkills = {}
+
+    -- Define importance order
+    local importanceOrder = {
+        misc = {"Enchant", "Conjuration", "Alteration", "MediumArmor", "Mysticism", "Restoration", "Illusion", "Unarmored", "Acrobatics", "Security", "Sneak", "LightArmor", "Marksman", "ShortBlade", "HandToHand", "Mercantile", "Speechcraft"}
+    }
+
+    -- Add major skills
+    table.insert(sortedSkills, {name = "Major Skills"})
+    for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
+        if player.Skills[skill] then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
+    end
+
+    -- Add minor skills
+    table.insert(sortedSkills, {name = "Minor Skills"})
+    for skill, _ in pairs(player.Buffs.ClassSkills.minorSkills) do
+        if player.Skills[skill] then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
+    end
+
+    -- Add miscellaneous skills
+    table.insert(sortedSkills, {name = "Misc Skills"})
+    for _, skill in ipairs(importanceOrder.misc) do
+        if player.Skills[skill] then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
+    end
+
+    -- Update XML form with sorted skills
+    local xmlTable = self.UI.getXmlTable()
+    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
+
+    for i, skillEntry in ipairs(sortedSkills) do
+        skillsTable[i].children[2].children[1].children[1].attributes.text = skillEntry.value
+        skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
+        -- Update skill name
+        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name
+    end
+
+    self.UI.setXmlTable(xmlTable)
+end
+
 -- Function to rebuild the XML table
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
@@ -256,7 +304,9 @@ end
 local function confer()
     for playerColor, _ in pairs(saveInfoPlayer) do
         setCharacter(playerColor)
-        Wait.time(function() calculateInfo(playerColor) setUI(playerColor) end, enumColor[playerColor])
+        Wait.time(|| sortSkillsByImportance(playerColor), enumColor[playerColor] / 3)
+        Wait.time(|| calculateInfo(playerColor), enumColor[playerColor] / 2)
+        Wait.time(|| setUI(playerColor), enumColor[playerColor])
     end
 end
 
