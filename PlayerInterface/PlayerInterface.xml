@@ -9,6 +9,7 @@
     <!---->
     <ProgressBar class='statePB' width='145' height='18' offsetXY='65 0' />
     <!---->
+    <Button class='mageSkillWill' offsetXY='85 0' width='100' height='20' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkillWill' />
     <Button class='stateV' offsetXY='85 0' width='100' height='20' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwSkill' />
     <Text class='stateV' offsetXY='85 0' width='100' height='20' alignment='MiddleRight' />
     <Text class='infoSkill' active='false' />

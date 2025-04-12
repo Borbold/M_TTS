@@ -137,7 +137,7 @@ procuredXMLForm.children = {
         createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
         createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
         createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Alteration", "Alteration", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button"),
         createRow("Destruction", "Destruction", "value", "skillsInfo", "stateV", "Button"),
         createRow("Mysticism", "Mysticism", "value", "skillsInfo", "stateV", "Button"),
         createRow("Restoration", "Restoration", "value", "skillsInfo", "stateV", "Button"),
@@ -173,6 +173,7 @@ local listColor = {
 }
 -----------------------------------------------------------------
 -- Local functions --
+local function Round(num, idp) return math.floor(num*(10^idp))/10^idp end
 -- Function to perform a deep copy of a table
 local function deepCopy(original)
     local copy = {}
@@ -282,7 +283,7 @@ function onLoad()
 
     Wait.time(function()
         rebuildXMLTable()
-        local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
+        --local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
         if loadSave then
             saveInfoPlayer = loadSave
             Wait.time(function() confer() end, 1)
@@ -323,13 +324,6 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (state.Health.current / state.Health.max) * 100)
     self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (state.Mana.current / state.Mana.max) * 100)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
-end
-
--- Function to throw a skill check
-function throwSkill(player, alt, id)
-    local rollValue = math.random(1, 100)
-    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
-    print(rollValue <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
 
 local function checkClassSkillsBonus(classSkills, skillId)
@@ -406,7 +400,7 @@ function sortSkillsByImportance(colorPlayer)
     local sortedSkills = {}
 
     -- Add major skills
-    table.insert(sortedSkills, {name = "Major Skills"})
+    table.insert(sortedSkills, {name = "MajorSkills"})
     for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
         if player.Skills[skill] then
             table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
@@ -414,7 +408,7 @@ function sortSkillsByImportance(colorPlayer)
     end
 
     -- Add minor skills
-    table.insert(sortedSkills, {name = "Minor Skills"})
+    table.insert(sortedSkills, {name = "MinorSkills"})
     for skill, _ in pairs(player.Buffs.ClassSkills.minorSkills) do
         if player.Skills[skill] then
             table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
@@ -422,7 +416,7 @@ function sortSkillsByImportance(colorPlayer)
     end
 
     -- Add miscellaneous skills
-    table.insert(sortedSkills, {name = "Misc Skills"})
+    table.insert(sortedSkills, {name = "MiscSkills"})
     for skill, _ in pairs(player.Skills) do
         local flag = true
         for index, v in ipairs(sortedSkills) do
@@ -441,7 +435,11 @@ function sortSkillsByImportance(colorPlayer)
         -- Update skill value id
         skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
         -- Update skill name
-        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name
+        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name:gsub("(%l)(%u)", "%1 %2")
+        -- Update skill class
+        if(skillEntry.name == "Alteration") then
+            skillsTable[i].children[2].children[1].children[1].attributes.class = "mageSkillWill"
+        end
     end
 
     self.UI.setXmlTable(xmlTable)
@@ -456,5 +454,39 @@ function changeSignBonus(colorPlayer)
             setSignInfo(colorPlayer, JSON.decode(request.text))
         end
     )
+end
+
+-- Function to throw a skill check
+function throwSkill(player, alt, id)
+    local rollValue = math.random(1, 100)
+    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
+    print(rollValue <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+end
+
+-- Function for calculating the probability of success
+local function calculateSuccessChance(magicSkill, willpower, luck, magicCost, sound, currentMana, maxMana)
+    local baseChance = (magicSkill * 2) + (willpower / 5) + (luck / 10) - magicCost - sound
+    local manaModifier = 0.75 + (0.5 * currentMana / maxMana)
+    local successChance = baseChance * manaModifier
+    return Round(successChance, 2)
+end
+-- Function to throw a skill mage check
+function throwMageSkillWill(player, alt, id)
+    player = saveInfoPlayer[player.color]
+    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
+    local sound, magicCost = 0, 10
+    -- Calculate the probability of success
+    local successChance = calculateSuccessChance(
+        skillValue, player.Characteristics.Willpower, player.Characteristics.Luck,
+        magicCost, sound, player.Mana.current, player.Mana.max
+    )
+    print("Probability of success: " .. successChance .. "%")
+
+    -- Calculate the probability of successGenerate a random number from 1 to 100
+    local roll = math.random(1, 100)
+    print("Dice roll: " .. roll)
+
+    -- Checking to see if the cast is successful
+    print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
 -- Global functions --
