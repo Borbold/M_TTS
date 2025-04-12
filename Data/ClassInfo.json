@@ -2,136 +2,136 @@
     "Acrobat": {
         "description": "A master of agility and evasion, the Acrobat excels in acrobatics and sneaking.",
         "skills": {
-            "majorSkills": {"Acrobatics": 30, "Sneak": 30, "Security": 30, "BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Illusion": 15, "Athletics": 15, "Marksman": 15, "ShortBlade": 15, "Speechcraft": 15}
+            "majorSkills": {"Acrobatics": 30, "Sneak": 30, "Security": 30, "ShortBlade": 30, "Marksman": 30},
+            "minorSkills": {"Illusion": 15, "Athletics": 15, "Speechcraft": 15, "Unarmored": 15, "HandToHand": 15}
         },
         "characteristics": {"Agility": 10, "Speed": 10}
     },
     "Assassin": {
         "description": "A deadly killer, the Assassin is proficient in short blades and sneaking.",
         "skills": {
-            "majorSkills": {"Acrobatics": 30, "Sneak": 30, "Security": 30, "BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Speechcraft": 15, "Marksman": 15, "Restoration": 15, "Athletics": 15, "Illusion": 15}
+            "majorSkills": {"ShortBlade": 30, "Sneak": 30, "BluntWeapon": 30, "Marksman": 30, "Acrobatics": 30},
+            "minorSkills": {"Speechcraft": 15, "Restoration": 15, "Illusion": 15, "Alteration": 15, "Enchant": 15}
         },
         "characteristics": {"Agility": 10, "Strength": 10}
     },
     "Barbarian": {
         "description": "A fierce warrior, the Barbarian is strong in blunts and heavy armor.",
         "skills": {
-            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Block": 15, "Athletics": 15, "Destruction": 15, "Restoration": 15, "HandToHand": 15}
+            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30, "Block": 30, "HandToHand": 30, "Athletics": 30},
+            "minorSkills": {"Destruction": 15, "Restoration": 15, "Conjuration": 15, "Alteration": 15, "Speechcraft": 15}
         },
         "characteristics": {"Strength": 10, "Endurance": 10}
     },
     "Battlemage": {
         "description": "A versatile fighter-mage, the Battlemage is skilled in destruction and alteration.",
         "skills": {
-            "majorSkills": {"Destruction": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Restoration": 15, "BluntWeapon": 15, "HeavyArmor": 15, "Speechcraft": 15}
+            "majorSkills": {"Destruction": 30, "Alteration": 30, "BluntWeapon": 30, "HeavyArmor": 30, "Speechcraft": 30},
+            "minorSkills": {"Conjuration": 15, "Restoration": 15, "Enchant": 15, "Illusion": 15, "Mysticism": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     },
     "Crusader": {
         "description": "A holy warrior, the Crusader is proficient in restoration and heavy armor.",
         "skills": {
-            "majorSkills": {"Restoration": 30, "HeavyArmor": 30},
-            "minorSkills": {"BluntWeapon": 15, "Block": 15, "Destruction": 15, "Alteration": 15, "Speechcraft": 15}
+            "majorSkills": {"Restoration": 30, "HeavyArmor": 30, "BluntWeapon": 30, "Block": 30, "Destruction": 30},
+            "minorSkills": {"Alteration": 15, "Conjuration": 15, "Illusion": 15, "Enchant": 15, "Speechcraft": 15}
         },
         "characteristics": {"Willpower": 10, "Endurance": 10}
     },
     "Healer": {
         "description": "A dedicated healer, the Healer excels in restoration and alteration.",
         "skills": {
-            "majorSkills": {"Restoration": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Illusion": 15, "Mysticism": 15, "Enchant": 15, "Speechcraft": 15}
+            "majorSkills": {"Restoration": 30, "Alteration": 30, "Conjuration": 30, "Illusion": 30, "Mysticism": 30},
+            "minorSkills": {"Enchant": 15, "Speechcraft": 15, "Destruction": 15, "Security": 15, "Marksman": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     },
     "Knight": {
         "description": "A noble warrior, the Knight is skilled in blunts and heavy armor.",
         "skills": {
-            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Block": 15, "Destruction": 15, "Restoration": 15, "Alteration": 15, "Speechcraft": 15}
+            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30, "Block": 30, "Destruction": 30, "Restoration": 30},
+            "minorSkills": {"Alteration": 15, "Speechcraft": 15, "Conjuration": 15, "Illusion": 15, "Enchant": 15}
         },
         "characteristics": {"Strength": 10, "Endurance": 10}
     },
     "Mage": {
         "description": "A powerful spellcaster, the Mage is proficient in all schools of magic.",
         "skills": {
-            "majorSkills": {"Destruction": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Illusion": 15, "Mysticism": 15, "Enchant": 15, "Speechcraft": 15}
+            "majorSkills": {"Destruction": 30, "Alteration": 30, "Conjuration": 30, "Illusion": 30, "Mysticism": 30},
+            "minorSkills": {"Enchant": 15, "Speechcraft": 15, "BluntWeapon": 15, "HeavyArmor": 15, "Block": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     },
     "Monk": {
         "description": "A martial artist, the Monk is skilled in hand-to-hand combat and unarmored.",
         "skills": {
-            "majorSkills": {"HandToHand": 30, "Unarmored": 30},
-            "minorSkills": {"Acrobatics": 15, "Athletics": 15, "Marksman": 15, "ShortBlade": 15, "Meditation": 15}
+            "majorSkills": {"HandToHand": 30, "Unarmored": 30, "Acrobatics": 30, "Athletics": 30, "ShortBlade": 30},
+            "minorSkills": {"Marksman": 15, "Meditation": 15, "Speechcraft": 15, "Security": 15, "Sneak": 15}
         },
         "characteristics": {"Agility": 10, "Speed": 10}
     },
     "Nightblade": {
         "description": "A stealthy and deadly rogue, the Nightblade is proficient in short blades and sneaking.",
         "skills": {
-            "majorSkills": {"ShortBlade": 30, "Sneak": 30},
-            "minorSkills": {"Acrobatics": 15, "Marksman": 15, "Security": 15, "Illusion": 15, "Speechcraft": 15}
+            "majorSkills": {"ShortBlade": 30, "Sneak": 30, "Acrobatics": 30, "Marksman": 30, "Security": 30},
+            "minorSkills": {"Illusion": 15, "Speechcraft": 15, "Restoration": 15, "Alteration": 15, "Conjuration": 15}
         },
         "characteristics": {"Agility": 10, "Intelligence": 10}
     },
     "Pilgrim": {
         "description": "A traveling healer, the Pilgrim is skilled in restoration and alteration.",
         "skills": {
-            "majorSkills": {"Restoration": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Illusion": 15, "Mysticism": 15, "Enchant": 15, "Speechcraft": 15}
+            "majorSkills": {"Restoration": 30, "Alteration": 30, "Conjuration": 30, "Illusion": 30, "Mysticism": 30},
+            "minorSkills": {"Enchant": 15, "Speechcraft": 15, "Security": 15, "Marksman": 15, "Acrobatics": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     },
     "Rogue": {
         "description": "A cunning thief, the Rogue is proficient in short blades and security.",
         "skills": {
-            "majorSkills": {"ShortBlade": 30, "Security": 30},
-            "minorSkills": {"Acrobatics": 15, "Sneak": 15, "Marksman": 15, "Athletics": 15, "Speechcraft": 15}
+            "majorSkills": {"ShortBlade": 30, "Security": 30, "Acrobatics": 30, "Sneak": 30, "Marksman": 30},
+            "minorSkills": {"Athletics": 15, "Speechcraft": 15, "BluntWeapon": 15, "HeavyArmor": 15, "Block": 15}
         },
         "characteristics": {"Agility": 10, "Intelligence": 10}
     },
     "Scout": {
         "description": "A skilled ranger, the Scout is proficient in marksman and athletics.",
         "skills": {
-            "majorSkills": {"Marksman": 30, "Athletics": 30},
-            "minorSkills": {"Acrobatics": 15, "Sneak": 15, "ShortBlade": 15, "Security": 15, "Survival": 15}
+            "majorSkills": {"Marksman": 30, "Athletics": 30, "Acrobatics": 30, "Sneak": 30, "ShortBlade": 30},
+            "minorSkills": {"Security": 15, "Survival": 15, "Restoration": 15, "Alteration": 15, "Conjuration": 15}
         },
         "characteristics": {"Agility": 10, "Speed": 10}
     },
     "Sorcerer": {
         "description": "A master of conjuration, the Sorcerer is skilled in summoning and enchantment.",
         "skills": {
-            "majorSkills": {"Conjuration": 30, "Enchant": 30},
-            "minorSkills": {"Destruction": 15, "Alteration": 15, "Illusion": 15, "Mysticism": 15, "Speechcraft": 15}
+            "majorSkills": {"Conjuration": 30, "Enchant": 30, "Destruction": 30, "Alteration": 30, "Illusion": 30},
+            "minorSkills": {"Mysticism": 15, "Speechcraft": 15, "BluntWeapon": 15, "HeavyArmor": 15, "Block": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     },
     "SpellSword": {
         "description": "A versatile fighter-mage, the SpellSword is skilled in destruction and alteration.",
         "skills": {
-            "majorSkills": {"Destruction": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Restoration": 15, "BluntWeapon": 15, "HeavyArmor": 15, "Speechcraft": 15}
+            "majorSkills": {"Destruction": 30, "Alteration": 30, "Conjuration": 30, "BluntWeapon": 30, "HeavyArmor": 30},
+            "minorSkills": {"Restoration": 15, "Speechcraft": 15, "Illusion": 15, "Mysticism": 15, "Enchant": 15}
         },
         "characteristics": {"Intelligence": 10, "Strength": 10}
     },
     "Warrior": {
         "description": "A formidable fighter, the Warrior is skilled in blunts and heavy armor.",
         "skills": {
-            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Block": 15, "Destruction": 15, "Restoration": 15, "Alteration": 15}
+            "majorSkills": {"BluntWeapon": 30, "HeavyArmor": 30, "Block": 30, "Destruction": 30, "Restoration": 30},
+            "minorSkills": {"Alteration": 15, "Speechcraft": 15, "Conjuration": 15, "Illusion": 15, "Enchant": 15}
         },
         "characteristics": {"Strength": 10, "Endurance": 10}
     },
     "Witchhunter": {
         "description": "A dedicated hunter of witches, the Witchhunter is skilled in destruction and alteration.",
         "skills": {
-            "majorSkills": {"Destruction": 30, "Alteration": 30},
-            "minorSkills": {"Conjuration": 15, "Restoration": 15, "BluntWeapon": 15, "HeavyArmor": 15}
+            "majorSkills": {"Destruction": 30, "Alteration": 30, "BluntWeapon": 30, "HeavyArmor": 30, "Conjuration": 30},
+            "minorSkills": {"Restoration": 15, "Speechcraft": 15, "Illusion": 15, "Mysticism": 15, "Enchant": 15}
         },
         "characteristics": {"Intelligence": 10, "Willpower": 10}
     }

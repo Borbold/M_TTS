@@ -254,13 +254,14 @@ end
 
 -- Function to confer saved data
 local function confer()
-    local multiplySleepTime = 2
+    local multiplySleepTime = 3
     for playerColor, _ in pairs(saveInfoPlayer) do
         setCharacter(playerColor)
-        Wait.time(|| sortSkillsByImportance(playerColor), (enumColor[playerColor] / 4) * multiplySleepTime)
+        Wait.time(|| sortSkillsByImportance(playerColor), (enumColor[playerColor] / 3) * multiplySleepTime)
         Wait.time(|| calculateInfo(playerColor), (enumColor[playerColor] / 2) * multiplySleepTime)
         Wait.time(|| setUI(playerColor), (enumColor[playerColor]) * multiplySleepTime)
     end
+    Wait.time(|| print("[ffee8c]Download is complete[-]"), #enumColor * multiplySleepTime)
 end
 
 -- Function to activate inventory for a player
