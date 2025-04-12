@@ -1,45 +1,4 @@
 {
-    "Base": {
-        "characteristics": {
-            "Agility": 50,
-            "Endurance": 50,
-            "Intelligence": 50,
-            "Luck": 50,
-            "Personality": 50,
-            "Speed": 50,
-            "Strength": 50,
-            "Willpower": 50
-        },
-        "skills": {
-            "Acrobatics": 0,
-            "Alchemy": 0,
-            "Alteration": 0,
-            "Armorer": 0,
-            "Athletics": 0,
-            "Axe": 0,
-            "Block": 0,
-            "Blunt": 0,
-            "Conjuration": 0,
-            "Destruction": 0,
-            "Enchant": 0,
-            "HandToHand": 0,
-            "HeavyArmor": 0,
-            "Illusion": 0,
-            "LightArmor": 0,
-            "LongBlade": 0,
-            "Marksman": 0,
-            "MediumArmor": 0,
-            "Mercantile": 0,
-            "Mysticism": 0,
-            "Restoration": 0,
-            "Security": 0,
-            "ShortBlade": 0,
-            "Sneak": 0,
-            "Spear": 0,
-            "Speechcraft": 0,
-            "Unarmored": 0
-        }
-    },
     "Altmer": {
         "characteristics": {
             "Agility": 50,

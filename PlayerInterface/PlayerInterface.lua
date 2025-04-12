@@ -161,7 +161,7 @@ local baseInfoPlayer = {
     Health = {current = 30, max = 100},
     Mana = {current = 30, max = 100},
     Stamina = {current = 30, max = 100},
-    Level = "1", Race = "Base", Class = "Base",
+    Level = "1", Race = "Altmer", Class = "Acrobat",
     Characteristics = {
         Strength = 50, Intelligence = 50, Willpower = 50, Agility = 50, Speed = 50,
         Endurance = 50, Personality = 50, Luck = 50
@@ -175,7 +175,7 @@ local baseInfoPlayer = {
         Mercantile = 5, Speechcraft = 5
     },
     -- Not see information
-    Sign = "Base",
+    Sign = "TheAtronach",
     Buffs = {
         RaceSkills = {}, RaceCharacteristics = {},
         ClassSkills = {}, ClassCharacteristics = {}
@@ -247,15 +247,15 @@ local function rebuildXMLTable()
 end
 
 -- Apply all changes to the character
-local function changeCharacter(color)
-    changeRaceBonus(color) changeClassBonus(color) changeSignBonus(color)
+local function setCharacter(playerColor)
+    changeRaceBonus(playerColor) changeClassBonus(playerColor) changeSignBonus(playerColor)
 end
 
 -- Function to confer saved data
 local function confer()
-    for color, _ in pairs(saveInfoPlayer) do
-        changeCharacter(color)
-        Wait.time(|| setUI(color), enumColor[color] / 10)
+    for playerColor, _ in pairs(saveInfoPlayer) do
+        setCharacter(playerColor)
+        Wait.time(function() calculateInfo(playerColor) setUI(playerColor) end, enumColor[playerColor])
     end
 end
 
@@ -345,7 +345,7 @@ function throwSkill(player, alt, id)
 end
 
 local function checkClassSkillsBonus(classSkills, skillId)
-    return (classSkills.majorSkills[skillId] and 30) or (classSkills.minorSkills[skillId] and 15) or 5
+    return classSkills.majorSkills[skillId] or classSkills.minorSkills[skillId] or 5
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
@@ -386,7 +386,6 @@ local function setRaceInfo(colorPlayer)
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
-    calculateInfo(colorPlayer)
 end
 function changeRaceBonus(colorPlayer)
     if(not raceData) then
@@ -405,7 +404,6 @@ local function setClassInfo(colorPlayer)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
-    calculateInfo(colorPlayer)
 end
 function changeClassBonus(colorPlayer)
     if(not classData) then
