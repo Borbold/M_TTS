@@ -90,7 +90,7 @@ local function createSkillsTableLayout(rows)
                 children = {
                     {
                         tag = "TableLayout",
-                        attributes = {width = "190", height = "666"},
+                        attributes = {width = "190", height = "664"},
                         children = rows
                     }
                 }
@@ -176,6 +176,7 @@ local baseInfoPlayer = {
     },
     -- Not see information
     Sign = "TheAtronach",
+    MagicBonus = 0,
     Buffs = {
         RaceSkills = {}, RaceCharacteristics = {},
         ClassSkills = {}, ClassCharacteristics = {}
@@ -216,7 +217,7 @@ end
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
     local mainPanel = xmlTable[2].children
-    for colorPlayer, _ in pairs(saveInfoPlayer) do
+    for _, colorPlayer in ipairs(listColor) do
         local newPanel = deepCopy(procuredXMLForm)
         newPanel.attributes.id = colorPlayer .. newPanel.attributes.id
         newPanel.attributes.visibility = colorPlayer
@@ -367,7 +368,7 @@ function calculateInfo(colorPlayer)
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
     if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
     -- Calculate MP
-    player.Mana.max = player.Characteristics.Intelligence * (1 + (raceData[player.Race].MagicBonus or 0) --[[ Birth sign modifier ]])
+    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus --[[ Birth sign modifier ]])
     if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
     -- Calculate SP
     player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
@@ -382,54 +383,40 @@ function updateSave()
     getObjectFromGUID(saveCube).setGMNotes(savedData)
 end
 
-local function setRaceInfo(colorPlayer)
+local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
+    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].MagicBonus or 0
 end
 function changeRaceBonus(colorPlayer)
-    if(not raceData) then
-        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json",
-            function(request)
-                raceData = JSON.decode(request.text)
-                setRaceInfo(colorPlayer)
-            end
-        )
-    else
-        setRaceInfo(colorPlayer)
-    end
+    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json",
+        function(request)
+            setRaceInfo(colorPlayer, JSON.decode(request.text))
+        end
+    )
 end
 
-local function setClassInfo(colorPlayer)
+local function setClassInfo(colorPlayer, classData)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
 end
 function changeClassBonus(colorPlayer)
-    if(not classData) then
-        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json",
-            function(request)
-                classData = JSON.decode(request.text)
-                setClassInfo(colorPlayer)
-            end
-        )
-    else
-        setClassInfo(colorPlayer)
-    end
+    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json",
+        function(request)
+            setClassInfo(colorPlayer, JSON.decode(request.text))
+        end
+    )
 end
 
-local function setSignInfo(colorPlayer)
+local function setSignInfo(colorPlayer, signData)
 end
 function changeSignBonus(colorPlayer)
-    if(not signData) then
-        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json",
-            function(request)
-                signData = JSON.decode(request.text)
-                setSignInfo(colorPlayer)
-            end
-        )
-    else
-        setSignInfo(colorPlayer)
-    end
+    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json",
+        function(request)
+            setSignInfo(colorPlayer, JSON.decode(request.text))
+        end
+    )
 end
 -- Global functions --
