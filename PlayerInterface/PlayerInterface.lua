@@ -213,53 +213,6 @@ local function deepCopy(original)
     return copy
 end
 
--- Function to sort skills by importance
-local function sortSkillsByImportance(colorPlayer)
-    local player = saveInfoPlayer[colorPlayer]
-    local sortedSkills = {}
-
-    -- Add major skills
-    table.insert(sortedSkills, {name = "Major Skills"})
-    for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
-        if player.Skills[skill] then
-            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
-        end
-    end
-
-    -- Add minor skills
-    table.insert(sortedSkills, {name = "Minor Skills"})
-    for skill, _ in pairs(player.Buffs.ClassSkills.minorSkills) do
-        if player.Skills[skill] then
-            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
-        end
-    end
-
-    -- Add miscellaneous skills
-    table.insert(sortedSkills, {name = "Misc Skills"})
-    for skill, _ in pairs(player.Skills) do
-        local flag = true
-        for index, v in ipairs(sortedSkills) do
-            if v.name == skill then
-                flag = false
-                break
-            end
-        end
-        if(flag) then table.insert(sortedSkills, {name = skill, value = player.Skills[skill]}) end
-    end
-
-    -- Update XML form with sorted skills
-    local xmlTable = self.UI.getXmlTable()
-    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
-    for i, skillEntry in ipairs(sortedSkills) do
-        -- Update skill value id
-        skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
-        -- Update skill name
-        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name
-    end
-
-    self.UI.setXmlTable(xmlTable)
-end
-
 -- Function to rebuild the XML table
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
@@ -301,11 +254,12 @@ end
 
 -- Function to confer saved data
 local function confer()
+    local multiplySleepTime = 2
     for playerColor, _ in pairs(saveInfoPlayer) do
         setCharacter(playerColor)
-        Wait.time(|| sortSkillsByImportance(playerColor), enumColor[playerColor] / 4)
-        Wait.time(|| calculateInfo(playerColor), enumColor[playerColor] / 2)
-        Wait.time(|| setUI(playerColor), enumColor[playerColor])
+        Wait.time(|| sortSkillsByImportance(playerColor), (enumColor[playerColor] / 4) * multiplySleepTime)
+        Wait.time(|| calculateInfo(playerColor), (enumColor[playerColor] / 2) * multiplySleepTime)
+        Wait.time(|| setUI(playerColor), (enumColor[playerColor]) * multiplySleepTime)
     end
 end
 
@@ -432,6 +386,7 @@ function updateSave()
     getObjectFromGUID(saveCube).setGMNotes(savedData)
 end
 
+-- Set the player's race
 local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
@@ -446,6 +401,7 @@ function changeRaceBonus(colorPlayer)
     )
 end
 
+-- Set the player's class
 local function setClassInfo(colorPlayer, classData)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
@@ -459,6 +415,54 @@ function changeClassBonus(colorPlayer)
     )
 end
 
+-- Function to sort skills by importance
+function sortSkillsByImportance(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    local sortedSkills = {}
+
+    -- Add major skills
+    table.insert(sortedSkills, {name = "Major Skills"})
+    for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
+        if player.Skills[skill] then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
+    end
+
+    -- Add minor skills
+    table.insert(sortedSkills, {name = "Minor Skills"})
+    for skill, _ in pairs(player.Buffs.ClassSkills.minorSkills) do
+        if player.Skills[skill] then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
+    end
+
+    -- Add miscellaneous skills
+    table.insert(sortedSkills, {name = "Misc Skills"})
+    for skill, _ in pairs(player.Skills) do
+        local flag = true
+        for index, v in ipairs(sortedSkills) do
+            if v.name == skill then
+                flag = false
+                break
+            end
+        end
+        if(flag) then table.insert(sortedSkills, {name = skill, value = player.Skills[skill]}) end
+    end
+
+    -- Update XML form with sorted skills
+    local xmlTable = self.UI.getXmlTable()
+    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
+    for i, skillEntry in ipairs(sortedSkills) do
+        -- Update skill value id
+        skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
+        -- Update skill name
+        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name
+    end
+
+    self.UI.setXmlTable(xmlTable)
+end
+
+-- Set the player's sign
 local function setSignInfo(colorPlayer, signData)
 end
 function changeSignBonus(colorPlayer)

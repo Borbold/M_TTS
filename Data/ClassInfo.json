@@ -10,8 +10,8 @@
     "Assassin": {
         "description": "A deadly killer, the Assassin is proficient in short blades and sneaking.",
         "skills": {
-            "majorSkills": {"ShortBlade": 30, "Sneak": 30},
-            "minorSkills": {"Acrobatics": 15, "Marksman": 15, "Security": 15, "Athletics": 15, "Illusion": 15}
+            "majorSkills": {"Acrobatics": 30, "Sneak": 30, "Security": 30, "BluntWeapon": 30, "HeavyArmor": 30},
+            "minorSkills": {"Speechcraft": 15, "Marksman": 15, "Restoration": 15, "Athletics": 15, "Illusion": 15}
         },
         "characteristics": {"Agility": 10, "Strength": 10}
     },
