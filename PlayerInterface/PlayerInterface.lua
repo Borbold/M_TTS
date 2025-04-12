@@ -195,7 +195,7 @@ local enumColor = {
     Red = 1, White = 2, Blue = 3
 }
 
-local indexVisibilityColor = 1
+local indexVisibilityColorGM = 1
 local listColor = {
     "Red", "White", "Blue"
 }
@@ -261,7 +261,7 @@ local function confer()
         Wait.time(|| calculateInfo(playerColor), (enumColor[playerColor] / 2) * multiplySleepTime)
         Wait.time(|| setUI(playerColor), (enumColor[playerColor]) * multiplySleepTime)
     end
-    Wait.time(|| print("[ffee8c]Download is complete[-]"), #enumColor * multiplySleepTime)
+    Wait.time(|| print("[ffee8c]Download is complete[-]"), #listColor * multiplySleepTime)
 end
 
 -- Function to activate inventory for a player
@@ -274,16 +274,16 @@ end
 local function activateInventoryForGM(playerColor)
     if playerColor then
         local currentPanelId = playerColor .. "mainPanel"
-        local previousPanelId = listColor[indexVisibilityColor > 1 and indexVisibilityColor - 1 or 1] .. "mainPanel"
+        local previousPanelId = listColor[indexVisibilityColorGM > 1 and indexVisibilityColorGM - 1 or 1] .. "mainPanel"
         self.UI.setAttribute(currentPanelId, "active", "true")
         self.UI.setAttribute(previousPanelId, "visibility", playerColor)
         self.UI.setAttribute(currentPanelId, "visibility", playerColor .. "|Black")
     end
 
-    indexVisibilityColor = indexVisibilityColor + 1
-    if indexVisibilityColor > #listColor + 1 then
+    indexVisibilityColorGM = indexVisibilityColorGM + 1
+    if indexVisibilityColorGM > #listColor + 1 then
         self.UI.setAttribute(listColor[#listColor] .. "mainPanel", "visibility", listColor[#listColor])
-        indexVisibilityColor = 1
+        indexVisibilityColorGM = 1
     end
 end
 
@@ -291,7 +291,7 @@ end
 function onLoad()
     addHotkey("GM Inventory", function(playerColor)
         if playerColor == "Black" then
-            activateInventoryForGM(listColor[indexVisibilityColor])
+            activateInventoryForGM(listColor[indexVisibilityColorGM])
         end
     end)
     addHotkey("Player Inventory", function(playerColor)
