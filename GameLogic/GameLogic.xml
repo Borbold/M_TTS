@@ -22,8 +22,7 @@
             <Option>Blue</Option>
         </Dropdown>
         <Dropdown class='race'>
-            <Option selected='true'>Base</Option>
-            <Option>Altmer</Option>
+            <Option selected='true'>Altmer</Option>
             <Option>Argonian</Option>
             <Option>Bosmer</Option>
             <Option>Breton</Option>
@@ -35,8 +34,7 @@
             <Option>Redguard</Option>
         </Dropdown>
         <Dropdown class='class'>
-            <Option selected='true'>Base</Option>
-            <Option>Acrobat</Option>
+            <Option selected='true'>Acrobat</Option>
             <Option>Agent</Option>
             <Option>Archer</Option>
         </Dropdown>
