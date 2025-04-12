@@ -3,7 +3,7 @@
         "description": "A master of agility and evasion, the Acrobat excels in acrobatics and sneaking.",
         "skills": {
             "majorSkills": {"Acrobatics": 30, "Sneak": 30, "Security": 30, "BluntWeapon": 30, "HeavyArmor": 30},
-            "minorSkills": {"Acrobatics": 15, "Athletics": 15, "Marksman": 15, "ShortBlade": 15, "Speechcraft": 15}
+            "minorSkills": {"Illusion": 15, "Athletics": 15, "Marksman": 15, "ShortBlade": 15, "Speechcraft": 15}
         },
         "characteristics": {"Agility": 10, "Speed": 10}
     },

@@ -149,7 +149,7 @@ procuredXMLForm.children = {
         createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV", "Button"),
         createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV", "Button"),
         createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Hand-to-Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
         createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
         createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button")
     })
@@ -218,11 +218,6 @@ local function sortSkillsByImportance(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     local sortedSkills = {}
 
-    -- Define importance order
-    local importanceOrder = {
-        misc = {"Enchant", "Conjuration", "Alteration", "MediumArmor", "Mysticism", "Restoration", "Illusion", "Unarmored", "Acrobatics", "Security", "Sneak", "LightArmor", "Marksman", "ShortBlade", "HandToHand", "Mercantile", "Speechcraft"}
-    }
-
     -- Add major skills
     table.insert(sortedSkills, {name = "Major Skills"})
     for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
@@ -241,18 +236,22 @@ local function sortSkillsByImportance(colorPlayer)
 
     -- Add miscellaneous skills
     table.insert(sortedSkills, {name = "Misc Skills"})
-    for _, skill in ipairs(importanceOrder.misc) do
-        if player.Skills[skill] then
-            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+    for skill, _ in pairs(player.Skills) do
+        local flag = true
+        for index, v in ipairs(sortedSkills) do
+            if v.name == skill then
+                flag = false
+                break
+            end
         end
+        if(flag) then table.insert(sortedSkills, {name = skill, value = player.Skills[skill]}) end
     end
 
     -- Update XML form with sorted skills
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
-
     for i, skillEntry in ipairs(sortedSkills) do
-        skillsTable[i].children[2].children[1].children[1].attributes.text = skillEntry.value
+        -- Update skill value id
         skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
         -- Update skill name
         skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name
@@ -304,7 +303,7 @@ end
 local function confer()
     for playerColor, _ in pairs(saveInfoPlayer) do
         setCharacter(playerColor)
-        Wait.time(|| sortSkillsByImportance(playerColor), enumColor[playerColor] / 3)
+        Wait.time(|| sortSkillsByImportance(playerColor), enumColor[playerColor] / 4)
         Wait.time(|| calculateInfo(playerColor), enumColor[playerColor] / 2)
         Wait.time(|| setUI(playerColor), enumColor[playerColor])
     end
