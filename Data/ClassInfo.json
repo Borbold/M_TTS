@@ -1,0 +1,97 @@
+{
+    "Acrobat": {
+        "description": "A master of agility and evasion, the Acrobat excels in acrobatics and sneaking.",
+        "majorSkills": ["Acrobatics", "Sneak"],
+        "minorSkills": ["Athletics", "Marksman", "ShortBlade", "Security"]
+    },
+    "Agent": {
+        "description": "A stealthy and cunning operative, the Agent is skilled in security and sneaking.",
+        "majorSkills": ["Security", "Sneak"],
+        "minorSkills": ["Acrobatics", "Athletics", "Marksman", "ShortBlade"]
+    },
+    "Assassin": {
+        "description": "A deadly killer, the Assassin is proficient in short blades and sneaking.",
+        "majorSkills": ["ShortBlade", "Sneak"],
+        "minorSkills": ["Acrobatics", "Marksman", "Security", "Athletics"]
+    },
+    "Barbarian": {
+        "description": "A fierce warrior, the Barbarian is strong in blunts and heavy armor.",
+        "majorSkills": ["Blunt", "HeavyArmor"],
+        "minorSkills": ["Block", "Athletics", "Destruction", "Restoration"]
+    },
+    "Battlemage": {
+        "description": "A versatile fighter-mage, the Battlemage is skilled in destruction and alteration.",
+        "majorSkills": ["Destruction", "Alteration"],
+        "minorSkills": ["Conjuration", "Restoration", "Blunt", "HeavyArmor"]
+    },
+    "Crusader": {
+        "description": "A holy warrior, the Crusader is proficient in restoration and heavy armor.",
+        "majorSkills": ["Restoration", "HeavyArmor"],
+        "minorSkills": ["Blunt", "Block", "Destruction", "Alteration"]
+    },
+    "Healer": {
+        "description": "A dedicated healer, the Healer excels in restoration and alteration.",
+        "majorSkills": ["Restoration", "Alteration"],
+        "minorSkills": ["Conjuration", "Illusion", "Mysticism", "Enchant"]
+    },
+    "Knight": {
+        "description": "A noble warrior, the Knight is skilled in blunts and heavy armor.",
+        "majorSkills": ["Blunt", "HeavyArmor"],
+        "minorSkills": ["Block", "Destruction", "Restoration", "Alteration"]
+    },
+    "Mage": {
+        "description": "A powerful spellcaster, the Mage is proficient in all schools of magic.",
+        "majorSkills": ["Destruction", "Alteration"],
+        "minorSkills": ["Conjuration", "Illusion", "Mysticism", "Enchant"]
+    },
+    "Monk": {
+        "description": "A martial artist, the Monk is skilled in hand-to-hand combat and unarmored.",
+        "majorSkills": ["HandToHand", "Unarmored"],
+        "minorSkills": ["Acrobatics", "Athletics", "Marksman", "ShortBlade"]
+    },
+    "Nightblade": {
+        "description": "A stealthy and deadly rogue, the Nightblade is proficient in short blades and sneaking.",
+        "majorSkills": ["ShortBlade", "Sneak"],
+        "minorSkills": ["Acrobatics", "Marksman", "Security", "Illusion"]
+    },
+    "Pilgrim": {
+        "description": "A traveling healer, the Pilgrim is skilled in restoration and alteration.",
+        "majorSkills": ["Restoration", "Alteration"],
+        "minorSkills": ["Conjuration", "Illusion", "Mysticism", "Enchant"]
+    },
+    "Rogue": {
+        "description": "A cunning thief, the Rogue is proficient in short blades and security.",
+        "majorSkills": ["ShortBlade", "Security"],
+        "minorSkills": ["Acrobatics", "Sneak", "Marksman", "Athletics"]
+    },
+    "Scout": {
+        "description": "A skilled ranger, the Scout is proficient in marksman and athletics.",
+        "majorSkills": ["Marksman", "Athletics"],
+        "minorSkills": ["Acrobatics", "Sneak", "ShortBlade", "Security"]
+    },
+    "Sorcerer": {
+        "description": "A master of conjuration, the Sorcerer is skilled in summoning and enchantment.",
+        "majorSkills": ["Conjuration", "Enchant"],
+        "minorSkills": ["Destruction", "Alteration", "Illusion", "Mysticism"]
+    },
+    "SpellSword": {
+        "description": "A versatile fighter-mage, the SpellSword is skilled in destruction and alteration.",
+        "majorSkills": ["Destruction", "Alteration"],
+        "minorSkills": ["Conjuration", "Restoration", "Blunt", "HeavyArmor"]
+    },
+    "Thief": {
+        "description": "A stealthy and cunning thief, the Thief is proficient in sneaking and security.",
+        "majorSkills": ["Sneak", "Security"],
+        "minorSkills": ["Acrobatics", "Athletics", "Marksman", "ShortBlade"]
+    },
+    "Warrior": {
+        "description": "A formidable fighter, the Warrior is skilled in blunts and heavy armor.",
+        "majorSkills": ["Blunt", "HeavyArmor"],
+        "minorSkills": ["Block", "Destruction", "Restoration", "Alteration"]
+    },
+    "Witchhunter": {
+        "description": "A dedicated hunter of witches, the Witchhunter is skilled in destruction and alteration.",
+        "majorSkills": ["Destruction", "Alteration"],
+        "minorSkills": ["Conjuration", "Restoration", "Blunt", "HeavyArmor"]
+    }
+}

@@ -155,88 +155,6 @@ procuredXMLForm.children = {
     })
 }
 -- XML --
--- Sign --
--- Birth sign effects for each birth sign in Morrowind
-local birthSignData = {
-    -- The Apprentice
-    TheApprentice = {
-        description = "Grants a 10% chance to cast spells for free.",
-        effect = "10% chance to cast spells for free."
-    },
-
-    -- The Atronach
-    TheAtronach = {
-        description = "Absorbs 50% of the magicka cost of spells cast.",
-        effect = "Absorbs 50% of the magicka cost of spells cast."
-    },
-
-    -- The Lady
-    TheLady = {
-        description = "Grants a 10% chance to resist negative spells.",
-        effect = "10% chance to resist negative spells."
-    },
-
-    -- The Lord
-    TheLord = {
-        description = "Grants a 10% chance to resist positive spells.",
-        effect = "10% chance to resist positive spells."
-    },
-
-    -- The Lover
-    TheLover = {
-        description = "Grants a 10% chance to resist disease and poison.",
-        effect = "10% chance to resist disease and poison."
-    },
-
-    -- The Mage
-    TheMage = {
-        description = "Grants a 10% chance to cast spells for free.",
-        effect = "10% chance to cast spells for free."
-    },
-
-    -- The Ritual
-    TheRitual = {
-        description = "Grants a 10% chance to resist negative spells.",
-        effect = "10% chance to resist negative spells."
-    },
-
-    -- The Serpent
-    TheSerpent = {
-        description = "Grants a 10% chance to resist disease and poison.",
-        effect = "10% chance to resist disease and poison."
-    },
-
-    -- The Shadow
-    TheShadow = {
-        description = "Grants a 10% chance to resist negative spells.",
-        effect = "10% chance to resist negative spells."
-    },
-
-    -- The Steed
-    TheSteed = {
-        description = "Grants a 10% chance to resist fatigue.",
-        effect = "10% chance to resist fatigue."
-    },
-
-    -- The Thief
-    TheThief = {
-        description = "Grants a 10% chance to resist traps.",
-        effect = "10% chance to resist traps."
-    },
-
-    -- The Tower
-    TheTower = {
-        description = "Grants a 10% chance to resist negative spells.",
-        effect = "10% chance to resist negative spells."
-    },
-
-    -- The Warrior
-    TheWarrior = {
-        description = "Grants a 10% chance to resist fatigue.",
-        effect = "10% chance to resist fatigue."
-    }
-}
--- Sigh --
 -----------------------------------------------------------------
 -- Default player information
 local baseInfoPlayer = {
@@ -328,10 +246,15 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
+-- Apply all changes to the character
+local function changeCharacter(color)
+    changeRaceBonus(color) changeClassBonus(color) changeSignBonus(color)
+end
+
 -- Function to confer saved data
 local function confer()
     for color, _ in pairs(saveInfoPlayer) do
-        changeRaceBonus(color)
+        changeCharacter(color)
         Wait.time(|| setUI(color), enumColor[color] / 10)
     end
 end
@@ -473,7 +396,7 @@ local function setRaceInfo(colorPlayer)
 end
 function changeRaceBonus(colorPlayer)
     if(not raceData) then
-        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.lua",
+        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json",
             function(request)
                 raceData = JSON.decode(request.text)
                 setRaceInfo(colorPlayer)
@@ -481,6 +404,36 @@ function changeRaceBonus(colorPlayer)
         )
     else
         setRaceInfo(colorPlayer)
+    end
+end
+
+local function setClassInfo(colorPlayer)
+end
+function changeClassBonus(colorPlayer)
+    if(not classData) then
+        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json",
+            function(request)
+                classData = JSON.decode(request.text)
+                setClassInfo(colorPlayer)
+            end
+        )
+    else
+        setClassInfo(colorPlayer)
+    end
+end
+
+local function setSignInfo(colorPlayer)
+end
+function changeSignBonus(colorPlayer)
+    if(not signData) then
+        WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json",
+            function(request)
+                signData = JSON.decode(request.text)
+                setSignInfo(colorPlayer)
+            end
+        )
+    else
+        setSignInfo(colorPlayer)
     end
 end
 -- Global functions --

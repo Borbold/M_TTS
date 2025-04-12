@@ -1,0 +1,54 @@
+{
+    "TheAtronach": {
+        "description": "Absorbs 50% of the magicka cost of spells cast.",
+        "effect": "Absorbs 50% of the magicka cost of spells cast."
+    },
+    "TheLady": {
+        "description": "Grants a 10% chance to resist negative spells.",
+        "effect": "10% chance to resist negative spells."
+    },
+    "TheLord": {
+        "description": "Grants a 10% chance to resist positive spells.",
+        "effect": "10% chance to resist positive spells."
+    },
+    "TheLover": {
+        "description": "Grants a 10% chance to resist disease and poison.",
+        "effect": "10% chance to resist disease and poison."
+    },
+    "TheMage": {
+        "description": "Grants a 10% chance to cast spells for free.",
+        "effect": "10% chance to cast spells for free."
+    },
+    "TheRitual": {
+        "description": "Grants a 10% chance to resist negative spells.",
+        "effect": "10% chance to resist negative spells."
+    },
+    "TheSerpent": {
+        "description": "Grants a 10% chance to resist disease and poison.",
+        "effect": "10% chance to resist disease and poison."
+    },
+    "TheShadow": {
+        "description": "Grants a 10% chance to resist negative spells.",
+        "effect": "10% chance to resist negative spells."
+    },
+    "TheSteed": {
+        "description": "Grants a 10% chance to resist fatigue.",
+        "effect": "10% chance to resist fatigue."
+    },
+    "TheThief": {
+        "description": "Grants a 10% chance to resist traps.",
+        "effect": "10% chance to resist traps."
+    },
+    "TheTower": {
+        "description": "Grants a 10% chance to resist negative spells.",
+        "effect": "10% chance to resist negative spells."
+    },
+    "TheWarrior": {
+        "description": "Grants a 10% chance to resist fatigue.",
+        "effect": "10% chance to resist fatigue."
+    },
+    "TheApprentice": {
+        "description": "Grants a 10% chance to cast spells for free.",
+        "effect": "10% chance to cast spells for free."
+    }
+}
