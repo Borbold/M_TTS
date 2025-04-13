@@ -18,7 +18,7 @@ local indexVisibilityColorGM = 1
 -- Default XML information
 local procuredXMLForm = {
     tag = "GridLayout",
-    attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 66", color = "Black"},
+    attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
     children = {}
 }
 
@@ -81,7 +81,7 @@ end
 local function createTableLayout(rows)
     return {
         tag = "TableLayout",
-        attributes = {width = "230", height = "66", image = "TableLayout_Back"},
+        attributes = {image = "TableLayout_Back"},
         children = rows
     }
 end
@@ -93,7 +93,7 @@ local function createCharacteristicsTableLayout(rows)
         children = {
             {
                 tag = "TableLayout",
-                attributes = {width = "230", height = "175", offsetXY = "0 -55", image = "TableLayout_Back_Long"},
+                attributes = {width = "230", height = "200", offsetXY = "0 -62", image = "TableLayout_Back_Long"},
                 children = rows
             }
         }
@@ -107,11 +107,11 @@ local function createSkillsTableLayout(rows)
         children = {
             {
                 tag = "VerticalScrollView",
-                attributes = {width = "230", height = "313", offsetXY = "235 84", image = "TableLayout_Back_Long"},
+                attributes = {width = "230", height = "358", offsetXY = "235 96", image = "TableLayout_Back_Long"},
                 children = {
                     {
                         tag = "TableLayout",
-                        attributes = {width = "190", height = "664"},
+                        attributes = {width = "190", height = "752"},
                         children = rows
                     }
                 }
