@@ -137,10 +137,6 @@ procuredXMLForm.children = {
         createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
         createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
         createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button"),
-        createRow("Destruction", "Destruction", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Restoration", "Restoration", "value", "skillsInfo", "stateV", "Button"),
         createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV", "Button"),
         createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV", "Button"),
         createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
@@ -151,7 +147,11 @@ procuredXMLForm.children = {
         createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
         createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
         createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button")
+        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkillWill", "Button"),
+        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkillWill", "Button"),
+        createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkillWill", "Button"),
+        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button")
     })
 }
 -- XML --
@@ -432,14 +432,12 @@ function sortSkillsByImportance(colorPlayer)
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for i, skillEntry in ipairs(sortedSkills) do
+        -- Update skill class
+        skillsTable[i].children[2].children[1].children[1].attributes.class = self.UI.getAttribute(colorPlayer .. skillEntry.name, "class")
         -- Update skill value id
         skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
         -- Update skill name
         skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name:gsub("(%l)(%u)", "%1 %2")
-        -- Update skill class
-        if(skillEntry.name == "Alteration") then
-            skillsTable[i].children[2].children[1].children[1].attributes.class = "mageSkillWill"
-        end
     end
 
     self.UI.setXmlTable(xmlTable)
