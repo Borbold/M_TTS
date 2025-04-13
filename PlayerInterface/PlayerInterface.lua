@@ -1,9 +1,30 @@
--- XML --
+-- Constants
+local SAVE_CUBE_GUID = "f77b1d"
+local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json"
+local RACE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json"
+local CLASS_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json"
+local SIGN_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json"
+
+local enumColor = {
+    Red = 1, White = 2, Blue = 3
+}
+
+local listColor = {
+    "Red", "White", "Blue"
+}
+
+local indexVisibilityColorGM = 1
+
 -- Default XML information
 local procuredXMLForm = {
     tag = "GridLayout",
     attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 66", color = "Black"},
     children = {}
+}
+
+-- Save information for players
+saveInfoPlayer = {
+    Red = {}, White = {}, Blue = {}
 }
 
 -- Helper function to create a row with name and value
@@ -100,80 +121,63 @@ local function createSkillsTableLayout(rows)
 end
 
 -- Create the main XML structure
-procuredXMLForm.children = {
-    createTableLayout({
-        createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
-        createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
-        createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
-    }),
-    createTableLayout({
-        createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
-        createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
-        createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
-    }),
-    createCharacteristicsTableLayout({
-        createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
-        createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
-        createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
-        createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
-        createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
-        createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
-        createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
-        createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
-    }),
-    createSkillsTableLayout({
-        createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"),
-        createRow("Long Blade", "LongBlade", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Axe", "Axe", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"),
-        createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Spear", "Spear", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Block", "Block", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
-        createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkillWill", "Button"),
-        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkillWill", "Button"),
-        createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkillWill", "Button"),
-        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button")
-    })
-}
--- XML --
------------------------------------------------------------------
--- Save information for players
-saveInfoPlayer = {
-    Red = {}, White = {}, Blue = {}
-}
--- f77b1d - Guid save cube
-local saveCube = "f77b1d"
+local function buildXMLStructure()
+    procuredXMLForm.children = {
+        createTableLayout({
+            createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
+            createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
+            createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
+        }),
+        createTableLayout({
+            createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
+            createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
+            createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
+        }),
+        createCharacteristicsTableLayout({
+            createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
+            createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
+            createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
+            createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
+            createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
+            createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
+            createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
+            createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
+        }),
+        createSkillsTableLayout({
+            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"),
+            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Axe", "Axe", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"),
+            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Spear", "Spear", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Block", "Block", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
+            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkillWill", "Button"),
+            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkillWill", "Button"),
+            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkillWill", "Button"),
+            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button")
+        })
+    }
+end
 
-local enumColor = {
-    Red = 1, White = 2, Blue = 3
-}
-
-local indexVisibilityColorGM = 1
-local listColor = {
-    "Red", "White", "Blue"
-}
------------------------------------------------------------------
--- Local functions --
-local function Round(num, idp) return math.floor(num*(10^idp))/10^idp end
 -- Function to perform a deep copy of a table
 local function deepCopy(original)
     local copy = {}
@@ -222,7 +226,9 @@ end
 
 -- Apply all changes to the character
 local function setCharacter(playerColor)
-    changeRaceBonus(playerColor) changeClassBonus(playerColor) changeSignBonus(playerColor)
+    changeRaceBonus(playerColor)
+    changeClassBonus(playerColor)
+    changeSignBonus(playerColor)
 end
 
 -- Function to confer saved data
@@ -261,6 +267,18 @@ local function activateInventoryForGM(playerColor)
     end
 end
 
+-- Function to load save data
+local function loadSaveData()
+    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    if loadSave then
+        saveInfoPlayer = loadSave
+        Wait.time(confer, 1)
+    else
+        print("Fail to get save. Re-saving.")
+        Wait.time(confer, 1)
+        updateSave()
+    end
+end
 -- Function to handle loading and initializing the script
 function onLoad()
     addHotkey("GM Inventory", function(playerColor)
@@ -271,32 +289,18 @@ function onLoad()
     addHotkey("Player Inventory", function(playerColor)
         activateInventory(playerColor)
     end)
-
-    local baseInfoPlayer = {}
-    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json",
-        function(request)
-            for color, _ in pairs(enumColor) do
-                saveInfoPlayer[color] = deepCopy(JSON.decode(request.text))
-            end
+    
+    WebRequest.get(BASE_INFO_URL, function(request)
+        local baseInfo = JSON.decode(request.text)
+        for color, _ in pairs(enumColor) do
+            saveInfoPlayer[color] = deepCopy(baseInfo)
         end
-    )
-
-    Wait.time(function()
+        buildXMLStructure()
         rebuildXMLTable()
-        --local loadSave = JSON.decode(getObjectFromGUID(saveCube).getGMNotes())
-        if loadSave then
-            saveInfoPlayer = loadSave
-            Wait.time(function() confer() end, 1)
-        else
-            print("Fail to get save. Re-saving.")
-            Wait.time(function() confer() end, 1)
-            updateSave()
-        end
-    end, 1)
+        loadSaveData()
+    end)
 end
--- Local functions --
------------------------------------------------------------------
--- Global functions --
+
 -- Function to set UI elements
 local seeElement = {Health = "", Mana = "", Stamina = "", Level = "", Race = "", Class = "", Characteristics = "", Skills = ""}
 local function checkSeeElement(name)
@@ -305,7 +309,7 @@ end
 function setUI(colorPlayer)
     local state = saveInfoPlayer[colorPlayer]
     for name, value in pairs(state) do
-        if(checkSeeElement(name)) then
+        if checkSeeElement(name) then
             if type(value) == "string" then
                 self.UI.setAttribute(colorPlayer .. name, "text", value)
             else
@@ -326,13 +330,14 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
+-- Function to check class skills bonus
 local function checkClassSkillsBonus(classSkills, skillId)
     return classSkills.majorSkills[skillId] or classSkills.minorSkills[skillId] or 5
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
-    --Calculate skills
+    -- Calculate skills
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
@@ -361,37 +366,43 @@ end
 -- Function to update save data
 function updateSave()
     local savedData = JSON.encode(saveInfoPlayer)
-    getObjectFromGUID(saveCube).setGMNotes(savedData)
+    getObjectFromGUID(SAVE_CUBE_GUID).setGMNotes(savedData)
 end
 
--- Set the player's race
+-- Function to set the player's race
 local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
     saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
     saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].MagicBonus or 0
 end
+-- Function to fetch and set race bonuses
 function changeRaceBonus(colorPlayer)
-    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json",
-        function(request)
+    WebRequest.get(RACE_INFO_URL, function(request)
+        if request.is_done then
             setRaceInfo(colorPlayer, JSON.decode(request.text))
+        else
+            print("Failed to fetch race information.")
         end
-    )
+    end)
 end
 
--- Set the player's class
+-- Function to set the player's class
 local function setClassInfo(colorPlayer, classData)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
     saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(classData[class].specialization)
 end
+-- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
-    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json",
-        function(request)
+    WebRequest.get(CLASS_INFO_URL, function(request)
+        if request.is_done then
             setClassInfo(colorPlayer, JSON.decode(request.text))
+        else
+            print("Failed to fetch class information.")
         end
-    )
+    end)
 end
 
 -- Function to sort skills by importance
@@ -419,13 +430,15 @@ function sortSkillsByImportance(colorPlayer)
     table.insert(sortedSkills, {name = "MiscSkills"})
     for skill, _ in pairs(player.Skills) do
         local flag = true
-        for index, v in ipairs(sortedSkills) do
+        for _, v in ipairs(sortedSkills) do
             if v.name == skill then
                 flag = false
                 break
             end
         end
-        if(flag) then table.insert(sortedSkills, {name = skill, value = player.Skills[skill]}) end
+        if flag then
+            table.insert(sortedSkills, {name = skill, value = player.Skills[skill]})
+        end
     end
 
     -- Update XML form with sorted skills
@@ -443,15 +456,19 @@ function sortSkillsByImportance(colorPlayer)
     self.UI.setXmlTable(xmlTable)
 end
 
--- Set the player's sign
+-- Function to set the player's sign
 local function setSignInfo(colorPlayer, signData)
+    -- Implement sign-specific logic here
 end
+-- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)
-    WebRequest.get("https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json",
-        function(request)
+    WebRequest.get(SIGN_INFO_URL, function(request)
+        if request.is_done then
             setSignInfo(colorPlayer, JSON.decode(request.text))
+        else
+            print("Failed to fetch sign information.")
         end
-    )
+    end)
 end
 
 -- Function to throw a skill check
@@ -466,7 +483,7 @@ local function calculateSuccessChance(magicSkill, willpower, luck, magicCost, so
     local baseChance = (magicSkill * 2) + (willpower / 5) + (luck / 10) - magicCost - sound
     local manaModifier = 0.75 + (0.5 * currentMana / maxMana)
     local successChance = baseChance * manaModifier
-    return Round(successChance, 2)
+    return math.floor(successChance)
 end
 -- Function to throw a skill mage check
 function throwMageSkillWill(player, alt, id)
@@ -480,11 +497,10 @@ function throwMageSkillWill(player, alt, id)
     )
     print("Probability of success: " .. successChance .. "%")
 
-    -- Calculate the probability of successGenerate a random number from 1 to 100
+    -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
     print("Dice roll: " .. roll)
 
     -- Checking to see if the cast is successful
     print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
--- Global functions --
