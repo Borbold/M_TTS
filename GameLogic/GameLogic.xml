@@ -4,8 +4,9 @@
     <Dropdown class='race' onValueChanged='changeRace' />
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
-    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' />
-    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' color='#ffffff00' />
+    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' font='Font/Gothic' />
+    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' font='Font/Gothic' onClick='changePlayerState' />
+    <InputField resizeTextForBestFit='true' resizeTextMaxSize='50' font='Font/Gothic' characterValidation='Integer' text='0' onEndEdit='fieldEdit' />
     <TableLayout cellSpacing='2' />
     <Row preferredHeight='20' />
     <Cell dontUseTableCellBackground='true' />
@@ -14,43 +15,52 @@
     <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='10' />
 </Defaults>
 
-<Panel position='0 0 -70' scale='0.5' width='200' height='200' color='White'>
-    <GridLayout startAxis='Vertical' spacing='3 3' cellSize='200 50' color='Black'>
-        <Dropdown class='colorPlayer'>
-            <Option selected='true'>White</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-        </Dropdown>
-        <Dropdown class='race'>
-            <Option selected='true'>Altmer</Option>
-            <Option>Argonian</Option>
-            <Option>Bosmer</Option>
-            <Option>Breton</Option>
-            <Option>Dunmer</Option>
-            <Option>Imperial</Option>
-            <Option>Khajiit</Option>
-            <Option>Nord</Option>
-            <Option>Orsimer</Option>
-            <Option>Redguard</Option>
-        </Dropdown>
-        <Dropdown class='class'>
-            <Option selected='true'>Acrobat</Option>
-            <Option>Assassin</Option>
-            <Option>Barbarian</Option>
-            <Option>Battlemage</Option>
-            <Option>Crusader</Option>
-            <Option>Healer</Option>
-            <Option>Knight</Option>
-            <Option>Mage</Option>
-            <Option>Monk</Option>
-            <Option>Nightblade</Option>
-            <Option>Pilgrim</Option>
-            <Option>Rogue</Option>
-            <Option>Scout</Option>
-            <Option>Sorcerer</Option>
-            <Option>SpellSword</Option>
-            <Option>Warrior</Option>
-            <Option>Witchhunter</Option>
-        </Dropdown>
-    </GridLayout>
+<Panel position='0 0 -70' scale='0.5'>
+    <VerticalScrollView width='200' height='200'>
+        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='180 50' height='530' color='Black'>
+            <Dropdown class='colorPlayer'>
+                <Option selected='true'>White</Option>
+                <Option>Red</Option>
+                <Option>Blue</Option>
+            </Dropdown>
+            <Dropdown class='race'>
+                <Option selected='true'>Altmer</Option>
+                <Option>Argonian</Option>
+                <Option>Bosmer</Option>
+                <Option>Breton</Option>
+                <Option>Dunmer</Option>
+                <Option>Imperial</Option>
+                <Option>Khajiit</Option>
+                <Option>Nord</Option>
+                <Option>Orsimer</Option>
+                <Option>Redguard</Option>
+            </Dropdown>
+            <Dropdown class='class'>
+                <Option selected='true'>Acrobat</Option>
+                <Option>Assassin</Option>
+                <Option>Barbarian</Option>
+                <Option>Battlemage</Option>
+                <Option>Crusader</Option>
+                <Option>Healer</Option>
+                <Option>Knight</Option>
+                <Option>Mage</Option>
+                <Option>Monk</Option>
+                <Option>Nightblade</Option>
+                <Option>Pilgrim</Option>
+                <Option>Rogue</Option>
+                <Option>Scout</Option>
+                <Option>Sorcerer</Option>
+                <Option>SpellSword</Option>
+                <Option>Warrior</Option>
+                <Option>Witchhunter</Option>
+            </Dropdown>
+            <Button id='but1' text='Health' />
+            <InputField id='Health' />
+            <Button id='but2' text='Mana' />
+            <InputField id='Mana' />
+            <Button id='but3' text='Stamina' />
+            <InputField id='Stamina' />
+            <Button id='restoreAll' text='Restore All' />
+        </GridLayout>
+    </VerticalScrollView>
 </Panel>

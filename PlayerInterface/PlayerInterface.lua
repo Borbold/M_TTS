@@ -144,39 +144,39 @@ local function buildXMLStructure()
             createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
         }),
         createSkillsTableLayout({
-            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"),
-            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Axe", "Axe", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
+            createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
+            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
+            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
+            createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
             createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"),
-            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Spear", "Spear", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Block", "Block", "value", "skillsInfo", "stateV", "Button"),
             createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"),
-            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Illusion", "Illusion", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "stateV", "Button"),
             createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
             createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
             createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Marksman", "Marksman", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
+            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
             createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
             createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkillWill", "Button"),
-            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkillWill", "Button"),
-            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkillWill", "Button"),
-            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button"),
-            createRow("Staff", "Staff", "value", "skillsInfo", "stateV", "Button"), -- Endurance
-            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
-            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button") -- Intelligence
+            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
+            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
         })
     }
 end
@@ -493,27 +493,30 @@ end
 
 -- Function to throw a skill check
 function throwSkill(player, alt, id)
-    local rollValue = math.random(1, 100)
+    local roll = math.random(1, 100)
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
-    print(rollValue <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+    print("Dice roll: " .. roll)
+    print(roll <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
 
+local function calculateStaminaMod(current, max)
+    return 0.75 + (0.5 * current / max)
+end
 -- Function for calculating the probability of success
-local function calculateSuccessChance(magicSkill, willpower, luck, magicCost, sound, currentMana, maxMana)
-    local baseChance = (magicSkill * 2) + (willpower / 5) + (luck / 10) - magicCost - sound
-    local manaModifier = 0.75 + (0.5 * currentMana / maxMana)
-    local successChance = baseChance * manaModifier
+local function calculateMageSuccessChance(skill, willpower, luck, magicCost, sound, currentStamina, maxStamina)
+    local baseChance = (skill * 2) + (willpower / 5) + (luck / 10) - magicCost - sound
+    local successChance = baseChance * calculateStaminaMod(currentStamina, maxStamina)
     return math.floor(successChance)
 end
 -- Function to throw a skill mage check
-function throwMageSkillWill(player, alt, id)
+function throwMageSkill(player, alt, id)
     player = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     local sound, magicCost = 0, 10
     -- Calculate the probability of success
-    local successChance = calculateSuccessChance(
+    local successChance = calculateMageSuccessChance(
         skillValue, player.Characteristics.Willpower, player.Characteristics.Luck,
-        magicCost, sound, player.Mana.current, player.Mana.max
+        magicCost, sound, player.Stamina.current, player.Stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
 
@@ -523,4 +526,71 @@ function throwMageSkillWill(player, alt, id)
 
     -- Checking to see if the cast is successful
     print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+end
+
+-- Function for calculating the probability of success
+local function calculateCombatSuccessChance(skill, agility, luck, blind, currentStamina, maxStamina)
+    local baseChance = skill + (agility / 5) + (luck / 10) - blind
+    local successChance = baseChance * calculateStaminaMod(currentStamina, maxStamina)
+    return math.floor(successChance)
+end
+-- Function to throw a skill combat check
+function throwCombatSkill(player, alt, id)
+    player = saveInfoPlayer[player.color]
+    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
+    local blind = 0
+    -- Calculate the probability of success
+    local successChance = calculateCombatSuccessChance(
+        skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
+        blind, player.Stamina.current, player.Stamina.max
+    )
+    print("Probability of success: " .. successChance .. "%")
+
+    -- Generate a random number from 1 to 100
+    local roll = math.random(1, 100)
+    print("Dice roll: " .. roll)
+
+    -- Checking to see if the cast is successful
+    --print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+end
+
+-- Function for calculating the probability of success
+local function calculateBlockSuccessChance(skill, agility, luck, currentStamina, maxStamina)
+    local baseChance = (skill + agility / 5 + luck / 10) * ((math.random(1, 10) / 10) * 1 + 1) -- +25% if don't move
+    local successChance = baseChance * calculateStaminaMod(currentStamina, maxStamina)
+    return math.floor(successChance)
+end
+-- Function for calculating the probability of success
+local function calculateProtectSuccessChance(skill, agility, luck, luminary, currentStamina, maxStamina)
+    local baseChance = (agility / 5 + luck / 10) + luminary
+    local successChance = baseChance * calculateStaminaMod(currentStamina, maxStamina)
+    return math.floor(successChance)
+end
+-- Function to throw a skill defense check
+function throwProtectSkill(player, alt, id)
+    player = saveInfoPlayer[player.color]
+    local skillValue = tonumber(self.UI.getAttribute(id, "text"))
+    local luminary, successChance = 0, 0
+    if(id:find("Block")) then
+        -- Calculate the probability of success
+        successChance = calculateBlockSuccessChance(
+            skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
+            player.Stamina.current, player.Stamina.max
+        )
+        successChance = successChance > 50 and 50 or successChance < 10 and 10 or successChance
+    else
+        -- Calculate the probability of success
+        successChance = calculateProtectSuccessChance(
+            skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
+            luminary, player.Stamina.current, player.Stamina.max
+        )
+    end
+    print("Probability of success: " .. successChance .. "%")
+
+    -- Generate a random number from 1 to 100
+    local roll = math.random(1, 100)
+    print("Dice roll: " .. roll)
+
+    -- Checking to see if the cast is successful
+    --print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
 end
