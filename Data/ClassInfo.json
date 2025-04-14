@@ -5,7 +5,7 @@
             "majorSkills": {"Acrobatics": 1, "Sneak": 1, "Security": 1, "ShortBlade": 1, "Marksman": 1},
             "minorSkills": {"Illusion": 1, "Athletics": 1, "Speechcraft": 1, "Unarmored": 1, "HandToHand": 1}
         },
-        "specialization": {"Security": 1, "Sneak": 1, "Acrobatics": 1, "LightArmor": 1, "ShortBlade": 1, "Marksman": 1, "Mercantile": 1, "Speechcraft": 1},
+        "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Assassin": {
@@ -14,7 +14,7 @@
             "majorSkills": {"ShortBlade": 1, "Sneak": 1, "BluntWeapon": 1, "Marksman": 1, "Acrobatics": 1},
             "minorSkills": {"Speechcraft": 1, "Restoration": 1, "Illusion": 1, "Alteration": 1, "Enchant": 1}
         },
-        "specialization": {"ShortBlade": 1, "Sneak": 1, "BluntWeapon": 1, "Marksman": 1, "Acrobatics": 1, "Speechcraft": 1, "Restoration": 1, "Illusion": 1},
+        "specialization": "Combat",
         "characteristics": {"Agility": 1, "Strength": 1}
     },
     "Barbarian": {
@@ -23,7 +23,7 @@
             "majorSkills": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "HandToHand": 1, "Athletics": 1},
             "minorSkills": {"Destruction": 1, "Restoration": 1, "Conjuration": 1, "Alteration": 1, "Speechcraft": 1}
         },
-        "specialization": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "HandToHand": 1, "Athletics": 1, "Destruction": 1, "Restoration": 1, "Conjuration": 1},
+        "specialization": "Combat",
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Battlemage": {
@@ -32,7 +32,7 @@
             "majorSkills": {"Destruction": 1, "Alteration": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Speechcraft": 1},
             "minorSkills": {"Conjuration": 1, "Restoration": 1, "Enchant": 1, "Illusion": 1, "Mysticism": 1}
         },
-        "specialization": {"Destruction": 1, "Alteration": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Speechcraft": 1, "Conjuration": 1, "Restoration": 1, "Enchant": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Crusader": {
@@ -41,7 +41,7 @@
             "majorSkills": {"Restoration": 1, "HeavyArmor": 1, "BluntWeapon": 1, "Block": 1, "Destruction": 1},
             "minorSkills": {"Alteration": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1, "Speechcraft": 1}
         },
-        "specialization": {"Restoration": 1, "HeavyArmor": 1, "BluntWeapon": 1, "Block": 1, "Destruction": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1},
+        "specialization": "Combat",
         "characteristics": {"Willpower": 1, "Endurance": 1}
     },
     "Healer": {
@@ -50,7 +50,7 @@
             "majorSkills": {"Restoration": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1},
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "Destruction": 1, "Security": 1, "Marksman": 1}
         },
-        "specialization": {"Restoration": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1, "Speechcraft": 1, "Destruction": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Knight": {
@@ -59,7 +59,7 @@
             "majorSkills": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "Destruction": 1, "Restoration": 1},
             "minorSkills": {"Alteration": 1, "Speechcraft": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1}
         },
-        "specialization": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "Destruction": 1, "Restoration": 1, "Alteration": 1, "Speechcraft": 1, "Conjuration": 1},
+        "specialization": "Combat",
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Mage": {
@@ -68,7 +68,7 @@
             "majorSkills": {"Destruction": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1},
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
-        "specialization": {"Destruction": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1, "Speechcraft": 1, "BluntWeapon": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Monk": {
@@ -77,7 +77,7 @@
             "majorSkills": {"HandToHand": 1, "Unarmored": 1, "Acrobatics": 1, "Athletics": 1, "ShortBlade": 1},
             "minorSkills": {"Marksman": 1, "Meditation": 1, "Speechcraft": 1, "Security": 1, "Sneak": 1}
         },
-        "specialization": {"HandToHand": 1, "Unarmored": 1, "Acrobatics": 1, "Athletics": 1, "ShortBlade": 1, "Marksman": 1, "Meditation": 1, "Speechcraft": 1},
+        "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Nightblade": {
@@ -86,7 +86,7 @@
             "majorSkills": {"ShortBlade": 1, "Sneak": 1, "Acrobatics": 1, "Marksman": 1, "Security": 1},
             "minorSkills": {"Illusion": 1, "Speechcraft": 1, "Restoration": 1, "Alteration": 1, "Conjuration": 1}
         },
-        "specialization": {"ShortBlade": 1, "Sneak": 1, "Acrobatics": 1, "Marksman": 1, "Security": 1, "Illusion": 1, "Speechcraft": 1, "Restoration": 1},
+        "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Intelligence": 1}
     },
     "Pilgrim": {
@@ -95,7 +95,7 @@
             "majorSkills": {"Restoration": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1},
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "Security": 1, "Marksman": 1, "Acrobatics": 1}
         },
-        "specialization": {"Restoration": 1, "Alteration": 1, "Conjuration": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1, "Speechcraft": 1, "Security": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Rogue": {
@@ -104,7 +104,7 @@
             "majorSkills": {"ShortBlade": 1, "Security": 1, "Acrobatics": 1, "Sneak": 1, "Marksman": 1},
             "minorSkills": {"Athletics": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
-        "specialization": {"ShortBlade": 1, "Security": 1, "Acrobatics": 1, "Sneak": 1, "Marksman": 1, "Athletics": 1, "Speechcraft": 1, "BluntWeapon": 1},
+        "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Intelligence": 1}
     },
     "Scout": {
@@ -113,7 +113,7 @@
             "majorSkills": {"Marksman": 1, "Athletics": 1, "Acrobatics": 1, "Sneak": 1, "ShortBlade": 1},
             "minorSkills": {"Security": 1, "Survival": 1, "Restoration": 1, "Alteration": 1, "Conjuration": 1}
         },
-        "specialization": {"Marksman": 1, "Athletics": 1, "Acrobatics": 1, "Sneak": 1, "ShortBlade": 1, "Security": 1, "Survival": 1, "Restoration": 1},
+        "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Sorcerer": {
@@ -122,7 +122,7 @@
             "majorSkills": {"Conjuration": 1, "Enchant": 1, "Destruction": 1, "Alteration": 1, "Illusion": 1},
             "minorSkills": {"Mysticism": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
-        "specialization": {"Conjuration": 1, "Enchant": 1, "Destruction": 1, "Alteration": 1, "Illusion": 1, "Mysticism": 1, "Speechcraft": 1, "BluntWeapon": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "SpellSword": {
@@ -131,7 +131,7 @@
             "majorSkills": {"Destruction": 1, "Alteration": 1, "Conjuration": 1, "BluntWeapon": 1, "HeavyArmor": 1},
             "minorSkills": {"Restoration": 1, "Speechcraft": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1}
         },
-        "specialization": {"Destruction": 1, "Alteration": 1, "Conjuration": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Restoration": 1, "Speechcraft": 1, "Illusion": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Strength": 1}
     },
     "Warrior": {
@@ -140,7 +140,7 @@
             "majorSkills": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "Destruction": 1, "Restoration": 1},
             "minorSkills": {"Alteration": 1, "Speechcraft": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1}
         },
-        "specialization": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "Destruction": 1, "Restoration": 1, "Alteration": 1, "Speechcraft": 1, "Conjuration": 1},
+        "specialization": "Combat",
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Witchhunter": {
@@ -149,7 +149,7 @@
             "majorSkills": {"Destruction": 1, "Alteration": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Conjuration": 1},
             "minorSkills": {"Restoration": 1, "Speechcraft": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1}
         },
-        "specialization": {"Destruction": 1, "Alteration": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Conjuration": 1, "Restoration": 1, "Speechcraft": 1, "Illusion": 1},
+        "specialization": "Magic",
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     }
 }

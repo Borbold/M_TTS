@@ -4,6 +4,7 @@ local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/head
 local RACE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/RaceInfo.json"
 local CLASS_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json"
 local SIGN_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json"
+local SPEC_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SpecializationInfo.json"
 
 local enumColor = {
     Red = 1, White = 2, Blue = 3
@@ -333,7 +334,7 @@ end
 
 -- Function to check class skills bonus
 local function checkClassSkillsBonus(classSkills, skillId)
-    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 15) or 5
+    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
@@ -343,13 +344,13 @@ function calculateInfo(colorPlayer)
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Skills[skillId] = (player.Buffs.RaceSkills[skillId] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, skillId)
+        player.Skills[skillId] = 5 + (player.Buffs.RaceSkills[skillId] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, skillId) + (player.Buffs.ClassSpecialization[charId] and 5 or 0)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] and 10 or 0) + (player.Buffs.ClassSpecialization[charId] and 5 or 0)
+        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] and 10 or 0)
     end
     -- Calculate HP
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
@@ -389,17 +390,23 @@ function changeRaceBonus(colorPlayer)
 end
 
 -- Function to set the player's class
-local function setClassInfo(colorPlayer, classData)
+local function setClassInfo(colorPlayer, classData, specializations)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(classData[class].specialization)
+    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specializations[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
     WebRequest.get(CLASS_INFO_URL, function(request)
         if request.is_done then
-            setClassInfo(colorPlayer, JSON.decode(request.text))
+            WebRequest.get(SPEC_INFO_URL, function(lRequest)
+                if lRequest.is_done then
+                    setClassInfo(colorPlayer, JSON.decode(request.text), JSON.decode(lRequest.text))
+                else
+                    print("Failed to fetch class information.")
+                end
+            end)
         else
             print("Failed to fetch class information.")
         end
