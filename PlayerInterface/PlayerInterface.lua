@@ -333,7 +333,7 @@ end
 
 -- Function to check class skills bonus
 local function checkClassSkillsBonus(classSkills, skillId)
-    return classSkills.majorSkills[skillId] or classSkills.minorSkills[skillId] or 5
+    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 15) or 5
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
@@ -349,7 +349,7 @@ function calculateInfo(colorPlayer)
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] or 0) + (player.Buffs.ClassSpecialization[charId] or 0)
+        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] and 10 or 0) + (player.Buffs.ClassSpecialization[charId] and 5 or 0)
     end
     -- Calculate HP
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
