@@ -111,7 +111,7 @@ local function createSkillsTableLayout(rows)
                 children = {
                     {
                         tag = "TableLayout",
-                        attributes = {width = "190", height = "752"},
+                        attributes = {width = "190", height = "825"},
                         children = rows
                     }
                 }
