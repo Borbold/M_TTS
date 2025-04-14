@@ -8,7 +8,8 @@
         "BluntWeapon": 1,
         "LongBlade": 1,
         "Axe": 1,
-        "Athletics": 1
+        "Athletics": 1,
+        "Staff": 1
     },
     "Stealth": {
         "Security": 1,
@@ -19,7 +20,8 @@
         "Marksman": 1,
         "Mercantile": 1,
         "Speechcraft": 1,
-        "HandToHand": 1
+        "HandToHand": 1,
+        "Perception": 1
     },
     "Magic": {
         "Alchemy": 1,
@@ -30,6 +32,7 @@
         "Alteration": 1,
         "Restoration": 1,
         "Illusion": 1,
-        "Unarmored": 1
+        "Unarmored": 1,
+        "Analysis": 1
     }
 }

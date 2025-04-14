@@ -42,6 +42,9 @@
         "ShortBlade": 5,
         "HandToHand": 5,
         "Mercantile": 5,
+        "Analysis": 5,
+        "Perception": 5,
+        "Staff": 5,
         "Speechcraft": 5
     },
     "Sign": "TheAtronach",

@@ -173,7 +173,10 @@ local function buildXMLStructure()
             createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkillWill", "Button"),
             createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkillWill", "Button"),
             createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkillWill", "Button"),
-            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button")
+            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkillWill", "Button"),
+            createRow("Staff", "Staff", "value", "skillsInfo", "stateV", "Button"), -- Endurance
+            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
+            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button") -- Intelligence
         })
     }
 end
