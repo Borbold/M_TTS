@@ -390,27 +390,36 @@ function changeRaceBonus(colorPlayer)
 end
 
 -- Function to set the player's class
-local function setClassInfo(colorPlayer, classData, specializations)
+local function setClassInfo(colorPlayer, classData, specData)
     local class = saveInfoPlayer[colorPlayer].Class
     saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specializations[classData[class].specialization])
+    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
-    WebRequest.get(CLASS_INFO_URL, function(request)
+    local specData, flag = {}, false
+    WebRequest.get(SPEC_INFO_URL, function(request)
         if request.is_done then
-            WebRequest.get(SPEC_INFO_URL, function(lRequest)
-                if lRequest.is_done then
-                    setClassInfo(colorPlayer, JSON.decode(request.text), JSON.decode(lRequest.text))
+            specData = JSON.decode(request.text)
+            flag = true
+        else
+            print("Failed to fetch specislization information.")
+        end
+    end)
+    Wait.condition(function()
+            WebRequest.get(CLASS_INFO_URL, function(request)
+                if request.is_done then
+                    setClassInfo(colorPlayer, JSON.decode(request.text), specData)
                 else
                     print("Failed to fetch class information.")
                 end
             end)
-        else
-            print("Failed to fetch class information.")
+        end,
+        function()
+            return flag
         end
-    end)
+    )
 end
 
 -- Function to sort skills by importance
