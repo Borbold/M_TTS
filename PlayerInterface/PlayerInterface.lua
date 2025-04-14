@@ -9,11 +9,10 @@ local enumColor = {
     Red = 1, White = 2, Blue = 3
 }
 
+local indexVisibilityColorGM = 1
 local listColor = {
     "Red", "White", "Blue"
 }
-
-local indexVisibilityColorGM = 1
 
 -- Default XML information
 local procuredXMLForm = {
@@ -251,18 +250,20 @@ local function activateInventory(playerColor)
 end
 
 -- Function to activate inventory for GM
-local function activateInventoryForGM(playerColor)
-    if playerColor then
-        local currentPanelId = playerColor .. "mainPanel"
-        local previousPanelId = listColor[indexVisibilityColorGM > 1 and indexVisibilityColorGM - 1 or 1] .. "mainPanel"
-        self.UI.setAttribute(currentPanelId, "active", "true")
-        self.UI.setAttribute(previousPanelId, "visibility", playerColor)
-        self.UI.setAttribute(currentPanelId, "visibility", playerColor .. "|Black")
-    end
-
-    indexVisibilityColorGM = indexVisibilityColorGM + 1
-    if indexVisibilityColorGM > #listColor + 1 then
-        self.UI.setAttribute(listColor[#listColor] .. "mainPanel", "visibility", listColor[#listColor])
+local function activateInventoryForGM()
+    if(indexVisibilityColorGM <= #listColor) then
+        if(indexVisibilityColorGM > 1) then
+            local prevPlayColor = listColor[indexVisibilityColorGM - 1] .. "mainPanel"
+            self.UI.setAttribute(prevPlayColor, "visibility", prevPlayColor)
+        end
+        local curPlayColor = listColor[indexVisibilityColorGM] .. "mainPanel"
+        self.UI.setAttribute(curPlayColor, "active", "true")
+        self.UI.setAttribute(curPlayColor, "visibility", curPlayColor .. "|Black")
+        indexVisibilityColorGM = indexVisibilityColorGM + 1
+    else
+        for _, color in ipairs(listColor) do
+            self.UI.setAttribute(color .. "mainPanel", "visibility", color)
+        end
         indexVisibilityColorGM = 1
     end
 end
@@ -281,12 +282,12 @@ local function loadSaveData()
 end
 -- Function to handle loading and initializing the script
 function onLoad()
-    addHotkey("GM Inventory", function(playerColor)
+    addHotkey("Switching all player inventories", function(playerColor)
         if playerColor == "Black" then
-            activateInventoryForGM(listColor[indexVisibilityColorGM])
+            activateInventoryForGM()
         end
     end)
-    addHotkey("Player Inventory", function(playerColor)
+    addHotkey("Inventory", function(playerColor)
         activateInventory(playerColor)
     end)
     
