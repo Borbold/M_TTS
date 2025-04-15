@@ -15,7 +15,7 @@
         "Description": "Love and death.",
         "Characteristics": {"Agility": 20},
         "Buffs": {"jump": 5, "feather": 50},
-        "Abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteSP": {"value": 300, "onHimself": 1}}}
+        "Abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
     },
     "Mage": {
         "description": "Grants a 10% chance to cast spells for free.",
@@ -46,8 +46,10 @@
         "effect": "10% chance to resist negative spells."
     },
     "Warrior": {
-        "description": "Grants a 10% chance to resist fatigue.",
-        "effect": "10% chance to resist fatigue."
+        "Description": "I'm Death.",
+        "Characteristics": {"Strength": 10},
+        "Buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5},
+        "Debuffs": {"sound": 50}
     },
     "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
