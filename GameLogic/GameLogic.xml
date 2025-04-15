@@ -1,23 +1,23 @@
 <Defaults>
+    <Button class='changeStateButton' onClick='changePlayerState' />
+    <Button class='hitButton' onClick='whatPartBodyHit' />
+    <!---->
     <Dropdown class='colorPlayer' id='colorPlayer' onValueChanged='changeClass' />
     <Dropdown class='class' onValueChanged='changeClass' />
     <Dropdown class='race' onValueChanged='changeRace' />
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
-    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' font='Font/Gothic' />
-    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' font='Font/Gothic' onClick='changePlayerState' />
-    <InputField resizeTextForBestFit='true' resizeTextMaxSize='50' font='Font/Gothic' characterValidation='Integer' text='0' onEndEdit='fieldEdit' />
-    <TableLayout cellSpacing='2' />
-    <Row preferredHeight='20' />
-    <Cell dontUseTableCellBackground='true' />
+    <Text resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' font='Font/Gothic' />
+    <Button resizeTextForBestFit='true' resizeTextMaxSize='80' font='Font/Gothic' color='#332b00' textColor='#d4af37' />
+    <InputField resizeTextForBestFit='true' resizeTextMaxSize='80' font='Font/Gothic' characterValidation='Integer' text='0' onEndEdit='fieldEdit' color='#1c1c1c' textColor='#d4af37' />
     <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
         horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
-    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='50' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='10' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='10' />
 </Defaults>
 
-<Panel position='0 0 -70' scale='0.5'>
-    <VerticalScrollView width='200' height='200'>
-        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='180 50' height='530' color='Black'>
+<Panel position='0 0 -70' scale='0.25'>
+    <VerticalScrollView width='400' height='400'>
+        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='380 120' height='1480' color='Black'>
             <Dropdown class='colorPlayer'>
                 <Option selected='true'>White</Option>
                 <Option>Red</Option>
@@ -54,13 +54,15 @@
                 <Option>Warrior</Option>
                 <Option>Witchhunter</Option>
             </Dropdown>
-            <Button id='but1' text='Health' />
+            <Button class='changeStateButton' id='but1' text='Health' />
             <InputField id='Health' />
-            <Button id='but2' text='Mana' />
+            <Button class='changeStateButton' id='but2' text='Mana' />
             <InputField id='Mana' />
-            <Button id='but3' text='Stamina' />
+            <Button class='changeStateButton' id='but3' text='Stamina' />
             <InputField id='Stamina' />
-            <Button id='restoreAll' text='Restore All' />
+            <Button class='changeStateButton' id='restoreAll' text='Restore All' />
+            <Button class='changeStateButton' id='restoreStaminaPerTurn' text='Restore Stamina Per Turn' />
+            <Button class='hitButton' text='What Part Of Body Hit' />
         </GridLayout>
     </VerticalScrollView>
 </Panel>
