@@ -95,23 +95,20 @@
             "Willpower": 50
         },
         "skills": {
-            "Alteration": 15,
-            "Conjuration": 15,
-            "Destruction": 15,
-            "Enchant": 15,
-            "Illusion": 15,
-            "Mysticism": 15,
-            "Restoration": 15,
-            "Speechcraft": 15
+            "Alchemy": 5,
+            "Alteration": 5,
+            "Conjuration": 10,
+            "Illusion": 5,
+            "Mysticism": 10,
+            "Restoration": 10
         },
         "Vulnerability": {
-            "Frost": 15,
-            "Magicka": 15
         },
         "Resistance": {
-            "Fire": 25,
-            "Shock": 25,
-            "Poison": 25
+            "Magicka": 5,
+            "Frost": 10,
+            "Electricity": 10,
+            "Fire": 10
         },
         "MagicBonus": 1
     },
@@ -212,20 +209,18 @@
             "Willpower": 50
         },
         "skills": {
-            "Alteration": 15,
-            "Block": 15,
-            "BluntWeapon": 15,
-            "Destruction": 15,
-            "HeavyArmor": 15,
-            "Illusion": 15,
-            "Restoration": 15,
-            "Speechcraft": 15
+            "Axe": 10,
+            "BluntWeapon": 10,
+            "HeavyArmor": 5,
+            "LongBlade": 5,
+            "MediumArmor": 10,
+            "Spear": 5,
+            "Armorer": 10
         },
         "Vulnerability": {
-            "Magicka": 15
         },
         "Resistance": {
-            "Fire": 25
+            "Frost": 50
         }
     },
     "Orsimer": {

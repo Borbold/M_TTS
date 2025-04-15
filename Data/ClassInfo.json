@@ -110,8 +110,17 @@
     "Scout": {
         "description": "A skilled ranger, the Scout is proficient in marksman and athletics.",
         "skills": {
-            "majorSkills": {"Marksman": 1, "Athletics": 1, "Acrobatics": 1, "Sneak": 1, "ShortBlade": 1},
-            "minorSkills": {"Security": 1, "Survival": 1, "Restoration": 1, "Alteration": 1, "Conjuration": 1}
+            "majorSkills": {"Sneak": 1, "LongBlade": 1, "MediumArmor": 1, "Athletics": 1, "Block": 1},
+            "minorSkills": {"Marksman": 1, "Alchemy": 1, "Alteration": 1, "LightArmor": 1, "Unarmored": 1}
+        },
+        "specialization": "Stealth",
+        "characteristics": {"Agility": 1, "Speed": 1}
+    },
+    "Agent": {
+        "description": "A skilled ranger, the Scout is proficient in marksman and athletics.",
+        "skills": {
+            "majorSkills": {"Speechcraft": 1, "Sneak": 1, "Acrobatics": 1, "LightArmor": 1, "ShortBlade": 1},
+            "minorSkills": {"Mercantile": 1, "Conjuration": 1, "Block": 1, "Unarmored": 1, "Illusion": 1}
         },
         "specialization": "Stealth",
         "characteristics": {"Agility": 1, "Speed": 1}
@@ -137,8 +146,8 @@
     "Warrior": {
         "description": "A formidable fighter, the Warrior is skilled in blunts and heavy armor.",
         "skills": {
-            "majorSkills": {"BluntWeapon": 1, "HeavyArmor": 1, "Block": 1, "Destruction": 1, "Restoration": 1},
-            "minorSkills": {"Alteration": 1, "Speechcraft": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1}
+            "majorSkills": {"LongBlade": 1, "MediumArmor": 1, "HeavyArmor": 1, "Athletics": 1, "Block": 1},
+            "minorSkills": {"Armorer": 1, "Spear": 1, "Marksman": 1, "Axe": 1, "BluntWeapon": 1}
         },
         "specialization": "Combat",
         "characteristics": {"Strength": 1, "Endurance": 1}
