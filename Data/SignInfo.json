@@ -1,53 +1,55 @@
 {
-    "TheAtronach": {
-        "description": "Absorbs 50% of the magicka cost of spells cast.",
-        "effect": "Absorbs 50% of the magicka cost of spells cast."
+    "Atronach": {
+        "description": "Absorbs 50% of  magicka cost of spells cast.",
+        "effect": "Absorbs 50% of  magicka cost of spells cast."
     },
-    "TheLady": {
+    "Lady": {
         "description": "Grants a 10% chance to resist negative spells.",
         "effect": "10% chance to resist negative spells."
     },
-    "TheLord": {
+    "Lord": {
         "description": "Grants a 10% chance to resist positive spells.",
         "effect": "10% chance to resist positive spells."
     },
-    "TheLover": {
-        "description": "Grants a 10% chance to resist disease and poison.",
-        "effect": "10% chance to resist disease and poison."
+    "Lover": {
+        "Description": "Love and death.",
+        "Characteristics": {"Agility": 20},
+        "Buffs": {"jump": 5, "feather": 50},
+        "Abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteSP": {"value": 300, "onHimself": 1}}}
     },
-    "TheMage": {
+    "Mage": {
         "description": "Grants a 10% chance to cast spells for free.",
         "effect": "10% chance to cast spells for free."
     },
-    "TheRitual": {
+    "Ritual": {
         "description": "Grants a 10% chance to resist negative spells.",
         "effect": "10% chance to resist negative spells."
     },
-    "TheSerpent": {
+    "Serpent": {
         "description": "Grants a 10% chance to resist disease and poison.",
         "effect": "10% chance to resist disease and poison."
     },
-    "TheShadow": {
+    "Shadow": {
         "description": "Grants a 10% chance to resist negative spells.",
         "effect": "10% chance to resist negative spells."
     },
-    "TheSteed": {
+    "Steed": {
         "description": "Grants a 10% chance to resist fatigue.",
         "effect": "10% chance to resist fatigue."
     },
-    "TheThief": {
+    "Thief": {
         "description": "Grants a 10% chance to resist traps.",
         "effect": "10% chance to resist traps."
     },
-    "TheTower": {
+    "Tower": {
         "description": "Grants a 10% chance to resist negative spells.",
         "effect": "10% chance to resist negative spells."
     },
-    "TheWarrior": {
+    "Warrior": {
         "description": "Grants a 10% chance to resist fatigue.",
         "effect": "10% chance to resist fatigue."
     },
-    "TheApprentice": {
+    "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
         "effect": "10% chance to cast spells for free."
     }

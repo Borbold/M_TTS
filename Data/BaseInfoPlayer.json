@@ -52,9 +52,22 @@
     "Buffs": {
         "RaceSkills": {},
         "RaceCharacteristics": {},
+        "RaceBuffs": {},
         "ClassSkills": {},
         "ClassCharacteristics": {},
-        "ClassSpecialization": {}
+        "ClassSpecialization": {},
+        "SignSkills": {},
+        "SignCharacteristics": {},
+        "SignBuffs": {},
+        "RaceResistance": {},
+        "Resistance": {}
     },
-    "Debuffs": {}
+    "Debuffs": {
+        "RaceVulnerability": {},
+        "Vulnerability": {}
+    },
+    "Abilitys": {
+        "Sign": {},
+        "Race": {}
+    }
 }

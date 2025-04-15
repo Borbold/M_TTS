@@ -5,6 +5,7 @@
     <Dropdown class='colorPlayer' id='colorPlayer' onValueChanged='changeClass' />
     <Dropdown class='class' onValueChanged='changeClass' />
     <Dropdown class='race' onValueChanged='changeRace' />
+    <Dropdown class='sign' onValueChanged='changeSign' />
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' font='Font/Gothic' />
@@ -17,7 +18,7 @@
 
 <Panel position='0 0 -70' scale='0.25'>
     <VerticalScrollView width='400' height='400'>
-        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='380 120' height='1480' color='Black'>
+        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='380 120' height='1605' color='Black'>
             <Dropdown class='colorPlayer'>
                 <Option selected='true'>White</Option>
                 <Option>Red</Option>
@@ -54,6 +55,21 @@
                 <Option>SpellSword</Option>
                 <Option>Warrior</Option>
                 <Option>Witchhunter</Option>
+            </Dropdown>
+            <Dropdown class='sign'>
+                <Option selected='true'>Atronach</Option>
+                <Option>Lady</Option>
+                <Option>Lord</Option>
+                <Option>Lover</Option>
+                <Option>Mage</Option>
+                <Option>Ritual</Option>
+                <Option>Serpent</Option>
+                <Option>Shadow</Option>
+                <Option>Steed</Option>
+                <Option>Thief</Option>
+                <Option>Tower</Option>
+                <Option>Warrior</Option>
+                <Option>Apprentice</Option>
             </Dropdown>
             <Button class='changeStateButton' id='but1' text='Health' />
             <InputField id='Health' />
