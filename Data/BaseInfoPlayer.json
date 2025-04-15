@@ -50,10 +50,21 @@
     "Sign": "Atronach",
     "MagicBonus": 0,
     "Buffs": {
-        "skills": {},
-        "characteristics": {},
-        "resistances": {"Fire": 0, "Frost": 0, "Electricity": 0, "Magicka": 0, "NormalWeapon": 0, "Poison": 0},
-        "vulnerabilities": {"Fire": 0, "Frost": 0, "Electricity": 0, "Magicka": 0, "NormalWeapon": 0, "Poison": 0}
+        "RaceSkills": {},
+        "RaceCharacteristics": {},
+        "RaceBuffs": {},
+        "ClassSkills": {},
+        "ClassCharacteristics": {},
+        "ClassSpecialization": {},
+        "SignSkills": {},
+        "SignCharacteristics": {},
+        "SignBuffs": {},
+        "RaceResistance": {},
+        "Resistance": {}
+    },
+    "Debuffs": {
+        "RaceVulnerability": {},
+        "Vulnerability": {}
     },
     "Abilitys": {
         "Sign": {},

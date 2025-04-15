@@ -1,126 +1,3 @@
--- Constants for buff types
-local BUFF_TYPE_SKILL = "skill"
-local BUFF_TYPE_CHARACTERISTIC = "characteristic"
-local BUFF_TYPE_RESISTANCE = "resistance"
-local BUFF_TYPE_VULNERABILITY = "vulnerability"
-
--- Function to perform a deep copy of a table
-local function deepCopy(original)
-    local copy = {}
-    for key, value in pairs(original) do
-        if type(value) == "table" then
-            copy[key] = deepCopy(value)
-        else
-            copy[key] = value
-        end
-    end
-    return copy
-end
-
--- Initialize buffs for a character
-local function initBuffs(player)
-    player.Buffs = {
-        skills = deepCopy(player.Skills),
-        characteristics = deepCopy(player.Characteristics),
-        resistances = {},
-        vulnerabilities = {}
-    }
-end
-
--- Apply a buff to a character
-local function applyBuff(character, buffType, name, value)
-    if buffType == BUFF_TYPE_SKILL then
-        character.Buffs.skills[name] = (character.Buffs.skills[name] or 0) + value
-    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        character.Buffs.characteristics[name] = (character.Buffs.characteristics[name] or 0) + value
-    elseif buffType == BUFF_TYPE_RESISTANCE then
-        character.Buffs.resistances[name] = (character.Buffs.resistances[name] or 0) + value
-    elseif buffType == BUFF_TYPE_VULNERABILITY then
-        character.Buffs.vulnerabilities[name] = (character.Buffs.vulnerabilities[name] or 0) + value
-    end
-end
-
--- Remove a buff from a character
-local function removeBuff(character, buffType, name, value)
-    if buffType == BUFF_TYPE_SKILL then
-        character.Buffs.skills[name] = (character.Buffs.skills[name] or 0) - value
-        if character.Buffs.skills[name] <= 0 then
-            character.Buffs.skills[name] = 0
-        end
-    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        character.Buffs.characteristics[name] = (character.Buffs.characteristics[name] or 0) - value
-        if character.Buffs.characteristics[name] <= 0 then
-            character.Buffs.characteristics[name] = 0
-        end
-    elseif buffType == BUFF_TYPE_RESISTANCE then
-        character.Buffs.resistances[name] = (character.Buffs.resistances[name] or 0) - value
-        if character.Buffs.resistances[name] <= 0 then
-            character.Buffs.resistances[name] = 0
-        end
-    elseif buffType == BUFF_TYPE_VULNERABILITY then
-        character.Buffs.vulnerabilities[name] = (character.Buffs.vulnerabilities[name] or 0) - value
-        if character.Buffs.vulnerabilities[name] <= 0 then
-            character.Buffs.vulnerabilities[name] = 0
-        end
-    end
-end
-
--- Calculate the total buff value for a given buff type and name
-local function calculateBuff(character, buffType, name)
-    if buffType == BUFF_TYPE_SKILL then
-        return character.Buffs.skills[name] or 0
-    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        return character.Buffs.characteristics[name] or 0
-    elseif buffType == BUFF_TYPE_RESISTANCE then
-        return character.Buffs.resistances[name] or 0
-    elseif buffType == BUFF_TYPE_VULNERABILITY then
-        return character.Buffs.vulnerabilities[name] or 0
-    end
-    return 0
-end
-
--- Function to apply race buffs
-local function applyRaceBuffs(character, raceData)
-    for name, value in pairs(raceData.skills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, value)
-    end
-    for name, value in pairs(raceData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
-    end
-    for name, value in pairs(raceData.resistances) do
-        applyBuff(character, BUFF_TYPE_RESISTANCE, name, value)
-    end
-    for name, value in pairs(raceData.vulnerabilities) do
-        applyBuff(character, BUFF_TYPE_VULNERABILITY, name, value)
-    end
-end
-
--- Function to apply class buffs
-local function applyClassBuffs(character, classData)
-    for name, value in pairs(classData.skills.majorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, 25)
-    end
-    for name, value in pairs(classData.skills.minorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, 10)
-    end
-    for name, value in pairs(classData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, 10)
-    end
-    for name, value in pairs(classData.specChar) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, 5)
-    end
-end
-
--- Function to apply sign buffs
-local function applySignBuffs(character, signData)
-    for name, value in pairs(signData.skills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, value)
-    end
-    for name, value in pairs(signData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
-    end
-end
-
 -- Constants
 local SAVE_CUBE_GUID = "f77b1d"
 local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json"
@@ -244,81 +121,78 @@ local function createSkillsTableLayout(rows)
     }
 end
 
-local function createHealthManaStaminaRows()
-    return {
-        createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
-        createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
-        createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
-    }
-end
-
-local function createLevelRaceClassRows()
-    return {
-        createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
-        createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
-        createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
-    }
-end
-
-local function createCharacteristicsRows()
-    return {
-        createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
-        createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
-        createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
-        createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
-        createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
-        createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
-        createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
-        createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
-    }
-end
-
-local function createSkillsRows()
-    return {
-        createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
-        createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
-        createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
-        createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
-        createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
-        createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
-        createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
-        createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
-        createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
-        createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
-        createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
-        createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
-        createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
-        createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
-        createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
-        createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
-        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
-        createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
-        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
-    }
-end
-
 -- Create the main XML structure
 local function buildXMLStructure()
     procuredXMLForm.children = {
-        createTableLayout(createHealthManaStaminaRows()),
-        createTableLayout(createLevelRaceClassRows()),
-        createCharacteristicsTableLayout(createCharacteristicsRows()),
-        createSkillsTableLayout(createSkillsRows())
+        createTableLayout({
+            createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
+            createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
+            createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
+        }),
+        createTableLayout({
+            createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
+            createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
+            createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
+        }),
+        createCharacteristicsTableLayout({
+            createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
+            createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
+            createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
+            createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
+            createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
+            createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
+            createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
+            createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
+        }),
+        createSkillsTableLayout({
+            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
+            createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
+            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
+            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
+            createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
+            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
+            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
+            createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
+            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
+            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
+            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
+        })
     }
+end
+
+-- Function to perform a deep copy of a table
+local function deepCopy(original)
+    local copy = {}
+    for key, value in pairs(original) do
+        if type(value) == "table" then
+            value = deepCopy(value)
+        else
+            copy[key] = value
+        end
+    end
+    return copy
 end
 
 -- Function to rebuild the XML table
@@ -402,7 +276,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(confer, 1)
@@ -411,15 +285,6 @@ local function loadSaveData()
         Wait.time(confer, 1)
         updateSave()
     end
-end
-local function handleWebRequest(url, callback)
-    WebRequest.get(url, function(request)
-        if request.is_done then
-            callback(JSON.decode(request.text))
-        else
-            print("Failed to fetch data from " .. url)
-        end
-    end)
 end
 -- Function to handle loading and initializing the script
 function onLoad()
@@ -432,10 +297,10 @@ function onLoad()
         activateInventory(playerColor)
     end)
     
-    handleWebRequest(BASE_INFO_URL, function(baseInfo)
+    WebRequest.get(BASE_INFO_URL, function(request)
+        local baseInfo = JSON.decode(request.text)
         for color, _ in pairs(enumColor) do
             saveInfoPlayer[color] = deepCopy(baseInfo)
-            Wait.time(|| initBuffs(saveInfoPlayer[color]), 0.1)
         end
         buildXMLStructure()
         rebuildXMLTable()
@@ -476,6 +341,13 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
+-- Function to check class skills bonus
+local function checkClassSkillsBonus(classSkills, skillId)
+    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
+end
+local function calculateSkill(player, id)
+    return 5 + (player.Buffs.RaceSkills[id] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0) + (player.Buffs.SignSkills[id] or 0)
+end
 local function calculateCharacteristic(player, id)
     return (player.Buffs.RaceCharacteristics[id] or 0) + (player.Buffs.ClassCharacteristics[id] and 10 or 0) + (player.Buffs.SignCharacteristics[id] or 0)
 end
@@ -486,20 +358,20 @@ function calculateInfo(colorPlayer)
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
-        local name = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Skills[name] = 5 + (player.buffs.skills[name] or 0)
+        local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        player.Skills[skillId] = calculateSkill(player, skillId)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
-        local name = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[name] = player.buffs.characteristics[name] or 0
+        local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        player.Characteristics[charId] = calculateCharacteristic(player, charId)
     end
     -- Calculate HP
     player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
     if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
     -- Calculate MP
-    player.Mana.max = player.Characteristics.Intelligence * (1 + player.magicBonus --[[ Birth sign modifier ]])
+    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus --[[ Birth sign modifier ]])
     if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
     -- Calculate SP
     player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
@@ -517,8 +389,9 @@ end
 -- Function to set the player's race
 local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
-    applyRaceBuffs(saveInfoPlayer[colorPlayer], raceData[race])
-    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].magicBonus or 0
+    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(raceData[race].skills)
+    saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
+    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].MagicBonus or 0
 end
 -- Function to fetch and set race bonuses
 function changeRaceBonus(colorPlayer)
@@ -532,17 +405,19 @@ function changeRaceBonus(colorPlayer)
 end
 
 -- Function to set the player's class
-local function setClassInfo(colorPlayer, classData)
+local function setClassInfo(colorPlayer, classData, specData)
     local class = saveInfoPlayer[colorPlayer].Class
-    applyClassBuffs(saveInfoPlayer[colorPlayer], classData[class])
+    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(classData[class].skills)
+    saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
+    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
-    local specData, specDataFetched = {}, false
+    local specData, flag = {}, false
     WebRequest.get(SPEC_INFO_URL, function(request)
         if request.is_done then
             specData = JSON.decode(request.text)
-            specDataFetched = true
+            flag = true
         else
             print("Failed to fetch specislization information.")
         end
@@ -550,16 +425,14 @@ function changeClassBonus(colorPlayer)
     Wait.condition(function()
             WebRequest.get(CLASS_INFO_URL, function(request)
                 if request.is_done then
-                    local classData = JSON.decode(request.text)
-                    classData.specChar = deepCopy(specData[classData.specialization])
-                    setClassInfo(colorPlayer, classData)
+                    setClassInfo(colorPlayer, JSON.decode(request.text), specData)
                 else
                     print("Failed to fetch class information.")
                 end
             end)
         end,
         function()
-            return specDataFetched
+            return flag
         end
     )
 end
@@ -567,10 +440,10 @@ end
 -- Function to set the player's sign
 local function setSignInfo(colorPlayer, signData)
     local sign = saveInfoPlayer[colorPlayer].Sign
-    applySignBuffs(saveInfoPlayer[colorPlayer], signData[sign])
-    --saveInfoPlayer[colorPlayer].Buffs = deepCopy(signData[sign].Buffs)
-    --saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
-    saveInfoPlayer[colorPlayer].MagicBonus = signData[sign].magicBonus or 0
+    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(signData[sign].Skills)
+    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics)
+    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
+    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)
