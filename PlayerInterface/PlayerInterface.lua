@@ -4,14 +4,28 @@ local BUFF_TYPE_CHARACTERISTIC = "characteristic"
 local BUFF_TYPE_RESISTANCE = "resistance"
 local BUFF_TYPE_VULNERABILITY = "vulnerability"
 
+-- Function to perform a deep copy of a table
+local function deepCopy(original)
+    local copy = {}
+    for key, value in pairs(original) do
+        if type(value) == "table" then
+            copy[key] = deepCopy(value)
+        else
+            copy[key] = value
+        end
+    end
+    return copy
+end
+
 -- Initialize buffs for a character
-local function initBuffs(character)
-    character.Buffs = {
-        skills = deepCopy(character.Skills),
-        characteristics = deepCopy(character.Characteristics),
+local function initBuffs(player)
+    player.Buffs = {
+        skills = deepCopy(player.Skills),
+        characteristics = deepCopy(player.Characteristics),
         resistances = {},
         vulnerabilities = {}
     }
+    print(JSON.encode(player.Buffs.skills))
 end
 
 -- Apply a buff to a character
@@ -305,19 +319,6 @@ local function buildXMLStructure()
     }
 end
 
--- Function to perform a deep copy of a table
-local function deepCopy(original)
-    local copy = {}
-    for key, value in pairs(original) do
-        if type(value) == "table" then
-            copy[key] = deepCopy(value)
-        else
-            copy[key] = value
-        end
-    end
-    return copy
-end
-
 -- Function to rebuild the XML table
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
@@ -399,7 +400,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(confer, 1)
