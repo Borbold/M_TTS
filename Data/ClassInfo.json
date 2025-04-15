@@ -6,6 +6,7 @@
             "minorSkills": {"Illusion": 1, "Athletics": 1, "Speechcraft": 1, "Unarmored": 1, "HandToHand": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Assassin": {
@@ -15,6 +16,7 @@
             "minorSkills": {"Speechcraft": 1, "Restoration": 1, "Illusion": 1, "Alteration": 1, "Enchant": 1}
         },
         "specialization": "Combat",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Strength": 1}
     },
     "Barbarian": {
@@ -24,6 +26,7 @@
             "minorSkills": {"Destruction": 1, "Restoration": 1, "Conjuration": 1, "Alteration": 1, "Speechcraft": 1}
         },
         "specialization": "Combat",
+        "specChar": {},
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Battlemage": {
@@ -33,6 +36,7 @@
             "minorSkills": {"Conjuration": 1, "Restoration": 1, "Enchant": 1, "Illusion": 1, "Mysticism": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Crusader": {
@@ -42,6 +46,7 @@
             "minorSkills": {"Alteration": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1, "Speechcraft": 1}
         },
         "specialization": "Combat",
+        "specChar": {},
         "characteristics": {"Willpower": 1, "Endurance": 1}
     },
     "Healer": {
@@ -51,6 +56,7 @@
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "Destruction": 1, "Security": 1, "Marksman": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Knight": {
@@ -60,6 +66,7 @@
             "minorSkills": {"Alteration": 1, "Speechcraft": 1, "Conjuration": 1, "Illusion": 1, "Enchant": 1}
         },
         "specialization": "Combat",
+        "specChar": {},
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Mage": {
@@ -69,6 +76,7 @@
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Monk": {
@@ -78,6 +86,7 @@
             "minorSkills": {"Marksman": 1, "Meditation": 1, "Speechcraft": 1, "Security": 1, "Sneak": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Nightblade": {
@@ -87,6 +96,7 @@
             "minorSkills": {"Illusion": 1, "Speechcraft": 1, "Restoration": 1, "Alteration": 1, "Conjuration": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Intelligence": 1}
     },
     "Pilgrim": {
@@ -96,6 +106,7 @@
             "minorSkills": {"Enchant": 1, "Speechcraft": 1, "Security": 1, "Marksman": 1, "Acrobatics": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "Rogue": {
@@ -105,6 +116,7 @@
             "minorSkills": {"Athletics": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Intelligence": 1}
     },
     "Scout": {
@@ -114,6 +126,7 @@
             "minorSkills": {"Marksman": 1, "Alchemy": 1, "Alteration": 1, "LightArmor": 1, "Unarmored": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Agent": {
@@ -123,6 +136,7 @@
             "minorSkills": {"Mercantile": 1, "Conjuration": 1, "Block": 1, "Unarmored": 1, "Illusion": 1}
         },
         "specialization": "Stealth",
+        "specChar": {},
         "characteristics": {"Agility": 1, "Speed": 1}
     },
     "Sorcerer": {
@@ -132,6 +146,7 @@
             "minorSkills": {"Mysticism": 1, "Speechcraft": 1, "BluntWeapon": 1, "HeavyArmor": 1, "Block": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     },
     "SpellSword": {
@@ -141,6 +156,7 @@
             "minorSkills": {"Restoration": 1, "Speechcraft": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Strength": 1}
     },
     "Warrior": {
@@ -150,6 +166,7 @@
             "minorSkills": {"Armorer": 1, "Spear": 1, "Marksman": 1, "Axe": 1, "BluntWeapon": 1}
         },
         "specialization": "Combat",
+        "specChar": {},
         "characteristics": {"Strength": 1, "Endurance": 1}
     },
     "Witchhunter": {
@@ -159,6 +176,7 @@
             "minorSkills": {"Restoration": 1, "Speechcraft": 1, "Illusion": 1, "Mysticism": 1, "Enchant": 1}
         },
         "specialization": "Magic",
+        "specChar": {},
         "characteristics": {"Intelligence": 1, "Willpower": 1}
     }
 }

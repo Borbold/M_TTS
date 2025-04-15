@@ -25,7 +25,6 @@ local function initBuffs(player)
         resistances = {},
         vulnerabilities = {}
     }
-    print(JSON.encode(player.Buffs.skills))
 end
 
 -- Apply a buff to a character
@@ -99,13 +98,16 @@ end
 -- Function to apply class buffs
 local function applyClassBuffs(character, classData)
     for name, value in pairs(classData.skills.majorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, value)
+        applyBuff(character, BUFF_TYPE_SKILL, name, 25)
     end
     for name, value in pairs(classData.skills.minorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, name, value)
+        applyBuff(character, BUFF_TYPE_SKILL, name, 10)
     end
     for name, value in pairs(classData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, 10)
+    end
+    for name, value in pairs(classData.specChar) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, 5)
     end
 end
 
@@ -433,7 +435,7 @@ function onLoad()
     handleWebRequest(BASE_INFO_URL, function(baseInfo)
         for color, _ in pairs(enumColor) do
             saveInfoPlayer[color] = deepCopy(baseInfo)
-            initBuffs(saveInfoPlayer[color])
+            Wait.time(|| initBuffs(saveInfoPlayer[color]), 0.1)
         end
         buildXMLStructure()
         rebuildXMLTable()
@@ -530,19 +532,9 @@ function changeRaceBonus(colorPlayer)
 end
 
 -- Function to set the player's class
-local function setClassInfo(colorPlayer, classData, specData)
+local function setClassInfo(colorPlayer, classData)
     local class = saveInfoPlayer[colorPlayer].Class
     applyClassBuffs(saveInfoPlayer[colorPlayer], classData[class])
-    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
-end
-local function fetchClassInfo(callback)
-    WebRequest.get(CLASS_INFO_URL, function(request)
-        if request.is_done then
-            callback(JSON.decode(request.text))
-        else
-            print("Failed to fetch class information.")
-        end
-    end)
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
@@ -556,7 +548,15 @@ function changeClassBonus(colorPlayer)
         end
     end)
     Wait.condition(function()
-            fetchClassInfo(function(classData) setClassInfo(colorPlayer, classData, specData) end)
+            WebRequest.get(CLASS_INFO_URL, function(request)
+                if request.is_done then
+                    local classData = JSON.decode(request.text)
+                    classData.specChar = deepCopy(specData[classData.specialization])
+                    setClassInfo(colorPlayer, classData)
+                else
+                    print("Failed to fetch class information.")
+                end
+            end)
         end,
         function()
             return specDataFetched
@@ -568,8 +568,8 @@ end
 local function setSignInfo(colorPlayer, signData)
     local sign = saveInfoPlayer[colorPlayer].Sign
     applySignBuffs(saveInfoPlayer[colorPlayer], signData[sign])
-    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
-    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
+    --saveInfoPlayer[colorPlayer].Buffs = deepCopy(signData[sign].Buffs)
+    --saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
     saveInfoPlayer[colorPlayer].MagicBonus = signData[sign].magicBonus or 0
 end
 -- Function to fetch and set sign bonuses
