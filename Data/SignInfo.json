@@ -64,9 +64,9 @@
     },
     "Thief": {
         "description": "Grants a 10% chance to resist traps.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
+        "Skills": {"Security": 10},
+        "Characteristics": {"Speed": 10, "Agility": 10},
+        "Buffs": {"luminary": 20},
         "Abilitys": {}
     },
     "Tower": {

@@ -1,10 +1,15 @@
 local function changeStatePlayer(playerColor, state, alt)
-    if(not playerColor == "Black") then return end
+    if playerColor ~= "Black" then return end
     local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
     local value = tonumber(self.UI.getAttribute(state, "text")) * (alt == nil and 1 or -1)
     player[state].current = player[state].current + value
     player[state].current = Global.call("checkValue", {player[state].current, player[state].max})
     Global.call("updatePlayer", selectedColorPlayer)
+end
+local function addStateChangeHotkey(name, state)
+    addHotkey(name, function(playerColor, object, pointerPosition, isKeyUp)
+        changeStatePlayer(playerColor, state, object)
+    end)
 end
 
 function onLoad()
@@ -12,9 +17,9 @@ function onLoad()
         chest = 30, shoulder = 20, legs = 15, arm = 20, feets = 10, head = 5
     }
     selectedColorPlayer = "White"
-    addHotkey("Change player HP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Health", object) end)
-    addHotkey("Change player MP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Mana", object) end)
-    addHotkey("Change player SP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Stamina", object) end)
+    addStateChangeHotkey("Change player HP", "Health")
+    addStateChangeHotkey("Change player MP", "Mana")
+    addStateChangeHotkey("Change player SP", "Stamina")
 end
 
 local function reCalculatePlayer()

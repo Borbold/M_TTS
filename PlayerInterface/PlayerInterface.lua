@@ -121,64 +121,80 @@ local function createSkillsTableLayout(rows)
     }
 end
 
+local function createHealthManaStaminaRows()
+    return {
+        createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
+        createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
+        createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
+    }
+end
+
+local function createLevelRaceClassRows()
+    return {
+        createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
+        createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
+        createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
+    }
+end
+
+local function createCharacteristicsRows()
+    return {
+        createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
+        createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
+        createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
+        createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
+        createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
+        createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
+        createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
+        createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
+    }
+end
+
+local function createSkillsRows()
+    return {
+        createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
+        createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
+        createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
+        createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
+        createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
+        createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
+        createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
+        createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
+        createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
+        createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
+        createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
+        createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
+        createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
+        createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
+        createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
+        createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
+        createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
+        createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
+        createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
+    }
+end
+
 -- Create the main XML structure
 local function buildXMLStructure()
     procuredXMLForm.children = {
-        createTableLayout({
-            createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
-            createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
-            createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
-        }),
-        createTableLayout({
-            createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
-            createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
-            createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
-        }),
-        createCharacteristicsTableLayout({
-            createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
-            createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
-            createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
-            createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
-            createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
-            createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
-            createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
-            createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
-        }),
-        createSkillsTableLayout({
-            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
-            createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
-            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
-            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
-            createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
-            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
-            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
-        })
+        createTableLayout(createHealthManaStaminaRows()),
+        createTableLayout(createLevelRaceClassRows()),
+        createCharacteristicsTableLayout(createCharacteristicsRows()),
+        createSkillsTableLayout(createSkillsRows())
     }
 end
 
@@ -187,9 +203,10 @@ local function deepCopy(original)
     local copy = {}
     for key, value in pairs(original) do
         if type(value) == "table" then
-            value = deepCopy(value)
+            copy[key] = deepCopy(value)
+        else
+            copy[key] = value
         end
-        copy[key] = value
     end
     return copy
 end
@@ -285,6 +302,15 @@ local function loadSaveData()
         updateSave()
     end
 end
+local function handleWebRequest(url, callback)
+    WebRequest.get(url, function(request)
+        if request.is_done then
+            callback(JSON.decode(request.text))
+        else
+            print("Failed to fetch data from " .. url)
+        end
+    end)
+end
 -- Function to handle loading and initializing the script
 function onLoad()
     addHotkey("Switching all player inventories", function(playerColor)
@@ -296,8 +322,7 @@ function onLoad()
         activateInventory(playerColor)
     end)
     
-    WebRequest.get(BASE_INFO_URL, function(request)
-        local baseInfo = JSON.decode(request.text)
+    handleWebRequest(BASE_INFO_URL, function(baseInfo)
         for color, _ in pairs(enumColor) do
             saveInfoPlayer[color] = deepCopy(baseInfo)
         end
@@ -410,28 +435,31 @@ local function setClassInfo(colorPlayer, classData, specData)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
     saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
+local function fetchClassInfo(callback)
+    WebRequest.get(CLASS_INFO_URL, function(request)
+        if request.is_done then
+            callback(JSON.decode(request.text))
+        else
+            print("Failed to fetch class information.")
+        end
+    end)
+end
 -- Function to fetch and set class bonuses
 function changeClassBonus(colorPlayer)
-    local specData, flag = {}, false
+    local specData, specDataFetched = {}, false
     WebRequest.get(SPEC_INFO_URL, function(request)
         if request.is_done then
             specData = JSON.decode(request.text)
-            flag = true
+            specDataFetched = true
         else
             print("Failed to fetch specislization information.")
         end
     end)
     Wait.condition(function()
-            WebRequest.get(CLASS_INFO_URL, function(request)
-                if request.is_done then
-                    setClassInfo(colorPlayer, JSON.decode(request.text), specData)
-                else
-                    print("Failed to fetch class information.")
-                end
-            end)
+            fetchClassInfo(function(classData) setClassInfo(colorPlayer, classData, specData) end)
         end,
         function()
-            return flag
+            return specDataFetched
         end
     )
 end
