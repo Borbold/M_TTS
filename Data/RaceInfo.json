@@ -1,14 +1,14 @@
 {
     "Altmer": {
         "characteristics": {
-            "Agility": 50,
-            "Endurance": 30,
-            "Intelligence": 70,
-            "Luck": 50,
-            "Personality": 60,
-            "Speed": 50,
             "Strength": 20,
-            "Willpower": 40
+            "Intelligence": 70,
+            "Willpower": 40,
+            "Agility": 50,
+            "Speed": 50,
+            "Endurance": 30,
+            "Personality": 60,
+            "Luck": 40
         },
         "skills": {
             "Athletics": 10,
@@ -29,14 +29,14 @@
     },
     "Argonian": {
         "characteristics": {
-            "Agility": 60,
-            "Endurance": 50,
-            "Intelligence": 30,
-            "Luck": 50,
-            "Personality": 30,
-            "Speed": 60,
             "Strength": 40,
-            "Willpower": 30
+            "Intelligence": 30,
+            "Willpower": 30,
+            "Agility": 60,
+            "Speed": 60,
+            "Endurance": 50,
+            "Personality": 30,
+            "Luck": 40
         },
         "skills": {
             "Alteration": 15,
@@ -57,14 +57,14 @@
     },
     "Bosmer": {
         "characteristics": {
-            "Agility": 70,
-            "Endurance": 40,
-            "Intelligence": 40,
-            "Luck": 50,
-            "Personality": 40,
-            "Speed": 70,
             "Strength": 30,
-            "Willpower": 40
+            "Intelligence": 40,
+            "Willpower": 40,
+            "Agility": 70,
+            "Speed": 70,
+            "Endurance": 40,
+            "Personality": 40,
+            "Luck": 40
         },
         "skills": {
             "Acrobatics": 15,
@@ -85,14 +85,14 @@
     },
     "Breton": {
         "characteristics": {
-            "Agility": 40,
-            "Endurance": 40,
-            "Intelligence": 60,
-            "Luck": 50,
-            "Personality": 60,
-            "Speed": 40,
-            "Strength": 30,
-            "Willpower": 50
+            "Strength": 35,
+            "Intelligence": 50,
+            "Willpower": 50,
+            "Agility": 30,
+            "Speed": 35,
+            "Endurance": 30,
+            "Personality": 40,
+            "Luck": 40
         },
         "skills": {
             "Alchemy": 5,
@@ -114,14 +114,14 @@
     },
     "Dunmer": {
         "characteristics": {
-            "Agility": 50,
-            "Endurance": 50,
-            "Intelligence": 50,
-            "Luck": 50,
-            "Personality": 50,
-            "Speed": 50,
             "Strength": 40,
-            "Willpower": 50
+            "Intelligence": 50,
+            "Willpower": 50,
+            "Agility": 50,
+            "Speed": 50,
+            "Endurance": 50,
+            "Personality": 50,
+            "Luck": 40
         },
         "skills": {
             "Alteration": 15,
@@ -143,14 +143,14 @@
     },
     "Imperial": {
         "characteristics": {
-            "Agility": 40,
-            "Endurance": 50,
-            "Intelligence": 50,
-            "Luck": 60,
-            "Personality": 60,
-            "Speed": 40,
             "Strength": 40,
-            "Willpower": 50
+            "Intelligence": 50,
+            "Willpower": 50,
+            "Agility": 40,
+            "Speed": 40,
+            "Endurance": 50,
+            "Personality": 60,
+            "Luck": 60
         },
         "skills": {
             "Alteration": 15,
@@ -171,14 +171,14 @@
     },
     "Khajiit": {
         "characteristics": {
-            "Agility": 60,
-            "Endurance": 40,
-            "Intelligence": 30,
-            "Luck": 50,
-            "Personality": 30,
-            "Speed": 60,
             "Strength": 50,
-            "Willpower": 30
+            "Intelligence": 30,
+            "Willpower": 30,
+            "Agility": 60,
+            "Speed": 60,
+            "Endurance": 40,
+            "Personality": 30,
+            "Luck": 40
         },
         "skills": {
             "Acrobatics": 15,
@@ -199,14 +199,14 @@
     },
     "Nord": {
         "characteristics": {
-            "Agility": 40,
-            "Endurance": 60,
+            "Strength": 50,
             "Intelligence": 30,
-            "Luck": 50,
-            "Personality": 40,
+            "Willpower": 45,
+            "Agility": 30,
             "Speed": 40,
-            "Strength": 60,
-            "Willpower": 50
+            "Endurance": 45,
+            "Personality": 30,
+            "Luck": 40
         },
         "skills": {
             "Axe": 10,
@@ -225,14 +225,14 @@
     },
     "Orsimer": {
         "characteristics": {
-            "Agility": 40,
-            "Endurance": 60,
-            "Intelligence": 30,
-            "Luck": 50,
-            "Personality": 30,
-            "Speed": 40,
             "Strength": 70,
-            "Willpower": 50
+            "Intelligence": 30,
+            "Willpower": 50,
+            "Agility": 40,
+            "Speed": 40,
+            "Endurance": 60,
+            "Personality": 30,
+            "Luck": 40
         },
         "skills": {
             "Alteration": 15,
@@ -253,14 +253,14 @@
     },
     "Redguard": {
         "characteristics": {
-            "Agility": 60,
-            "Endurance": 50,
-            "Intelligence": 40,
-            "Luck": 50,
-            "Personality": 40,
-            "Speed": 60,
             "Strength": 60,
-            "Willpower": 40
+            "Intelligence": 40,
+            "Willpower": 40,
+            "Agility": 60,
+            "Speed": 60,
+            "Endurance": 50,
+            "Personality": 40,
+            "Luck": 40
         },
         "skills": {
             "Acrobatics": 15,
