@@ -1,3 +1,110 @@
+-- Constants for buff types
+local BUFF_TYPE_SKILL = "skill"
+local BUFF_TYPE_CHARACTERISTIC = "characteristic"
+local BUFF_TYPE_RESISTANCE = "resistance"
+local BUFF_TYPE_VULNERABILITY = "vulnerability"
+
+-- Initialize buffs for a character
+local function initBuffs(character)
+    character.Buffs = {
+        skills = {},
+        characteristics = {},
+        resistances = {},
+        vulnerabilities = {}
+    }
+end
+
+-- Apply a buff to a character
+local function applyBuff(character, buffType, buffName, value)
+    if buffType == BUFF_TYPE_SKILL then
+        character.Buffs.skills[buffName] = (character.Buffs.skills[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        character.Buffs.characteristics[buffName] = (character.Buffs.characteristics[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        character.Buffs.resistances[buffName] = (character.Buffs.resistances[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        character.Buffs.vulnerabilities[buffName] = (character.Buffs.vulnerabilities[buffName] or 0) + value
+    end
+end
+
+-- Remove a buff from a character
+local function removeBuff(character, buffType, buffName, value)
+    if buffType == BUFF_TYPE_SKILL then
+        character.Buffs.skills[buffName] = (character.Buffs.skills[buffName] or 0) - value
+        if character.Buffs.skills[buffName] <= 0 then
+            character.Buffs.skills[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        character.Buffs.characteristics[buffName] = (character.Buffs.characteristics[buffName] or 0) - value
+        if character.Buffs.characteristics[buffName] <= 0 then
+            character.Buffs.characteristics[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        character.Buffs.resistances[buffName] = (character.Buffs.resistances[buffName] or 0) - value
+        if character.Buffs.resistances[buffName] <= 0 then
+            character.Buffs.resistances[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        character.Buffs.vulnerabilities[buffName] = (character.Buffs.vulnerabilities[buffName] or 0) - value
+        if character.Buffs.vulnerabilities[buffName] <= 0 then
+            character.Buffs.vulnerabilities[buffName] = nil
+        end
+    end
+end
+
+-- Calculate the total buff value for a given buff type and name
+local function calculateBuff(character, buffType, buffName)
+    if buffType == BUFF_TYPE_SKILL then
+        return character.Buffs.skills[buffName] or 0
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        return character.Buffs.characteristics[buffName] or 0
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        return character.Buffs.resistances[buffName] or 0
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        return character.Buffs.vulnerabilities[buffName] or 0
+    end
+    return 0
+end
+
+-- Function to apply race buffs
+local function applyRaceBuffs(character, raceData)
+    for buffName, value in pairs(raceData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(raceData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+    for buffName, value in pairs(raceData.resistances) do
+        applyBuff(character, BUFF_TYPE_RESISTANCE, buffName, value)
+    end
+    for buffName, value in pairs(raceData.vulnerabilities) do
+        applyBuff(character, BUFF_TYPE_VULNERABILITY, buffName, value)
+    end
+end
+
+-- Function to apply class buffs
+local function applyClassBuffs(character, classData)
+    for buffName, value in pairs(classData.skills.majorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(classData.skills.minorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(classData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+end
+
+-- Function to apply sign buffs
+local function applySignBuffs(character, signData)
+    for buffName, value in pairs(signData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(signData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+end
+
 -- Constants
 local SAVE_CUBE_GUID = "f77b1d"
 local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json"
@@ -325,6 +432,7 @@ function onLoad()
     handleWebRequest(BASE_INFO_URL, function(baseInfo)
         for color, _ in pairs(enumColor) do
             saveInfoPlayer[color] = deepCopy(baseInfo)
+            initBuffs(saveInfoPlayer[color])
         end
         buildXMLStructure()
         rebuildXMLTable()
@@ -395,7 +503,7 @@ function calculateInfo(colorPlayer)
     player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
     if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
     -- Calculate MP
-    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus --[[ Birth sign modifier ]])
+    player.Mana.max = player.Characteristics.Intelligence * (1 + player.magicBonus --[[ Birth sign modifier ]])
     if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
     -- Calculate SP
     player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
@@ -413,9 +521,8 @@ end
 -- Function to set the player's race
 local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
-    saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
-    saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
-    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].MagicBonus or 0
+    applyRaceBuffs(saveInfoPlayer[colorPlayer], raceData[race])
+    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].magicBonus or 0
 end
 -- Function to fetch and set race bonuses
 function changeRaceBonus(colorPlayer)
@@ -431,8 +538,7 @@ end
 -- Function to set the player's class
 local function setClassInfo(colorPlayer, classData, specData)
     local class = saveInfoPlayer[colorPlayer].Class
-    saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
-    saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
+    applyClassBuffs(saveInfoPlayer[colorPlayer], classData[class])
     saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
 local function fetchClassInfo(callback)
@@ -462,6 +568,25 @@ function changeClassBonus(colorPlayer)
             return specDataFetched
         end
     )
+end
+
+-- Function to set the player's sign
+local function setSignInfo(colorPlayer, signData)
+    local sign = saveInfoPlayer[colorPlayer].Sign
+    applySignBuffs(saveInfoPlayer[colorPlayer], signData[sign])
+    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
+    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
+    saveInfoPlayer[colorPlayer].MagicBonus = signData[sign].magicBonus or 0
+end
+-- Function to fetch and set sign bonuses
+function changeSignBonus(colorPlayer)
+    WebRequest.get(SIGN_INFO_URL, function(request)
+        if request.is_done then
+            setSignInfo(colorPlayer, JSON.decode(request.text))
+        else
+            print("Failed to fetch sign information.")
+        end
+    end)
 end
 
 -- Function to sort skills by importance
@@ -513,25 +638,6 @@ function sortSkillsByImportance(colorPlayer)
     end
 
     self.UI.setXmlTable(xmlTable)
-end
-
--- Function to set the player's sign
-local function setSignInfo(colorPlayer, signData)
-    local sign = saveInfoPlayer[colorPlayer].Sign
-    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].Skills)
-    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
-    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
-end
--- Function to fetch and set sign bonuses
-function changeSignBonus(colorPlayer)
-    WebRequest.get(SIGN_INFO_URL, function(request)
-        if request.is_done then
-            setSignInfo(colorPlayer, JSON.decode(request.text))
-        else
-            print("Failed to fetch sign information.")
-        end
-    end)
 end
 
 local function wasteStamina(player, colorPlayer, valueChange)

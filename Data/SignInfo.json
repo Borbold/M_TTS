@@ -1,93 +1,93 @@
 {
     "Atronach": {
         "description": "Absorbs 50% of  magicka cost of spells cast.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Lady": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Lord": {
         "description": "Grants a 10% chance to resist positive spells.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Lover": {
         "Description": "Love and death.",
-        "Skills": {},
-        "Characteristics": {"Agility": 20},
-        "Buffs": {"jump": 5, "feather": 50},
-        "Abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
+        "skills": {},
+        "characteristics": {"Agility": 20},
+        "buffs": {"jump": 5, "feather": 50},
+        "abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
     },
     "Mage": {
         "description": "Grants a 10% chance to cast spells for free.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Ritual": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Serpent": {
         "description": "Grants a 10% chance to resist disease and poison.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Shadow": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Steed": {
         "description": "Grants a 10% chance to resist fatigue.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Thief": {
         "description": "Grants a 10% chance to resist traps.",
-        "Skills": {"Security": 10},
-        "Characteristics": {"Speed": 10, "Agility": 10},
-        "Buffs": {"luminary": 20},
-        "Abilitys": {}
+        "skills": {"Security": 10},
+        "characteristics": {"Speed": 10, "Agility": 10},
+        "buffs": {"luminary": 20},
+        "abilitys": {}
     },
     "Tower": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     },
     "Warrior": {
         "Description": "I'm Death.",
-        "Skills": {},
-        "Characteristics": {"Strength": 10},
-        "Buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5},
+        "skills": {},
+        "characteristics": {"Strength": 10},
+        "buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5},
         "Debuffs": {"sound": 50}
     },
     "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
-        "Skills": {},
-        "Characteristics": {},
-        "Buffs": {},
-        "Abilitys": {}
+        "skills": {},
+        "characteristics": {},
+        "buffs": {},
+        "abilitys": {}
     }
 }

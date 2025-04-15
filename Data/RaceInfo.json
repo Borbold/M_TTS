@@ -18,14 +18,14 @@
             "Enchant": 10,
             "Illusion": 5
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Frost": 15,
             "Poison": 15
         },
-        "Resistance": {
+        "resistance": {
             "Fire": 50
         },
-        "MagicBonus": 2
+        "magicBonus": 2
     },
     "Argonian": {
         "characteristics": {
@@ -47,10 +47,10 @@
             "Security": 15,
             "Sneak": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Frost": 15
         },
-        "Resistance": {
+        "resistance": {
             "Poison": 50,
             "Disease": 50
         }
@@ -76,10 +76,10 @@
             "ShortBlade": 15,
             "Sneak": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Magicka": 15
         },
-        "Resistance": {
+        "resistance": {
             "NormalWeapon": 25
         }
     },
@@ -102,15 +102,15 @@
             "Mysticism": 10,
             "Restoration": 10
         },
-        "Vulnerability": {
+        "vulnerability": {
         },
-        "Resistance": {
+        "resistance": {
             "Magicka": 5,
             "Frost": 10,
             "Electricity": 10,
             "Fire": 10
         },
-        "MagicBonus": 1
+        "magicBonus": 1
     },
     "Dunmer": {
         "characteristics": {
@@ -133,13 +133,13 @@
             "ShortBlade": 15,
             "Sneak": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Frost": 15
         },
-        "Resistance": {
+        "resistance": {
             "Fire": 50
         },
-        "MagicBonus": 1
+        "magicBonus": 1
     },
     "Imperial": {
         "characteristics": {
@@ -162,10 +162,10 @@
             "Security": 15,
             "Speechcraft": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Magicka": 15
         },
-        "Resistance": {
+        "resistance": {
             "NormalWeapon": 25
         }
     },
@@ -190,10 +190,10 @@
             "ShortBlade": 15,
             "Sneak": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Frost": 15
         },
-        "Resistance": {
+        "resistance": {
             "NormalWeapon": 25
         }
     },
@@ -217,9 +217,9 @@
             "Spear": 5,
             "Armorer": 10
         },
-        "Vulnerability": {
+        "vulnerability": {
         },
-        "Resistance": {
+        "resistance": {
             "Frost": 50
         }
     },
@@ -244,10 +244,10 @@
             "Restoration": 15,
             "Speechcraft": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Frost": 15
         },
-        "Resistance": {
+        "resistance": {
             "NormalWeapon": 25
         }
     },
@@ -272,10 +272,10 @@
             "Security": 15,
             "Sneak": 15
         },
-        "Vulnerability": {
+        "vulnerability": {
             "Magicka": 15
         },
-        "Resistance": {
+        "resistance": {
             "Poison": 25
         }
     }
