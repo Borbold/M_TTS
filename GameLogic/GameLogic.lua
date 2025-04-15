@@ -36,6 +36,14 @@ function changeClass(player, class)
     Wait.time(|| reCalculatePlayer(), 0.3)
 end
 
+function changeSign(player, sign)
+    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
+    player.Sign = sign
+    Global.call("changeSignBonus", selectedColorPlayer)
+    Wait.time(|| Global.call("sortSkillsByImportance", selectedColorPlayer), 0.2)
+    Wait.time(|| reCalculatePlayer(), 0.3)
+end
+
 function changeColor(player, color)
     selectedColorPlayer = color
 end

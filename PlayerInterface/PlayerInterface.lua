@@ -340,6 +340,12 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
+local function calculateSkill(player, id)
+    return 5 + (player.Buffs.RaceSkills[id] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0) + (player.Buffs.SignSkills[id] or 0)
+end
+local function calculateCharacteristic(player, id)
+    return (player.Buffs.RaceCharacteristics[id] or 0) + (player.Buffs.ClassCharacteristics[id] and 10 or 0) + (player.Buffs.SignCharacteristics[id] or 0)
+end
 -- Function to check class skills bonus
 local function checkClassSkillsBonus(classSkills, skillId)
     return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
@@ -352,13 +358,13 @@ function calculateInfo(colorPlayer)
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Skills[skillId] = 5 + (player.Buffs.RaceSkills[skillId] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, skillId) + (player.Buffs.ClassSpecialization[charId] and 5 or 0)
+        player.Skills[skillId] = calculateSkill(player, skillId)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = (player.Buffs.RaceCharacteristics[charId] or 0) + (player.Buffs.ClassCharacteristics[charId] and 10 or 0)
+        player.Characteristics[charId] = calculateCharacteristic(player, charId)
     end
     -- Calculate HP
     player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
@@ -483,7 +489,10 @@ end
 
 -- Function to set the player's sign
 local function setSignInfo(colorPlayer, signData)
-    -- Implement sign-specific logic here
+    local sign = saveInfoPlayer[colorPlayer].Sign
+    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].Skills or {})
+    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics or {})
+    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs or {})
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)
