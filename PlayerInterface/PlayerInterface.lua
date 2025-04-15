@@ -188,9 +188,8 @@ local function deepCopy(original)
     for key, value in pairs(original) do
         if type(value) == "table" then
             value = deepCopy(value)
-        else
-            copy[key] = value
         end
+        copy[key] = value
     end
     return copy
 end
@@ -276,7 +275,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(confer, 1)
@@ -389,9 +388,9 @@ end
 -- Function to set the player's race
 local function setRaceInfo(colorPlayer, raceData)
     local race = saveInfoPlayer[colorPlayer].Race
-    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(raceData[race].skills)
+    saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
     saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
-    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].MagicBonus or 0
+    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].magicBonus or 0
 end
 -- Function to fetch and set race bonuses
 function changeRaceBonus(colorPlayer)
@@ -407,7 +406,7 @@ end
 -- Function to set the player's class
 local function setClassInfo(colorPlayer, classData, specData)
     local class = saveInfoPlayer[colorPlayer].Class
-    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(classData[class].skills)
+    saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
     saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
     saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
@@ -440,10 +439,11 @@ end
 -- Function to set the player's sign
 local function setSignInfo(colorPlayer, signData)
     local sign = saveInfoPlayer[colorPlayer].Sign
-    saveInfoPlayer[colorPlayer].Buffs.skills = deepCopy(signData[sign].Skills)
-    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
-    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
+    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].skills)
+    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].characteristics)
+    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].buffs)
+    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].abilitys)
+    saveInfoPlayer[colorPlayer].MagicBonus = signData[sign].magicBonus or 0
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)
