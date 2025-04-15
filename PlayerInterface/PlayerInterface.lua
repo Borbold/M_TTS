@@ -498,7 +498,7 @@ end
 
 local function wasteStamina(player, colorPlayer, valueChange)
     player.Stamina.current = player.Stamina.current - valueChange
-    checkValue({player.Stamina.current, player.Stamina.max})
+    player.Stamina.current = checkValue({player.Stamina.current, player.Stamina.max})
     updatePlayer(colorPlayer)
 end
 -- Function to throw a skill check
@@ -510,9 +510,9 @@ function throwSkill(player, alt, id)
     local valueStaminaWaste = 0
     if(id:find("Athletics")) then
         -- run or swim
-        valueStaminaWaste = baseWasteStamina.run + math.random(1, 6)
-    elseif(if(id:find("Acrobatics")) then)
-        valueStaminaWaste = baseWasteStamina.jump
+        valueStaminaWaste = baseWasteStamina.run.baseCost + math.random(1, 6)
+    elseif(id:find("Acrobatics")) then
+        valueStaminaWaste = baseWasteStamina.jump.baseCost
     end
     wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
@@ -537,7 +537,7 @@ function throwMageSkill(player, alt, id)
         magicCost, sound, locPlayer.Stamina.current, locPlayer.Stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
-    local valueStaminaWaste = baseWasteStamina.cast + math.random(2, 5)
+    local valueStaminaWaste = baseWasteStamina.cast.baseCost + math.random(2, 5)
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -566,7 +566,7 @@ function throwCombatSkill(player, alt, id)
         blind, locPlayer.Stamina.current, locPlayer.Stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
-    local valueStaminaWaste = baseWasteStamina.combat + randomStaminaCheck
+    local valueStaminaWaste = baseWasteStamina.combat.baseCost + randomStaminaCheck
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -602,14 +602,14 @@ function throwProtectSkill(player, alt, id)
             locPlayer.Stamina.current, locPlayer.Stamina.max
         )
         successChance = successChance > 50 and 50 or successChance < 10 and 10 or successChance
-        valueStaminaWaste = baseWasteStamina.block + randomStaminaCheck
+        valueStaminaWaste = baseWasteStamina.block.baseCost + randomStaminaCheck
     else
         -- Calculate the probability of success
         successChance = calculateProtectSuccessChance(
             skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
             luminary, locPlayer.Stamina.current, locPlayer.Stamina.max
         )
-        valueStaminaWaste = baseWasteStamina.protect + randomStaminaCheck
+        valueStaminaWaste = baseWasteStamina.protect.baseCost + randomStaminaCheck
     end
     print("Probability of success: " .. successChance .. "%")
 

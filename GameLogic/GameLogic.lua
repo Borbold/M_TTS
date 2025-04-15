@@ -1,19 +1,24 @@
+local function changeStatePlayer(playerColor, state, alt)
+    if(not playerColor == "Black") then return end
+    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
+    local value = tonumber(self.UI.getAttribute(state, "text")) * (alt == nil and 1 or -1)
+    player[state].current = player[state].current + value
+    player[state].current = Global.call("checkValue", {player[state].current, player[state].max})
+    Global.call("updatePlayer", selectedColorPlayer)
+end
+
 function onLoad()
     bodyHitTable = {
         chest = 30, shoulder = 20, legs = 15, arm = 20, feets = 10, head = 5
     }
     selectedColorPlayer = "White"
-    addHotkey("Take Damage", function(playerColor) if(playerColor == "Black") then takeDamage() end end)
+    addHotkey("Change player HP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Health", object) end)
+    addHotkey("Change player MP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Mana", object) end)
+    addHotkey("Change player SP", function(playerColor, object, pointerPosition, isKeyUp) changeStatePlayer(playerColor, "Stamina", object) end)
 end
 
 local function reCalculatePlayer()
     Global.call("calculateInfo", selectedColorPlayer) Global.call("updatePlayer", selectedColorPlayer)
-end
-
-function takeDamage()
-    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
-    player.Health.current = player.Health.current - 1
-    Global.call("updatePlayer", selectedColorPlayer)
 end
 
 function changeRace(player, race)
@@ -50,7 +55,7 @@ local function restoreStaminaPerTurn()
     local indexSleep = 0.1
     for colorPlayer, player in pairs(Global.getVar("saveInfoPlayer")) do
         player.Stamina.current = player.Stamina.current + math.floor(2.5 + (0.02 * player.Characteristics.Endurance))
-        Global.call("checkValue", {player.Stamina.current, player.Stamina.max})
+        player.Stamina.current = Global.call("checkValue", {player.Stamina.current, player.Stamina.max})
         Wait.time(|| Global.call("updatePlayer", colorPlayer), indexSleep)
         indexSleep = indexSleep + 0.1
     end
@@ -65,7 +70,7 @@ function changePlayerState(player, alt, id)
         local state = self.UI.getAttribute(id, "text")
         local value = tonumber(self.UI.getAttribute(state, "text")) * (alt == "-1" and 1 or -1)
         player[state].current = player[state].current + value
-        Global.call("checkValue", {player[state].current, player[state].max})
+        player[state].current = Global.call("checkValue", {player[state].current, player[state].max})
     end
     Global.call("updatePlayer", selectedColorPlayer)
 end

@@ -11,8 +11,8 @@
     <Button resizeTextForBestFit='true' resizeTextMaxSize='80' font='Font/Gothic' color='#332b00' textColor='#d4af37' />
     <InputField resizeTextForBestFit='true' resizeTextMaxSize='80' font='Font/Gothic' characterValidation='Integer' text='0' onEndEdit='fieldEdit' color='#1c1c1c' textColor='#d4af37' />
     <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
-        horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10' />
-    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='10' />
+        horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='15' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='15' />
 </Defaults>
 
 <Panel position='0 0 -70' scale='0.25'>
