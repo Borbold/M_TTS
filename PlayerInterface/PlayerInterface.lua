@@ -275,7 +275,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(confer, 1)
@@ -340,15 +340,15 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
+-- Function to check class skills bonus
+local function checkClassSkillsBonus(classSkills, skillId)
+    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
+end
 local function calculateSkill(player, id)
     return 5 + (player.Buffs.RaceSkills[id] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0) + (player.Buffs.SignSkills[id] or 0)
 end
 local function calculateCharacteristic(player, id)
     return (player.Buffs.RaceCharacteristics[id] or 0) + (player.Buffs.ClassCharacteristics[id] and 10 or 0) + (player.Buffs.SignCharacteristics[id] or 0)
-end
--- Function to check class skills bonus
-local function checkClassSkillsBonus(classSkills, skillId)
-    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
@@ -367,7 +367,7 @@ function calculateInfo(colorPlayer)
         player.Characteristics[charId] = calculateCharacteristic(player, charId)
     end
     -- Calculate HP
-    player.Health.max = (player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10)
+    player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
     if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
     -- Calculate MP
     player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus --[[ Birth sign modifier ]])
@@ -493,6 +493,7 @@ local function setSignInfo(colorPlayer, signData)
     saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].Skills)
     saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics)
     saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
+    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].Abilitys)
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)
