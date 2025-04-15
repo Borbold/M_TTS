@@ -6,17 +6,14 @@ function onLoad()
     addHotkey("Take Damage", function(playerColor) if(playerColor == "Black") then takeDamage() end end)
 end
 
-local function updatePlayer(colorPlayer)
-    Global.call("setUI", colorPlayer) Global.call("updateSave")
-end
 local function reCalculatePlayer()
-    Global.call("calculateInfo", selectedColorPlayer) updatePlayer(selectedColorPlayer)
+    Global.call("calculateInfo", selectedColorPlayer) Global.call("updatePlayer", selectedColorPlayer)
 end
 
 function takeDamage()
     local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
     player.Health.current = player.Health.current - 1
-    updatePlayer(selectedColorPlayer)
+    Global.call("updatePlayer", selectedColorPlayer)
 end
 
 function changeRace(player, race)
@@ -42,10 +39,6 @@ function fieldEdit(player, value, id)
     self.UI.setAttribute(id, "text", value)
 end
 
--- Check for exceeding limits
-local function checkValue(current, max)
-    return current > max and max or current < 1 and 0 or current
-end
 -- Restore all statistical parameters to maximum
 local function restoreAll(player)
     player.Health.current = player.Health.max
@@ -57,8 +50,8 @@ local function restoreStaminaPerTurn()
     local indexSleep = 0.1
     for colorPlayer, player in pairs(Global.getVar("saveInfoPlayer")) do
         player.Stamina.current = player.Stamina.current + math.floor(2.5 + (0.02 * player.Characteristics.Endurance))
-        checkValue(player.Stamina.current, player.Stamina.max)
-        Wait.time(|| updatePlayer(colorPlayer), indexSleep)
+        Global.call("checkValue", {player.Stamina.current, player.Stamina.max})
+        Wait.time(|| Global.call("updatePlayer", colorPlayer), indexSleep)
         indexSleep = indexSleep + 0.1
     end
 end
@@ -72,9 +65,9 @@ function changePlayerState(player, alt, id)
         local state = self.UI.getAttribute(id, "text")
         local value = tonumber(self.UI.getAttribute(state, "text")) * (alt == "-1" and 1 or -1)
         player[state].current = player[state].current + value
-        checkValue(player[state].current, player[state].max)
+        Global.call("checkValue", {player[state].current, player[state].max})
     end
-    updatePlayer(selectedColorPlayer)
+    Global.call("updatePlayer", selectedColorPlayer)
 end
 
 function whatPartBodyHit()

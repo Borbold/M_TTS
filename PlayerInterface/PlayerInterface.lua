@@ -5,6 +5,7 @@ local RACE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/head
 local CLASS_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/ClassInfo.json"
 local SIGN_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json"
 local SPEC_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SpecializationInfo.json"
+local B_WASTE_S_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseWasteStamina.json"
 
 local enumColor = {
     Red = 1, White = 2, Blue = 3
@@ -304,6 +305,10 @@ function onLoad()
         rebuildXMLTable()
         loadSaveData()
     end)
+
+    WebRequest.get(B_WASTE_S_INFO_URL, function(request)
+        baseWasteStamina = JSON.decode(request.text)
+    end)
 end
 
 -- Function to set UI elements
@@ -491,12 +496,25 @@ function changeSignBonus(colorPlayer)
     end)
 end
 
+local function wasteStamina(player, colorPlayer, valueChange)
+    player.Stamina.current = player.Stamina.current - valueChange
+    checkValue({player.Stamina.current, player.Stamina.max})
+    updatePlayer(colorPlayer)
+end
 -- Function to throw a skill check
 function throwSkill(player, alt, id)
     local roll = math.random(1, 100)
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     print("Dice roll: " .. roll)
     print(roll <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+    local valueStaminaWaste = 0
+    if(id:find("Athletics")) then
+        -- run or swim
+        valueStaminaWaste = baseWasteStamina.run + math.random(1, 6)
+    elseif(if(id:find("Acrobatics")) then)
+        valueStaminaWaste = baseWasteStamina.jump
+    end
+    wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
 
 local function calculateStaminaMod(current, max)
@@ -510,15 +528,16 @@ local function calculateMageSuccessChance(skill, willpower, luck, magicCost, sou
 end
 -- Function to throw a skill mage check
 function throwMageSkill(player, alt, id)
-    player = saveInfoPlayer[player.color]
+    local locPlayer = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
-    local sound, magicCost = 0, 10
+    local sound, magicCost, valueStaminaWaste = 0, 10, 0
     -- Calculate the probability of success
     local successChance = calculateMageSuccessChance(
-        skillValue, player.Characteristics.Willpower, player.Characteristics.Luck,
-        magicCost, sound, player.Stamina.current, player.Stamina.max
+        skillValue, locPlayer.Characteristics.Willpower, locPlayer.Characteristics.Luck,
+        magicCost, sound, locPlayer.Stamina.current, locPlayer.Stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
+    local valueStaminaWaste = baseWasteStamina.cast + math.random(2, 5)
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -526,6 +545,7 @@ function throwMageSkill(player, alt, id)
 
     -- Checking to see if the cast is successful
     print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+    wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
 
 -- Function for calculating the probability of success
@@ -536,15 +556,17 @@ local function calculateCombatSuccessChance(skill, agility, luck, blind, current
 end
 -- Function to throw a skill combat check
 function throwCombatSkill(player, alt, id)
-    player = saveInfoPlayer[player.color]
+    locPlayer = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
-    local blind = 0
+    local blind, valueStaminaWaste = 0, 0
+    local randomStaminaCheck = math.random(2, 5)
     -- Calculate the probability of success
     local successChance = calculateCombatSuccessChance(
-        skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
-        blind, player.Stamina.current, player.Stamina.max
+        skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
+        blind, locPlayer.Stamina.current, locPlayer.Stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
+    local valueStaminaWaste = baseWasteStamina.combat + randomStaminaCheck
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -552,6 +574,7 @@ function throwCombatSkill(player, alt, id)
 
     -- Checking to see if the cast is successful
     --print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+    wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
 
 -- Function for calculating the probability of success
@@ -568,22 +591,25 @@ local function calculateProtectSuccessChance(skill, agility, luck, luminary, cur
 end
 -- Function to throw a skill defense check
 function throwProtectSkill(player, alt, id)
-    player = saveInfoPlayer[player.color]
+    locPlayer = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
-    local luminary, successChance = 0, 0
+    local luminary, successChance, valueStaminaWaste = 0, 0, 0
+    local randomStaminaCheck = math.random(2, 5)
     if(id:find("Block")) then
         -- Calculate the probability of success
         successChance = calculateBlockSuccessChance(
-            skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
-            player.Stamina.current, player.Stamina.max
+            skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
+            locPlayer.Stamina.current, locPlayer.Stamina.max
         )
         successChance = successChance > 50 and 50 or successChance < 10 and 10 or successChance
+        valueStaminaWaste = baseWasteStamina.block + randomStaminaCheck
     else
         -- Calculate the probability of success
         successChance = calculateProtectSuccessChance(
-            skillValue, player.Characteristics.Agility, player.Characteristics.Luck,
-            luminary, player.Stamina.current, player.Stamina.max
+            skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
+            luminary, locPlayer.Stamina.current, locPlayer.Stamina.max
         )
+        valueStaminaWaste = baseWasteStamina.protect + randomStaminaCheck
     end
     print("Probability of success: " .. successChance .. "%")
 
@@ -593,4 +619,16 @@ function throwProtectSkill(player, alt, id)
 
     -- Checking to see if the cast is successful
     --print(roll <= successChance and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
+    wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
+
+-- Use in GameLogic --
+-- Update player data
+function updatePlayer(colorPlayer)
+    setUI(colorPlayer) updateSave()
+end
+-- Check for exceeding limits
+function checkValue(state)
+    return state[1] > state[2] and state[2] or state[1] < 1 and 0 or state[1]
+end
+-- Use in GameLogic --
