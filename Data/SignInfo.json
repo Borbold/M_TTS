@@ -1,78 +1,91 @@
 {
     "Atronach": {
         "description": "Absorbs 50% of  magicka cost of spells cast.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Lady": {
         "description": "Grants a 10% chance to resist negative spells.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Lord": {
         "description": "Grants a 10% chance to resist positive spells.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Lover": {
         "Description": "Love and death.",
+        "Skills": {},
         "Characteristics": {"Agility": 20},
         "Buffs": {"jump": 5, "feather": 50},
         "Abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
     },
     "Mage": {
         "description": "Grants a 10% chance to cast spells for free.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Ritual": {
         "description": "Grants a 10% chance to resist negative spells.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Serpent": {
         "description": "Grants a 10% chance to resist disease and poison.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Shadow": {
         "description": "Grants a 10% chance to resist negative spells.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Steed": {
         "description": "Grants a 10% chance to resist fatigue.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Thief": {
         "description": "Grants a 10% chance to resist traps.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Tower": {
         "description": "Grants a 10% chance to resist negative spells.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
     },
     "Warrior": {
         "Description": "I'm Death.",
+        "Skills": {},
         "Characteristics": {"Strength": 10},
         "Buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5},
         "Debuffs": {"sound": 50}
     },
     "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
+        "Skills": {},
         "Characteristics": {},
         "Buffs": {},
         "Abilitys": {}
