@@ -21,7 +21,7 @@
         "abilitys": {}
     },
     "Lover": {
-        "Description": "Love and death.",
+        "description": "Love and death.",
         "skills": {},
         "characteristics": {"Agility": 20},
         "buffs": {"jump": 5, "feather": 50},
@@ -63,7 +63,7 @@
         "abilitys": {}
     },
     "Thief": {
-        "description": "Grants a 10% chance to resist traps.",
+        "description": "I'm shadow.",
         "skills": {"Security": 10},
         "characteristics": {"Speed": 10, "Agility": 10},
         "buffs": {"luminary": 20},
@@ -77,11 +77,10 @@
         "abilitys": {}
     },
     "Warrior": {
-        "Description": "I'm Death.",
+        "description": "I'm Death.",
         "skills": {},
         "characteristics": {"Strength": 10},
-        "buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5},
-        "Debuffs": {"sound": 50}
+        "buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5, "sound": 50}
     },
     "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",

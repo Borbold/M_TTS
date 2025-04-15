@@ -7,101 +7,101 @@ local BUFF_TYPE_VULNERABILITY = "vulnerability"
 -- Initialize buffs for a character
 local function initBuffs(character)
     character.Buffs = {
-        skills = {},
-        characteristics = {},
+        skills = deepCopy(character.Skills),
+        characteristics = deepCopy(character.Characteristics),
         resistances = {},
         vulnerabilities = {}
     }
 end
 
 -- Apply a buff to a character
-local function applyBuff(character, buffType, buffName, value)
+local function applyBuff(character, buffType, name, value)
     if buffType == BUFF_TYPE_SKILL then
-        character.Buffs.skills[buffName] = (character.Buffs.skills[buffName] or 0) + value
+        character.Buffs.skills[name] = (character.Buffs.skills[name] or 0) + value
     elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        character.Buffs.characteristics[buffName] = (character.Buffs.characteristics[buffName] or 0) + value
+        character.Buffs.characteristics[name] = (character.Buffs.characteristics[name] or 0) + value
     elseif buffType == BUFF_TYPE_RESISTANCE then
-        character.Buffs.resistances[buffName] = (character.Buffs.resistances[buffName] or 0) + value
+        character.Buffs.resistances[name] = (character.Buffs.resistances[name] or 0) + value
     elseif buffType == BUFF_TYPE_VULNERABILITY then
-        character.Buffs.vulnerabilities[buffName] = (character.Buffs.vulnerabilities[buffName] or 0) + value
+        character.Buffs.vulnerabilities[name] = (character.Buffs.vulnerabilities[name] or 0) + value
     end
 end
 
 -- Remove a buff from a character
-local function removeBuff(character, buffType, buffName, value)
+local function removeBuff(character, buffType, name, value)
     if buffType == BUFF_TYPE_SKILL then
-        character.Buffs.skills[buffName] = (character.Buffs.skills[buffName] or 0) - value
-        if character.Buffs.skills[buffName] <= 0 then
-            character.Buffs.skills[buffName] = nil
+        character.Buffs.skills[name] = (character.Buffs.skills[name] or 0) - value
+        if character.Buffs.skills[name] <= 0 then
+            character.Buffs.skills[name] = 0
         end
     elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        character.Buffs.characteristics[buffName] = (character.Buffs.characteristics[buffName] or 0) - value
-        if character.Buffs.characteristics[buffName] <= 0 then
-            character.Buffs.characteristics[buffName] = nil
+        character.Buffs.characteristics[name] = (character.Buffs.characteristics[name] or 0) - value
+        if character.Buffs.characteristics[name] <= 0 then
+            character.Buffs.characteristics[name] = 0
         end
     elseif buffType == BUFF_TYPE_RESISTANCE then
-        character.Buffs.resistances[buffName] = (character.Buffs.resistances[buffName] or 0) - value
-        if character.Buffs.resistances[buffName] <= 0 then
-            character.Buffs.resistances[buffName] = nil
+        character.Buffs.resistances[name] = (character.Buffs.resistances[name] or 0) - value
+        if character.Buffs.resistances[name] <= 0 then
+            character.Buffs.resistances[name] = 0
         end
     elseif buffType == BUFF_TYPE_VULNERABILITY then
-        character.Buffs.vulnerabilities[buffName] = (character.Buffs.vulnerabilities[buffName] or 0) - value
-        if character.Buffs.vulnerabilities[buffName] <= 0 then
-            character.Buffs.vulnerabilities[buffName] = nil
+        character.Buffs.vulnerabilities[name] = (character.Buffs.vulnerabilities[name] or 0) - value
+        if character.Buffs.vulnerabilities[name] <= 0 then
+            character.Buffs.vulnerabilities[name] = 0
         end
     end
 end
 
 -- Calculate the total buff value for a given buff type and name
-local function calculateBuff(character, buffType, buffName)
+local function calculateBuff(character, buffType, name)
     if buffType == BUFF_TYPE_SKILL then
-        return character.Buffs.skills[buffName] or 0
+        return character.Buffs.skills[name] or 0
     elseif buffType == BUFF_TYPE_CHARACTERISTIC then
-        return character.Buffs.characteristics[buffName] or 0
+        return character.Buffs.characteristics[name] or 0
     elseif buffType == BUFF_TYPE_RESISTANCE then
-        return character.Buffs.resistances[buffName] or 0
+        return character.Buffs.resistances[name] or 0
     elseif buffType == BUFF_TYPE_VULNERABILITY then
-        return character.Buffs.vulnerabilities[buffName] or 0
+        return character.Buffs.vulnerabilities[name] or 0
     end
     return 0
 end
 
 -- Function to apply race buffs
 local function applyRaceBuffs(character, raceData)
-    for buffName, value in pairs(raceData.skills) do
-        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    for name, value in pairs(raceData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, name, value)
     end
-    for buffName, value in pairs(raceData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    for name, value in pairs(raceData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
     end
-    for buffName, value in pairs(raceData.resistances) do
-        applyBuff(character, BUFF_TYPE_RESISTANCE, buffName, value)
+    for name, value in pairs(raceData.resistances) do
+        applyBuff(character, BUFF_TYPE_RESISTANCE, name, value)
     end
-    for buffName, value in pairs(raceData.vulnerabilities) do
-        applyBuff(character, BUFF_TYPE_VULNERABILITY, buffName, value)
+    for name, value in pairs(raceData.vulnerabilities) do
+        applyBuff(character, BUFF_TYPE_VULNERABILITY, name, value)
     end
 end
 
 -- Function to apply class buffs
 local function applyClassBuffs(character, classData)
-    for buffName, value in pairs(classData.skills.majorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    for name, value in pairs(classData.skills.majorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, name, value)
     end
-    for buffName, value in pairs(classData.skills.minorSkills) do
-        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    for name, value in pairs(classData.skills.minorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, name, value)
     end
-    for buffName, value in pairs(classData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    for name, value in pairs(classData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
     end
 end
 
 -- Function to apply sign buffs
 local function applySignBuffs(character, signData)
-    for buffName, value in pairs(signData.skills) do
-        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    for name, value in pairs(signData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, name, value)
     end
-    for buffName, value in pairs(signData.characteristics) do
-        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    for name, value in pairs(signData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, name, value)
     end
 end
 
@@ -473,13 +473,6 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
--- Function to check class skills bonus
-local function checkClassSkillsBonus(classSkills, skillId)
-    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
-end
-local function calculateSkill(player, id)
-    return 5 + (player.Buffs.RaceSkills[id] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0) + (player.Buffs.SignSkills[id] or 0)
-end
 local function calculateCharacteristic(player, id)
     return (player.Buffs.RaceCharacteristics[id] or 0) + (player.Buffs.ClassCharacteristics[id] and 10 or 0) + (player.Buffs.SignCharacteristics[id] or 0)
 end
@@ -490,14 +483,14 @@ function calculateInfo(colorPlayer)
     local xmlTable = self.UI.getXmlTable()
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
-        local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Skills[skillId] = calculateSkill(player, skillId)
+        local name = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        player.Skills[name] = 5 + (player.buffs.skills[name] or 0)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
-        local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = calculateCharacteristic(player, charId)
+        local name = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
+        player.Characteristics[name] = player.buffs.characteristics[name] or 0
     end
     -- Calculate HP
     player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
