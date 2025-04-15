@@ -490,9 +490,9 @@ end
 -- Function to set the player's sign
 local function setSignInfo(colorPlayer, signData)
     local sign = saveInfoPlayer[colorPlayer].Sign
-    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].Skills or {})
-    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics or {})
-    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs or {})
+    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].Skills)
+    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].Characteristics)
+    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].Buffs)
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(colorPlayer)

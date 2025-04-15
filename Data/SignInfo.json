@@ -1,15 +1,21 @@
 {
     "Atronach": {
         "description": "Absorbs 50% of  magicka cost of spells cast.",
-        "effect": "Absorbs 50% of  magicka cost of spells cast."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Lady": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "effect": "10% chance to resist negative spells."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Lord": {
         "description": "Grants a 10% chance to resist positive spells.",
-        "effect": "10% chance to resist positive spells."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Lover": {
         "Description": "Love and death.",
@@ -19,31 +25,45 @@
     },
     "Mage": {
         "description": "Grants a 10% chance to cast spells for free.",
-        "effect": "10% chance to cast spells for free."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Ritual": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "effect": "10% chance to resist negative spells."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Serpent": {
         "description": "Grants a 10% chance to resist disease and poison.",
-        "effect": "10% chance to resist disease and poison."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Shadow": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "effect": "10% chance to resist negative spells."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Steed": {
         "description": "Grants a 10% chance to resist fatigue.",
-        "effect": "10% chance to resist fatigue."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Thief": {
         "description": "Grants a 10% chance to resist traps.",
-        "effect": "10% chance to resist traps."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Tower": {
         "description": "Grants a 10% chance to resist negative spells.",
-        "effect": "10% chance to resist negative spells."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     },
     "Warrior": {
         "Description": "I'm Death.",
@@ -53,6 +73,8 @@
     },
     "Apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
-        "effect": "10% chance to cast spells for free."
+        "Characteristics": {},
+        "Buffs": {},
+        "Abilitys": {}
     }
 }
