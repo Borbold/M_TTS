@@ -1,12 +1,12 @@
 {
     "combat": {
-        "mediumarmor": 1,
-        "heavyarmor": 1,
+        "medium_armor": 1,
+        "heavy_armor": 1,
         "spear": 1,
         "block": 1,
         "armorer": 1,
-        "bluntweapon": 1,
-        "longblade": 1,
+        "blunt_weapon": 1,
+        "long_blade": 1,
         "axe": 1,
         "athletics": 1,
         "staff": 1
@@ -15,12 +15,12 @@
         "security": 1,
         "sneak": 1,
         "acrobatics": 1,
-        "lightarmor": 1,
-        "shortblade": 1,
+        "light_armor": 1,
+        "short_blade": 1,
         "marksman": 1,
         "mercantile": 1,
         "speechcraft": 1,
-        "handtohand": 1,
+        "hand_to_hand": 1,
         "perception": 1
     },
     "magic": {

@@ -2,8 +2,8 @@
     "acrobat": {
         "description": "a master of agility and evasion, the acrobat excels in acrobatics and sneaking.",
         "skills": {
-            "majorskills": {"acrobatics": 1, "sneak": 1, "security": 1, "shortblade": 1, "marksman": 1},
-            "minorskills": {"illusion": 1, "athletics": 1, "speechcraft": 1, "unarmored": 1, "handtohand": 1}
+            "majorskills": {"acrobatics": 1, "sneak": 1, "security": 1, "short_blade": 1, "marksman": 1},
+            "minorskills": {"illusion": 1, "athletics": 1, "speechcraft": 1, "unarmored": 1, "hand_to_hand": 1}
         },
         "specialization": "stealth",
         "spechar": {},
@@ -12,7 +12,7 @@
     "assassin": {
         "description": "a deadly killer, the assassin is proficient in short blades and sneaking.",
         "skills": {
-            "majorskills": {"shortblade": 1, "sneak": 1, "bluntweapon": 1, "marksman": 1, "acrobatics": 1},
+            "majorskills": {"short_blade": 1, "sneak": 1, "blunt_weapon": 1, "marksman": 1, "acrobatics": 1},
             "minorskills": {"speechcraft": 1, "restoration": 1, "illusion": 1, "alteration": 1, "enchant": 1}
         },
         "specialization": "combat",
@@ -22,7 +22,7 @@
     "barbarian": {
         "description": "a fierce warrior, the barbarian is strong in blunts and heavy armor.",
         "skills": {
-            "majorskills": {"bluntweapon": 1, "heavyarmor": 1, "block": 1, "handtohand": 1, "athletics": 1},
+            "majorskills": {"blunt_weapon": 1, "heavy_armor": 1, "block": 1, "hand_to_hand": 1, "athletics": 1},
             "minorskills": {"destruction": 1, "restoration": 1, "conjuration": 1, "alteration": 1, "speechcraft": 1}
         },
         "specialization": "combat",
@@ -32,7 +32,7 @@
     "battlemage": {
         "description": "a versatile fighter-mage, the battlemage is skilled in destruction and alteration.",
         "skills": {
-            "majorskills": {"destruction": 1, "alteration": 1, "bluntweapon": 1, "heavyarmor": 1, "speechcraft": 1},
+            "majorskills": {"destruction": 1, "alteration": 1, "blunt_weapon": 1, "heavy_armor": 1, "speechcraft": 1},
             "minorskills": {"conjuration": 1, "restoration": 1, "enchant": 1, "illusion": 1, "mysticism": 1}
         },
         "specialization": "magic",
@@ -42,7 +42,7 @@
     "crusader": {
         "description": "a holy warrior, the crusader is proficient in restoration and heavy armor.",
         "skills": {
-            "majorskills": {"restoration": 1, "heavyarmor": 1, "bluntweapon": 1, "block": 1, "destruction": 1},
+            "majorskills": {"restoration": 1, "heavy_armor": 1, "blunt_weapon": 1, "block": 1, "destruction": 1},
             "minorskills": {"alteration": 1, "conjuration": 1, "illusion": 1, "enchant": 1, "speechcraft": 1}
         },
         "specialization": "combat",
@@ -62,7 +62,7 @@
     "knight": {
         "description": "a noble warrior, the knight is skilled in blunts and heavy armor.",
         "skills": {
-            "majorskills": {"bluntweapon": 1, "heavyarmor": 1, "block": 1, "destruction": 1, "restoration": 1},
+            "majorskills": {"blunt_weapon": 1, "heavy_armor": 1, "block": 1, "destruction": 1, "restoration": 1},
             "minorskills": {"alteration": 1, "speechcraft": 1, "conjuration": 1, "illusion": 1, "enchant": 1}
         },
         "specialization": "combat",
@@ -73,7 +73,7 @@
         "description": "a powerful spellcaster, the mage is proficient in all schools of magic.",
         "skills": {
             "majorskills": {"destruction": 1, "alteration": 1, "conjuration": 1, "illusion": 1, "mysticism": 1},
-            "minorskills": {"enchant": 1, "speechcraft": 1, "bluntweapon": 1, "heavyarmor": 1, "block": 1}
+            "minorskills": {"enchant": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "magic",
         "spechar": {},
@@ -82,7 +82,7 @@
     "monk": {
         "description": "a martial artist, the monk is skilled in hand-to-hand combat and unarmored.",
         "skills": {
-            "majorskills": {"handtohand": 1, "unarmored": 1, "acrobatics": 1, "athletics": 1, "shortblade": 1},
+            "majorskills": {"hand_to_hand": 1, "unarmored": 1, "acrobatics": 1, "athletics": 1, "short_blade": 1},
             "minorskills": {"marksman": 1, "meditation": 1, "speechcraft": 1, "security": 1, "sneak": 1}
         },
         "specialization": "stealth",
@@ -92,7 +92,7 @@
     "nightblade": {
         "description": "a stealthy and deadly rogue, the nightblade is proficient in short blades and sneaking.",
         "skills": {
-            "majorskills": {"shortblade": 1, "sneak": 1, "acrobatics": 1, "marksman": 1, "security": 1},
+            "majorskills": {"short_blade": 1, "sneak": 1, "acrobatics": 1, "marksman": 1, "security": 1},
             "minorskills": {"illusion": 1, "speechcraft": 1, "restoration": 1, "alteration": 1, "conjuration": 1}
         },
         "specialization": "stealth",
@@ -112,8 +112,8 @@
     "rogue": {
         "description": "a cunning thief, the rogue is proficient in short blades and security.",
         "skills": {
-            "majorskills": {"shortblade": 1, "security": 1, "acrobatics": 1, "sneak": 1, "marksman": 1},
-            "minorskills": {"athletics": 1, "speechcraft": 1, "bluntweapon": 1, "heavyarmor": 1, "block": 1}
+            "majorskills": {"short_blade": 1, "security": 1, "acrobatics": 1, "sneak": 1, "marksman": 1},
+            "minorskills": {"athletics": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "stealth",
         "spechar": {},
@@ -122,8 +122,8 @@
     "scout": {
         "description": "a skilled ranger, the scout is proficient in marksman and athletics.",
         "skills": {
-            "majorskills": {"sneak": 1, "longblade": 1, "mediumarmor": 1, "athletics": 1, "block": 1},
-            "minorskills": {"marksman": 1, "alchemy": 1, "alteration": 1, "lightarmor": 1, "unarmored": 1}
+            "majorskills": {"sneak": 1, "long_blade": 1, "medium_armor": 1, "athletics": 1, "block": 1},
+            "minorskills": {"marksman": 1, "alchemy": 1, "alteration": 1, "light_armor": 1, "unarmored": 1}
         },
         "specialization": "stealth",
         "spechar": {},
@@ -132,7 +132,7 @@
     "agent": {
         "description": "a skilled ranger, the scout is proficient in marksman and athletics.",
         "skills": {
-            "majorskills": {"speechcraft": 1, "sneak": 1, "acrobatics": 1, "lightarmor": 1, "shortblade": 1},
+            "majorskills": {"speechcraft": 1, "sneak": 1, "acrobatics": 1, "light_armor": 1, "short_blade": 1},
             "minorskills": {"mercantile": 1, "conjuration": 1, "block": 1, "unarmored": 1, "illusion": 1}
         },
         "specialization": "stealth",
@@ -143,7 +143,7 @@
         "description": "a master of conjuration, the sorcerer is skilled in summoning and enchantment.",
         "skills": {
             "majorskills": {"conjuration": 1, "enchant": 1, "destruction": 1, "alteration": 1, "illusion": 1},
-            "minorskills": {"mysticism": 1, "speechcraft": 1, "bluntweapon": 1, "heavyarmor": 1, "block": 1}
+            "minorskills": {"mysticism": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "magic",
         "spechar": {},
@@ -152,7 +152,7 @@
     "spellsword": {
         "description": "a versatile fighter-mage, the spellsword is skilled in destruction and alteration.",
         "skills": {
-            "majorskills": {"destruction": 1, "alteration": 1, "conjuration": 1, "bluntweapon": 1, "heavyarmor": 1},
+            "majorskills": {"destruction": 1, "alteration": 1, "conjuration": 1, "blunt_weapon": 1, "heavy_armor": 1},
             "minorskills": {"restoration": 1, "speechcraft": 1, "illusion": 1, "mysticism": 1, "enchant": 1}
         },
         "specialization": "magic",
@@ -162,8 +162,8 @@
     "warrior": {
         "description": "a formidable fighter, the warrior is skilled in blunts and heavy armor.",
         "skills": {
-            "majorskills": {"longblade": 1, "mediumarmor": 1, "heavyarmor": 1, "athletics": 1, "block": 1},
-            "minorskills": {"armorer": 1, "spear": 1, "marksman": 1, "axe": 1, "bluntweapon": 1}
+            "majorskills": {"long_blade": 1, "medium_armor": 1, "heavy_armor": 1, "athletics": 1, "block": 1},
+            "minorskills": {"armorer": 1, "spear": 1, "marksman": 1, "axe": 1, "blunt_weapon": 1}
         },
         "specialization": "combat",
         "spechar": {},
@@ -172,7 +172,7 @@
     "witchhunter": {
         "description": "a dedicated hunter of witches, the witchhunter is skilled in destruction and alteration.",
         "skills": {
-            "majorskills": {"destruction": 1, "alteration": 1, "bluntweapon": 1, "heavyarmor": 1, "conjuration": 1},
+            "majorskills": {"destruction": 1, "alteration": 1, "blunt_weapon": 1, "heavy_armor": 1, "conjuration": 1},
             "minorskills": {"restoration": 1, "speechcraft": 1, "illusion": 1, "mysticism": 1, "enchant": 1}
         },
         "specialization": "magic",

@@ -74,10 +74,10 @@ end
 
 -- Function to apply class buffs
 local function applyClassBuffs(character, classData)
-    for buffName, value in pairs(classData.skills.majorSkills) do
+    for buffName, value in pairs(classData.skills.majorskills) do
         applyBuff(character, BUFF_TYPE.SKILL, buffName, value * 25)
     end
-    for buffName, value in pairs(classData.skills.minorSkills) do
+    for buffName, value in pairs(classData.skills.minorskills) do
         applyBuff(character, BUFF_TYPE.SKILL, buffName, value * 10)
     end
     for buffName, value in pairs(classData.characteristics) do
@@ -86,10 +86,10 @@ local function applyClassBuffs(character, classData)
 end
 -- Function to remove class buffs
 local function removeClassBuffs(character, classData)
-    for buffName, value in pairs(classData.skills.majorSkills) do
+    for buffName, value in pairs(classData.skills.majorskills) do
         removeBuff(character, BUFF_TYPE.SKILL, buffName, value * 25)
     end
-    for buffName, value in pairs(classData.skills.minorSkills) do
+    for buffName, value in pairs(classData.skills.minorskills) do
         removeBuff(character, BUFF_TYPE.SKILL, buffName, value * 10)
     end
     for buffName, value in pairs(classData.characteristics) do
@@ -278,18 +278,18 @@ local function buildXMLStructure()
     table.insert(rows, createSkillsTableLayout({
         uiElementFunctions["info"]("Major skills", "MajorSkills"),
         uiElementFunctions["combatSkill"]("Marksman", "marksman"),
-        uiElementFunctions["combatSkill"]("Short Blade", "shortblade"),
-        uiElementFunctions["combatSkill"]("Long Blade", "longblade"),
+        uiElementFunctions["combatSkill"]("Short Blade", "short_blade"),
+        uiElementFunctions["combatSkill"]("Long Blade", "long_blade"),
         uiElementFunctions["combatSkill"]("Axe", "axe"),
         uiElementFunctions["combatSkill"]("Spear", "spear"),
         uiElementFunctions["info"]("Minor skills", "MinorSkills"),
-        uiElementFunctions["combatSkill"]("Blunt Weapon", "bluntweapon"),
+        uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon"),
         uiElementFunctions["combatSkill"]("Staff", "staff"),
-        uiElementFunctions["combatSkill"]("Hand To Hand", "handtohand"),
-        uiElementFunctions["protectSkill"]("Medium Armor", "mediumarmor"),
-        uiElementFunctions["protectSkill"]("Heavy Armor", "heavyarmor"),
+        uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand"),
+        uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor"),
+        uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor"),
         uiElementFunctions["info"]("Misc skills", "MiscSkills"),
-        uiElementFunctions["protectSkill"]("Light Armor", "lightarmor"),
+        uiElementFunctions["protectSkill"]("Light Armor", "light_armor"),
         uiElementFunctions["protectSkill"]("Block", "block"),
         uiElementFunctions["protectSkill"]("Unarmored", "unarmored"),
         uiElementFunctions["skill"]("Armorer", "armorer"),
@@ -482,7 +482,7 @@ function setUI(colorPlayer)
 end
 
 local function calculateSkill(player, id)
-    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.buffs.classSpecialization[id] and 5 or 0)
+    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.buffs.classspecialization[id] and 5 or 0)
 end
 local function calculateCharacteristics(player, id)
     return calculateBuff(player, BUFF_TYPE.CHARACTERISTIC, id)
@@ -622,29 +622,37 @@ function changeSignBonus(info)
     end)
 end
 
+local function capitalizeLetter(str)
+    local findSecondWord, newWord = str:find("_"), ""
+    newWord = str:sub(1, 1):upper() .. str:sub(2)
+    if findSecondWord then
+        newWord = newWord:sub(1, findSecondWord - 1) .. newWord:sub(findSecondWord + 1, findSecondWord + 1):upper() .. newWord:sub(findSecondWord + 2)
+    end
+    return newWord
+end
 -- Function to sort skills by importance
 function sortSkillsByImportance(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     local sortedSkills = {}
 
     -- Add major skills
-    table.insert(sortedSkills, { name = "MajorSkills" })
-    for skill, _ in pairs(player.buffs.classskills.majorSkills) do
+    table.insert(sortedSkills, { name = "Major Skills" })
+    for skill, _ in pairs(player.buffs.classskills.majorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
     end
 
     -- Add minor skills
-    table.insert(sortedSkills, { name = "MinorSkills" })
-    for skill, _ in pairs(player.buffs.classskills.minorSkills) do
+    table.insert(sortedSkills, { name = "Minor Skills" })
+    for skill, _ in pairs(player.buffs.classskills.minorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
     end
 
     -- Add miscellaneous skills
-    table.insert(sortedSkills, { name = "MiscSkills" })
+    table.insert(sortedSkills, { name = "Misc Skills" })
     for skill, _ in pairs(player.skills) do
         local flag = true
         for _, v in ipairs(sortedSkills) do
@@ -667,7 +675,7 @@ function sortSkillsByImportance(colorPlayer)
         -- Update skill value id
         skillsTable[i].children[2].children[1].children[1].attributes.id = colorPlayer .. skillEntry.name
         -- Update skill name
-        skillsTable[i].children[1].children[1].children[1].attributes.text = skillEntry.name:gsub("(%l)(%u)", "%1 %2")
+        skillsTable[i].children[1].children[1].children[1].attributes.text = capitalizeLetter(skillEntry.name)
     end
 
     self.UI.setXmlTable(xmlTable)
@@ -686,10 +694,10 @@ function throwSkill(player, alt, id)
     print("Dice roll: " .. roll)
     print(roll <= skillValue and "[00ff00]Success[-]" or "[ff0000]Failure[-]")
     local valueStaminaWaste = 0
-    if id:find("Athletics") then
+    if id:find("athletics") then
         -- run or swim
         valueStaminaWaste = baseWasteStamina.run.baseCost + math.random(1, 6)
-    elseif id:find("Acrobatics") then
+    elseif id:find("acrobatics") then
         valueStaminaWaste = baseWasteStamina.jump.baseCost
     end
     wasteStamina(locPlayer, player.color, valueStaminaWaste)
@@ -773,7 +781,7 @@ function throwProtectSkill(player, alt, id)
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     local luminary, successChance, valueStaminaWaste = 0, 0, 0
     local randomStaminaCheck = math.random(2, 5)
-    if(id:find("Block")) then
+    if(id:find("block")) then
         -- Calculate the probability of success
         successChance = calculateBlockSuccessChance(
             skillValue, locPlayer.characteristics.agility, locPlayer.characteristics.luck,

@@ -13,7 +13,7 @@
         "skills": {
             "athletics": 10,
             "alteration": 5,
-            "shortblade": 5,
+            "short_blade": 5,
             "mercantile": 10,
             "enchant": 10,
             "illusion": 5
@@ -73,7 +73,7 @@
             "mercantile": 15,
             "restoration": 15,
             "security": 15,
-            "shortblade": 15,
+            "short_blade": 15,
             "sneak": 15
         },
         "vulnerabilities": {
@@ -130,7 +130,7 @@
             "illusion": 15,
             "marksman": 15,
             "mysticism": 15,
-            "shortblade": 15,
+            "short_blade": 15,
             "sneak": 15
         },
         "vulnerabilities": {
@@ -187,7 +187,7 @@
             "mercantile": 15,
             "restoration": 15,
             "security": 15,
-            "shortblade": 15,
+            "short_blade": 15,
             "sneak": 15
         },
         "vulnerabilities": {
@@ -210,10 +210,10 @@
         },
         "skills": {
             "axe": 10,
-            "bluntweapon": 10,
-            "heavyarmor": 5,
-            "longblade": 5,
-            "mediumarmor": 10,
+            "blunt_weapon": 10,
+            "heavy_armor": 5,
+            "long_blade": 5,
+            "medium_armor": 10,
             "spear": 5,
             "armorer": 10
         },
@@ -237,9 +237,9 @@
         "skills": {
             "alteration": 15,
             "block": 15,
-            "bluntweapon": 15,
+            "blunt_weapon": 15,
             "destruction": 15,
-            "heavyarmor": 15,
+            "heavy_armor": 15,
             "illusion": 15,
             "restoration": 15,
             "speechcraft": 15
@@ -266,8 +266,8 @@
             "acrobatics": 15,
             "athletics": 15,
             "axe": 15,
-            "bluntweapon": 15,
-            "longblade": 15,
+            "blunt_weapon": 15,
+            "long_blade": 15,
             "restoration": 15,
             "security": 15,
             "sneak": 15
