@@ -1,0 +1,54 @@
+{
+    "items": [
+        {
+            "name": "Iron Sword",
+            "type": "weapon",
+            "damageRange": {
+                "min": 5,
+                "max": 10
+            },
+            "durability": 100,
+            "effects": {
+            },
+            "equipped": true,
+            "imageUrl": "https://example.com/images/iron_sword.png"
+        },
+        {
+            "name": "Iron Breastplate",
+            "type": "armor",
+            "defense": 20,
+            "durability": 150,
+            "effects": {
+            },
+            "equipped": true,
+            "imageUrl": "https://example.com/images/iron_breastplate.png"
+        },
+        {
+            "name": "Healing Potion",
+            "type": "consumable",
+            "effects": {
+                "restore": {"health": 5, "time": 10}
+            },
+            "used": true,
+            "imageUrl": "https://example.com/images/healing_potion.png"
+        },
+        {
+            "name": "Sujamma",
+            "type": "consumable",
+            "effects": {
+                "buffs": {"strength": 50, "time": 60},
+                "debuffs": {"intelligence": 50, "time": 60}
+            },
+            "used": true,
+            "imageUrl": "https://example.com/images/sujama.png"
+        },
+        {
+            "name": "Fork",
+            "type": "other",
+            "effects": {
+                "mana": 15
+            },
+            "imageUrl": "https://static.wikia.nocookie.net/elderscrolls/images/2/21/ForkMorrowind.png/revision/latest?cb=20160716154933"
+        }
+    ]
+}

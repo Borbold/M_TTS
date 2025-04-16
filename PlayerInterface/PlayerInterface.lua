@@ -264,71 +264,61 @@ local uiElementFunctions = {
 -- Create the main XML structure
 local function buildXMLStructure()
     local rows = {}
-    local characteristics = {
-        "Strength", "Intelligence", "Willpower", "Agility", "Speed", "Endurance", "Personality", "Luck"
-    }
-    local skills = {
-        "MajorSkills", "Marksman", "ShortBlade", "LongBlade", "Axe", "Spear",
-        "MinorSkills", "BluntWeapon", "Staff", "MediumArmor", "HeavyArmor", "LightArmor",
-        "MiscSkills", "Block", "Armorer", "Athletics", "Acrobatics", "Security", "Sneak", "Perception",
-        "Unarmored", "HandToHand", "Mercantile", "Speechcraft", "Alchemy", "Enchant", "Analysis",
-        "Conjuration", "Illusion", "Restoration", "Mysticism", "Destruction", "Alteration"
-    }
-
+    
     table.insert(rows, createTableLayout({
-        uiElementFunctions["progress"]("Health", "Health"),
-        uiElementFunctions["progress"]("Mana", "Mana"),
-        uiElementFunctions["progress"]("Stamina", "Stamina")
+        uiElementFunctions["progress"]("Health", "health"),
+        uiElementFunctions["progress"]("Mana", "mana"),
+        uiElementFunctions["progress"]("Stamina", "stamina")
     }))
     table.insert(rows, createTableLayout({
-        uiElementFunctions["value"]("Level", "Level"),
-        uiElementFunctions["value"]("Race", "Race"),
-        uiElementFunctions["value"]("Class", "Class")
+        uiElementFunctions["value"]("Level", "level"),
+        uiElementFunctions["value"]("Race", "race"),
+        uiElementFunctions["value"]("Class", "class")
     }))
     table.insert(rows, createCharacteristicsTableLayout({
-        uiElementFunctions["characteristic"]("Strength", "Strength"),
-        uiElementFunctions["characteristic"]("Intelligence", "Intelligence"),
-        uiElementFunctions["characteristic"]("Willpower", "Willpower"),
-        uiElementFunctions["characteristic"]("Agility", "Agility"),
-        uiElementFunctions["characteristic"]("Speed", "Speed"),
-        uiElementFunctions["characteristic"]("Endurance", "Endurance"),
-        uiElementFunctions["characteristic"]("Personality", "Personality"),
-        uiElementFunctions["characteristic"]("Luck", "Luck")
+        uiElementFunctions["characteristic"]("Strength", "strength"),
+        uiElementFunctions["characteristic"]("Intelligence", "intelligence"),
+        uiElementFunctions["characteristic"]("Willpower", "willpower"),
+        uiElementFunctions["characteristic"]("Agility", "agility"),
+        uiElementFunctions["characteristic"]("Speed", "speed"),
+        uiElementFunctions["characteristic"]("Endurance", "endurance"),
+        uiElementFunctions["characteristic"]("Personality", "personality"),
+        uiElementFunctions["characteristic"]("Luck", "luck")
     }))
     table.insert(rows, createSkillsTableLayout({
-        uiElementFunctions["info"]("MajorSkills", "MajorSkills"),
-        uiElementFunctions["combatSkill"]("Marksman", "Marksman"),
-        uiElementFunctions["combatSkill"]("ShortBlade", "ShortBlade"),
-        uiElementFunctions["combatSkill"]("LongBlade", "LongBlade"),
-        uiElementFunctions["combatSkill"]("Axe", "Axe"),
-        uiElementFunctions["combatSkill"]("Spear", "Spear"),
-        uiElementFunctions["info"]("MinorSkills", "MinorSkills"),
-        uiElementFunctions["combatSkill"]("BluntWeapon", "BluntWeapon"),
-        uiElementFunctions["combatSkill"]("Staff", "Staff"),
-        uiElementFunctions["combatSkill"]("HandToHand", "HandToHand"),
-        uiElementFunctions["protectSkill"]("MediumArmor", "MediumArmor"),
-        uiElementFunctions["protectSkill"]("HeavyArmor", "HeavyArmor"),
-        uiElementFunctions["info"]("MiscSkills", "MiscSkills"),
-        uiElementFunctions["protectSkill"]("LightArmor", "LightArmor"),
-        uiElementFunctions["protectSkill"]("Block", "Block"),
-        uiElementFunctions["protectSkill"]("Unarmored", "Unarmored"),
-        uiElementFunctions["skill"]("Armorer", "Armorer"),
-        uiElementFunctions["skill"]("Athletics", "Athletics"),
-        uiElementFunctions["skill"]("Acrobatics", "Acrobatics"),
-        uiElementFunctions["skill"]("Security", "Security"),
-        uiElementFunctions["skill"]("Sneak", "Sneak"),
-        uiElementFunctions["skill"]("Perception", "Perception"),
-        uiElementFunctions["skill"]("Mercantile", "Mercantile"),
-        uiElementFunctions["skill"]("Speechcraft", "Speechcraft"),
-        uiElementFunctions["skill"]("Alchemy", "Alchemy"),
-        uiElementFunctions["skill"]("Enchant", "Enchant"),
-        uiElementFunctions["skill"]("Analysis", "Analysis"),
-        uiElementFunctions["mageSkill"]("Conjuration", "Conjuration"),
-        uiElementFunctions["mageSkill"]("Illusion", "Illusion"),
-        uiElementFunctions["mageSkill"]("Restoration", "Restoration"),
-        uiElementFunctions["mageSkill"]("Mysticism", "Mysticism"),
-        uiElementFunctions["mageSkill"]("Destruction", "Destruction"),
-        uiElementFunctions["mageSkill"]("Alteration", "Alteration")
+        uiElementFunctions["info"]("Major Skills", "MajorSkills"),
+        uiElementFunctions["combatSkill"]("Marksman", "marksman"),
+        uiElementFunctions["combatSkill"]("Short Blade", "shortblade"),
+        uiElementFunctions["combatSkill"]("Long Blade", "longblade"),
+        uiElementFunctions["combatSkill"]("Axe", "axe"),
+        uiElementFunctions["combatSkill"]("Spear", "spear"),
+        uiElementFunctions["info"]("Minor Skills", "MinorSkills"),
+        uiElementFunctions["combatSkill"]("Blunt Weapon", "bluntweapon"),
+        uiElementFunctions["combatSkill"]("Staff", "staff"),
+        uiElementFunctions["combatSkill"]("Hand To Hand", "handtohand"),
+        uiElementFunctions["protectSkill"]("Medium Armor", "mediumarmor"),
+        uiElementFunctions["protectSkill"]("Heavy Armor", "heavyarmor"),
+        uiElementFunctions["info"]("Misc Skills", "MiscSkills"),
+        uiElementFunctions["protectSkill"]("Light Armor", "lightarmor"),
+        uiElementFunctions["protectSkill"]("Block", "block"),
+        uiElementFunctions["protectSkill"]("Unarmored", "unarmored"),
+        uiElementFunctions["skill"]("Armorer", "armorer"),
+        uiElementFunctions["skill"]("Athletics", "athletics"),
+        uiElementFunctions["skill"]("Acrobatics", "acrobatics"),
+        uiElementFunctions["skill"]("Security", "security"),
+        uiElementFunctions["skill"]("Sneak", "sneak"),
+        uiElementFunctions["skill"]("Perception", "perception"),
+        uiElementFunctions["skill"]("Mercantile", "mercantile"),
+        uiElementFunctions["skill"]("Speechcraft", "speechcraft"),
+        uiElementFunctions["skill"]("Alchemy", "alchemy"),
+        uiElementFunctions["skill"]("Enchant", "enchant"),
+        uiElementFunctions["skill"]("Analysis", "analysis"),
+        uiElementFunctions["mageSkill"]("Conjuration", "conjuration"),
+        uiElementFunctions["mageSkill"]("Illusion", "illusion"),
+        uiElementFunctions["mageSkill"]("Restoration", "restoration"),
+        uiElementFunctions["mageSkill"]("Mysticism", "mysticism"),
+        uiElementFunctions["mageSkill"]("Destruction", "destruction"),
+        uiElementFunctions["mageSkill"]("Alteration", "alteration")
     }))
 
     procuredXMLForm.children = rows
@@ -545,10 +535,9 @@ end
 
 -- Function to set the player's race
 local function setRaceInfo(info, raceData)
-    local player = saveInfoPlayer[info[1]]
-    local race, prevRace = info[2], player.Race
+    local player = saveInfoPlayer[info[1]] player.Race = info[2]
+    local race, prevRace = info[2]:lower(), player.Race:lower()
     if(not isOnLoad) then removeRaceBuffs(player, raceData[prevRace]) end
-    player.Race = race
     applyRaceBuffs(player, raceData[race])
     player.Buffs.RaceSkills = deepCopy(raceData[race].skills)
     player.Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
@@ -572,10 +561,9 @@ end
 
 -- Function to set the player's class
 local function setClassInfo(info, classData, specData)
-    local player = saveInfoPlayer[info[1]]
-    local class, prevClass = info[2], player.Class
+    local player = saveInfoPlayer[info[1]] player.Class = info[2]
+    local class, prevClass = info[2]:lower(), player.Class:lower()
     if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
-    player.Class = class
     applyClassBuffs(player, classData[class])
     player.Buffs.ClassSkills = deepCopy(classData[class].skills)
     player.Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
@@ -618,10 +606,9 @@ end
 
 -- Function to set the player's sign
 local function setSignInfo(info, signData)
-    local player = saveInfoPlayer[info[1]]
-    local sign, prevSign = info[2], player.Sign
+    local player = saveInfoPlayer[info[1]] player.Sign = info[2]
+    local sign, prevSign = info[2]:lower(), player.Sign:lower()
     if(not isOnLoad) then removeSignBuffs(player, signData[prevSign]) end
-    player.Sign = sign
     applySignBuffs(player, signData[sign])
     player.Buffs.SignSkills = deepCopy(signData[sign].skills)
     player.Buffs.SignCharacteristics = deepCopy(signData[sign].characteristics)

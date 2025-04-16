@@ -1,282 +1,282 @@
 {
-    "Altmer": {
+    "altmer": {
         "characteristics": {
-            "Strength": 20,
-            "Intelligence": 70,
-            "Willpower": 40,
-            "Agility": 50,
-            "Speed": 50,
-            "Endurance": 30,
-            "Personality": 60,
-            "Luck": 40
+            "strength": 20,
+            "intelligence": 70,
+            "willpower": 40,
+            "agility": 50,
+            "speed": 50,
+            "endurance": 30,
+            "personality": 60,
+            "luck": 40
         },
         "skills": {
-            "Athletics": 10,
-            "Alteration": 5,
-            "ShortBlade": 5,
-            "Mercantile": 10,
-            "Enchant": 10,
-            "Illusion": 5
+            "athletics": 10,
+            "alteration": 5,
+            "shortblade": 5,
+            "mercantile": 10,
+            "enchant": 10,
+            "illusion": 5
         },
         "vulnerabilities": {
-            "Frost": 15,
-            "Poison": 15
+            "frost": 15,
+            "poison": 15
         },
         "resistances": {
-            "Fire": 50
+            "fire": 50
         },
-        "magicBonus": 2
+        "magicbonus": 2
     },
-    "Argonian": {
+    "argonian": {
         "characteristics": {
-            "Strength": 40,
-            "Intelligence": 30,
-            "Willpower": 30,
-            "Agility": 60,
-            "Speed": 60,
-            "Endurance": 50,
-            "Personality": 30,
-            "Luck": 40
+            "strength": 40,
+            "intelligence": 30,
+            "willpower": 30,
+            "agility": 60,
+            "speed": 60,
+            "endurance": 50,
+            "personality": 30,
+            "luck": 40
         },
         "skills": {
-            "Alteration": 15,
-            "Athletics": 15,
-            "Illusion": 15,
-            "Mercantile": 15,
-            "Restoration": 15,
-            "Security": 15,
-            "Sneak": 15
+            "alteration": 15,
+            "athletics": 15,
+            "illusion": 15,
+            "mercantile": 15,
+            "restoration": 15,
+            "security": 15,
+            "sneak": 15
         },
         "vulnerabilities": {
-            "Frost": 15
+            "frost": 15
         },
         "resistances": {
-            "Poison": 50,
-            "Disease": 50
+            "poison": 50,
+            "disease": 50
         }
     },
-    "Bosmer": {
+    "bosmer": {
         "characteristics": {
-            "Strength": 30,
-            "Intelligence": 40,
-            "Willpower": 40,
-            "Agility": 70,
-            "Speed": 70,
-            "Endurance": 40,
-            "Personality": 40,
-            "Luck": 40
+            "strength": 30,
+            "intelligence": 40,
+            "willpower": 40,
+            "agility": 70,
+            "speed": 70,
+            "endurance": 40,
+            "personality": 40,
+            "luck": 40
         },
         "skills": {
-            "Acrobatics": 15,
-            "Athletics": 15,
-            "Marksman": 15,
-            "Mercantile": 15,
-            "Restoration": 15,
-            "Security": 15,
-            "ShortBlade": 15,
-            "Sneak": 15
+            "acrobatics": 15,
+            "athletics": 15,
+            "marksman": 15,
+            "mercantile": 15,
+            "restoration": 15,
+            "security": 15,
+            "shortblade": 15,
+            "sneak": 15
         },
         "vulnerabilities": {
-            "Magicka": 15
+            "magicka": 15
         },
         "resistances": {
-            "NormalWeapon": 25
+            "normalweapon": 25
         }
     },
-    "Breton": {
+    "breton": {
         "characteristics": {
-            "Strength": 35,
-            "Intelligence": 50,
-            "Willpower": 50,
-            "Agility": 30,
-            "Speed": 35,
-            "Endurance": 30,
-            "Personality": 40,
-            "Luck": 40
+            "strength": 35,
+            "intelligence": 50,
+            "willpower": 50,
+            "agility": 30,
+            "speed": 35,
+            "endurance": 30,
+            "personality": 40,
+            "luck": 40
         },
         "skills": {
-            "Alchemy": 5,
-            "Alteration": 5,
-            "Conjuration": 10,
-            "Illusion": 5,
-            "Mysticism": 10,
-            "Restoration": 10
+            "alchemy": 5,
+            "alteration": 5,
+            "conjuration": 10,
+            "illusion": 5,
+            "mysticism": 10,
+            "restoration": 10
         },
         "vulnerabilities": {
         },
         "resistances": {
-            "Magicka": 5,
-            "Frost": 10,
-            "Electricity": 10,
-            "Fire": 10
+            "magicka": 5,
+            "frost": 10,
+            "electricity": 10,
+            "fire": 10
         },
-        "magicBonus": 1
+        "magicbonus": 1
     },
-    "Dunmer": {
+    "dunmer": {
         "characteristics": {
-            "Strength": 40,
-            "Intelligence": 50,
-            "Willpower": 50,
-            "Agility": 50,
-            "Speed": 50,
-            "Endurance": 50,
-            "Personality": 50,
-            "Luck": 40
+            "strength": 40,
+            "intelligence": 50,
+            "willpower": 50,
+            "agility": 50,
+            "speed": 50,
+            "endurance": 50,
+            "personality": 50,
+            "luck": 40
         },
         "skills": {
-            "Alteration": 15,
-            "Conjuration": 15,
-            "Destruction": 15,
-            "Illusion": 15,
-            "Marksman": 15,
-            "Mysticism": 15,
-            "ShortBlade": 15,
-            "Sneak": 15
+            "alteration": 15,
+            "conjuration": 15,
+            "destruction": 15,
+            "illusion": 15,
+            "marksman": 15,
+            "mysticism": 15,
+            "shortblade": 15,
+            "sneak": 15
         },
         "vulnerabilities": {
-            "Frost": 15
+            "frost": 15
         },
         "resistances": {
-            "Fire": 50
+            "fire": 50
         },
-        "magicBonus": 1
+        "magicbonus": 1
     },
-    "Imperial": {
+    "imperial": {
         "characteristics": {
-            "Strength": 40,
-            "Intelligence": 50,
-            "Willpower": 50,
-            "Agility": 40,
-            "Speed": 40,
-            "Endurance": 50,
-            "Personality": 60,
-            "Luck": 60
+            "strength": 40,
+            "intelligence": 50,
+            "willpower": 50,
+            "agility": 40,
+            "speed": 40,
+            "endurance": 50,
+            "personality": 60,
+            "luck": 60
         },
         "skills": {
-            "Alteration": 15,
-            "Conjuration": 15,
-            "Illusion": 15,
-            "Mercantile": 15,
-            "Mysticism": 15,
-            "Restoration": 15,
-            "Security": 15,
-            "Speechcraft": 15
+            "alteration": 15,
+            "conjuration": 15,
+            "illusion": 15,
+            "mercantile": 15,
+            "mysticism": 15,
+            "restoration": 15,
+            "security": 15,
+            "speechcraft": 15
         },
         "vulnerabilities": {
-            "Magicka": 15
+            "magicka": 15
         },
         "resistances": {
-            "NormalWeapon": 25
+            "normalweapon": 25
         }
     },
-    "Khajiit": {
+    "khajiit": {
         "characteristics": {
-            "Strength": 50,
-            "Intelligence": 30,
-            "Willpower": 30,
-            "Agility": 60,
-            "Speed": 60,
-            "Endurance": 40,
-            "Personality": 30,
-            "Luck": 40
+            "strength": 50,
+            "intelligence": 30,
+            "willpower": 30,
+            "agility": 60,
+            "speed": 60,
+            "endurance": 40,
+            "personality": 30,
+            "luck": 40
         },
         "skills": {
-            "Acrobatics": 15,
-            "Athletics": 15,
-            "Marksman": 15,
-            "Mercantile": 15,
-            "Restoration": 15,
-            "Security": 15,
-            "ShortBlade": 15,
-            "Sneak": 15
+            "acrobatics": 15,
+            "athletics": 15,
+            "marksman": 15,
+            "mercantile": 15,
+            "restoration": 15,
+            "security": 15,
+            "shortblade": 15,
+            "sneak": 15
         },
         "vulnerabilities": {
-            "Frost": 15
+            "frost": 15
         },
         "resistances": {
-            "NormalWeapon": 25
+            "normalweapon": 25
         }
     },
-    "Nord": {
+    "nord": {
         "characteristics": {
-            "Strength": 50,
-            "Intelligence": 30,
-            "Willpower": 45,
-            "Agility": 30,
-            "Speed": 40,
-            "Endurance": 45,
-            "Personality": 30,
-            "Luck": 40
+            "strength": 50,
+            "intelligence": 30,
+            "willpower": 45,
+            "agility": 30,
+            "speed": 40,
+            "endurance": 45,
+            "personality": 30,
+            "luck": 40
         },
         "skills": {
-            "Axe": 10,
-            "BluntWeapon": 10,
-            "HeavyArmor": 5,
-            "LongBlade": 5,
-            "MediumArmor": 10,
-            "Spear": 5,
-            "Armorer": 10
+            "axe": 10,
+            "bluntweapon": 10,
+            "heavyarmor": 5,
+            "longblade": 5,
+            "mediumarmor": 10,
+            "spear": 5,
+            "armorer": 10
         },
         "vulnerabilities": {
         },
         "resistances": {
-            "Frost": 50
+            "frost": 50
         }
     },
-    "Orsimer": {
+    "orsimer": {
         "characteristics": {
-            "Strength": 70,
-            "Intelligence": 30,
-            "Willpower": 50,
-            "Agility": 40,
-            "Speed": 40,
-            "Endurance": 60,
-            "Personality": 30,
-            "Luck": 40
+            "strength": 70,
+            "intelligence": 30,
+            "willpower": 50,
+            "agility": 40,
+            "speed": 40,
+            "endurance": 60,
+            "personality": 30,
+            "luck": 40
         },
         "skills": {
-            "Alteration": 15,
-            "Block": 15,
-            "BluntWeapon": 15,
-            "Destruction": 15,
-            "HeavyArmor": 15,
-            "Illusion": 15,
-            "Restoration": 15,
-            "Speechcraft": 15
+            "alteration": 15,
+            "block": 15,
+            "bluntweapon": 15,
+            "destruction": 15,
+            "heavyarmor": 15,
+            "illusion": 15,
+            "restoration": 15,
+            "speechcraft": 15
         },
         "vulnerabilities": {
-            "Frost": 15
+            "frost": 15
         },
         "resistances": {
-            "NormalWeapon": 25
+            "normalweapon": 25
         }
     },
-    "Redguard": {
+    "redguard": {
         "characteristics": {
-            "Strength": 60,
-            "Intelligence": 40,
-            "Willpower": 40,
-            "Agility": 60,
-            "Speed": 60,
-            "Endurance": 50,
-            "Personality": 40,
-            "Luck": 40
+            "strength": 60,
+            "intelligence": 40,
+            "willpower": 40,
+            "agility": 60,
+            "speed": 60,
+            "endurance": 50,
+            "personality": 40,
+            "luck": 40
         },
         "skills": {
-            "Acrobatics": 15,
-            "Athletics": 15,
-            "Axe": 15,
-            "BluntWeapon": 15,
-            "LongBlade": 15,
-            "Restoration": 15,
-            "Security": 15,
-            "Sneak": 15
+            "acrobatics": 15,
+            "athletics": 15,
+            "axe": 15,
+            "bluntweapon": 15,
+            "longblade": 15,
+            "restoration": 15,
+            "security": 15,
+            "sneak": 15
         },
         "vulnerabilities": {
-            "Magicka": 15
+            "magicka": 15
         },
         "resistances": {
-            "Poison": 25
+            "poison": 25
         }
     }
 }

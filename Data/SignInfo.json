@@ -23,7 +23,7 @@
     "Lover": {
         "description": "Love and death.",
         "skills": {},
-        "characteristics": {"Agility": 20},
+        "characteristics": {"agility": 20},
         "buffs": {"jump": 5, "feather": 50},
         "abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
     },
@@ -64,8 +64,8 @@
     },
     "Thief": {
         "description": "I'm shadow.",
-        "skills": {"Security": 10},
-        "characteristics": {"Speed": 10, "Agility": 10},
+        "skills": {"security": 10},
+        "characteristics": {"speed": 10, "agility": 10},
         "buffs": {"luminary": 20},
         "abilitys": {}
     },
@@ -79,7 +79,7 @@
     "Warrior": {
         "description": "I'm Death.",
         "skills": {},
-        "characteristics": {"Strength": 10},
+        "characteristics": {"strength": 10},
         "buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5, "sound": 50}
     },
     "Apprentice": {
