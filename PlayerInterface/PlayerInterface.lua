@@ -1,3 +1,71 @@
+-- Constants for buff types
+local BUFF_TYPE_SKILL = "skill"
+local BUFF_TYPE_CHARACTERISTIC = "characteristic"
+local BUFF_TYPE_RESISTANCE = "resistance"
+local BUFF_TYPE_VULNERABILITY = "vulnerability"
+
+-- Initialize buffs for a character
+local function initBuffs(character)
+    character.buffs = {
+        skills = {},
+        characteristics = {},
+        resistances = {},
+        vulnerabilities = {}
+    }
+end
+
+-- Apply a buff to a character
+local function applyBuff(character, buffType, buffName, value)
+    if buffType == BUFF_TYPE_SKILL then
+        character.buffs.skills[buffName] = (character.buffs.skills[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        character.buffs.characteristics[buffName] = (character.buffs.characteristics[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        character.buffs.resistances[buffName] = (character.buffs.resistances[buffName] or 0) + value
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        character.buffs.vulnerabilities[buffName] = (character.buffs.vulnerabilities[buffName] or 0) + value
+    end
+end
+
+-- Remove a buff from a character
+local function removeBuff(character, buffType, buffName, value)
+    if buffType == BUFF_TYPE_SKILL then
+        character.buffs.skills[buffName] = (character.buffs.skills[buffName] or 0) - value
+        if character.buffs.skills[buffName] <= 0 then
+            character.buffs.skills[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        character.buffs.characteristics[buffName] = (character.buffs.characteristics[buffName] or 0) - value
+        if character.buffs.characteristics[buffName] <= 0 then
+            character.buffs.characteristics[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        character.buffs.resistances[buffName] = (character.buffs.resistances[buffName] or 0) - value
+        if character.buffs.resistances[buffName] <= 0 then
+            character.buffs.resistances[buffName] = nil
+        end
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        character.buffs.vulnerabilities[buffName] = (character.buffs.vulnerabilities[buffName] or 0) - value
+        if character.buffs.vulnerabilities[buffName] <= 0 then
+            character.buffs.vulnerabilities[buffName] = nil
+        end
+    end
+end
+
+-- Calculate the total buff value for a given buff type and name
+local function calculateBuff(character, buffType, buffName)
+    if buffType == BUFF_TYPE_SKILL then
+        return character.buffs.skills[buffName] or 0
+    elseif buffType == BUFF_TYPE_CHARACTERISTIC then
+        return character.buffs.characteristics[buffName] or 0
+    elseif buffType == BUFF_TYPE_RESISTANCE then
+        return character.buffs.resistances[buffName] or 0
+    elseif buffType == BUFF_TYPE_VULNERABILITY then
+        return character.buffs.vulnerabilities[buffName] or 0
+    end
+    return 0
+end
+
 -- Constants
 local SAVE_CUBE_GUID = "f77b1d"
 local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json"
@@ -300,6 +368,7 @@ function onLoad()
         local baseInfo = JSON.decode(request.text)
         for color, _ in pairs(enumColor) do
             saveInfoPlayer[color] = deepCopy(baseInfo)
+            initBuffs(saveInfoPlayer[color])
         end
         buildXMLStructure()
         rebuildXMLTable()
@@ -514,6 +583,7 @@ local function wasteStamina(player, colorPlayer, valueChange)
 end
 -- Function to throw a skill check
 function throwSkill(player, alt, id)
+    local locPlayer = saveInfoPlayer[player.color]
     local roll = math.random(1, 100)
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     print("Dice roll: " .. roll)
@@ -567,7 +637,7 @@ local function calculateCombatSuccessChance(skill, agility, luck, blind, current
 end
 -- Function to throw a skill combat check
 function throwCombatSkill(player, alt, id)
-    locPlayer = saveInfoPlayer[player.color]
+    local locPlayer = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     local blind, valueStaminaWaste = 0, 0
     local randomStaminaCheck = math.random(2, 5)
@@ -602,7 +672,7 @@ local function calculateProtectSuccessChance(skill, agility, luck, luminary, cur
 end
 -- Function to throw a skill defense check
 function throwProtectSkill(player, alt, id)
-    locPlayer = saveInfoPlayer[player.color]
+    local locPlayer = saveInfoPlayer[player.color]
     local skillValue = tonumber(self.UI.getAttribute(id, "text"))
     local luminary, successChance, valueStaminaWaste = 0, 0, 0
     local randomStaminaCheck = math.random(2, 5)
