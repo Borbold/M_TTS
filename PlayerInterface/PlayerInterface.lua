@@ -381,6 +381,7 @@ end
 
 -- Function to confer saved data
 local function confer()
+    isOnLoad = true
     broadcastToAll("[ffee8c]Loading. Please wait.[-]")
     local multiplySleepTime = 3
     for colorPlayer, _ in pairs(saveInfoPlayer) do
@@ -389,7 +390,7 @@ local function confer()
         Wait.time(|| calculateInfo(colorPlayer), (enumColor[colorPlayer] / 2) * multiplySleepTime)
         Wait.time(|| setUI(colorPlayer), (enumColor[colorPlayer]) * multiplySleepTime)
     end
-    Wait.time(|| broadcastToAll("[ffee8c]Download is complete.[-]"), #listColor * multiplySleepTime)
+    Wait.time(function() isOnLoad = nil broadcastToAll("[ffee8c]Download is complete.[-]") end, #listColor * multiplySleepTime)
 end
 
 -- Function to activate inventory for a player
@@ -495,6 +496,9 @@ end
 local function calculateSkill(player, id)
     return 5 + calculateBuff(player, BUFF_TYPE_SKILL, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0)
 end
+local function calculateCharacteristics(player, id)
+    return calculateBuff(player, BUFF_TYPE_CHARACTERISTIC, id)
+end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
@@ -509,7 +513,7 @@ function calculateInfo(colorPlayer)
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = calculateBuff(player, BUFF_TYPE_CHARACTERISTIC, charId)
+        player.Characteristics[charId] = calculateCharacteristics(player, charId)
     end
     -- Calculate HP
     player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
@@ -534,7 +538,7 @@ end
 local function setRaceInfo(info, raceData)
     local player = saveInfoPlayer[info[1]]
     local race, prevRace = info[2], player.Race
-    removeRaceBuffs(player, raceData[prevRace])
+    if(not isOnLoad) then removeRaceBuffs(player, raceData[prevRace]) end
     player.Race = race
     applyRaceBuffs(player, raceData[race])
     player.Buffs.RaceSkills = deepCopy(raceData[race].skills)
@@ -561,7 +565,7 @@ end
 local function setClassInfo(info, classData, specData)
     local player = saveInfoPlayer[info[1]]
     local class, prevClass = info[2], player.Class
-    removeClassBuffs(player, classData[class])
+    if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
     player.Class = class
     applyClassBuffs(player, classData[class])
     player.Buffs.ClassSkills = deepCopy(classData[class].skills)
@@ -607,7 +611,7 @@ end
 local function setSignInfo(info, signData)
     local player = saveInfoPlayer[info[1]]
     local sign, prevSign = info[2], player.Sign
-    removeSignBuffs(player, signData[prevSign])
+    if(not isOnLoad) then removeSignBuffs(player, signData[prevSign]) end
     player.Sign = sign
     applySignBuffs(player, signData[sign])
     player.Buffs.SignSkills = deepCopy(signData[sign].skills)
