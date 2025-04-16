@@ -50,20 +50,14 @@
     "sign": "Atronach",
     "magicbonus": {"race": 0, "sign": 0},
     "buffs": {
-        "raceskills": {},
-        "racecharacteristics": {},
-        "racebuffs": {},
+        "skills": {},
+        "characteristics": {},
+        "resistance": {},
         "classskills": {},
-        "classcharacteristics": {},
         "classspecialization": {},
-        "signskills": {},
-        "signcharacteristics": {},
-        "signbuffs": {},
-        "raceresistance": {},
-        "resistance": {}
+        "signbuffs": {}
     },
     "debuffs": {
-        "racevulnerability": {},
         "vulnerability": {}
     },
     "abilitys": {

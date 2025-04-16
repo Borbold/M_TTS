@@ -12,16 +12,6 @@ local DEBUFF_TYPE = {
     VULNERABILITY = "vulnerabilities"
 }
 
--- Initialize buffs for a character
-local function initBuffs(character)
-    character.buffs = {
-        skills = {},
-        characteristics = {},
-        resistances = {},
-        vulnerabilities = {}
-    }
-end
-
 -- Apply or remove a buff to/from a character
 local function modifyBuff(character, buffType, buffName, value, apply)
     local buffValue = character.buffs[buffType][buffName] or 0
@@ -286,19 +276,19 @@ local function buildXMLStructure()
         uiElementFunctions["characteristic"]("Luck", "luck")
     }))
     table.insert(rows, createSkillsTableLayout({
-        uiElementFunctions["info"]("Major Skills", "MajorSkills"),
+        uiElementFunctions["info"]("Major skills", "MajorSkills"),
         uiElementFunctions["combatSkill"]("Marksman", "marksman"),
         uiElementFunctions["combatSkill"]("Short Blade", "shortblade"),
         uiElementFunctions["combatSkill"]("Long Blade", "longblade"),
         uiElementFunctions["combatSkill"]("Axe", "axe"),
         uiElementFunctions["combatSkill"]("Spear", "spear"),
-        uiElementFunctions["info"]("Minor Skills", "MinorSkills"),
+        uiElementFunctions["info"]("Minor skills", "MinorSkills"),
         uiElementFunctions["combatSkill"]("Blunt Weapon", "bluntweapon"),
         uiElementFunctions["combatSkill"]("Staff", "staff"),
         uiElementFunctions["combatSkill"]("Hand To Hand", "handtohand"),
         uiElementFunctions["protectSkill"]("Medium Armor", "mediumarmor"),
         uiElementFunctions["protectSkill"]("Heavy Armor", "heavyarmor"),
-        uiElementFunctions["info"]("Misc Skills", "MiscSkills"),
+        uiElementFunctions["info"]("Misc skills", "MiscSkills"),
         uiElementFunctions["protectSkill"]("Light Armor", "lightarmor"),
         uiElementFunctions["protectSkill"]("Block", "block"),
         uiElementFunctions["protectSkill"]("Unarmored", "unarmored"),
@@ -353,12 +343,12 @@ local function rebuildXMLTable()
                 end
             end
         end
-        -- Characteristics
+        -- characteristics
         for j = 1, #newPanel.children[3].children[1].children do
             local elementId = newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
             newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
-        -- Skills
+        -- skills
         for j = 1, #newPanel.children[4].children[1].children[1].children do
             local elementId = newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
             newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
@@ -373,9 +363,9 @@ end
 -- Apply all changes to the character
 local function setCharacter(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
-    changeRaceBonus({colorPlayer, player.Race})
-    changeClassBonus({colorPlayer, player.Class})
-    changeSignBonus({colorPlayer, player.Sign})
+    changeRaceBonus({colorPlayer, player.race})
+    changeClassBonus({colorPlayer, player.class})
+    changeSignBonus({colorPlayer, player.sign})
 end
 
 -- Function to confer saved data
@@ -445,7 +435,6 @@ function onLoad()
         if baseInfo then
             for color, _ in pairs(enumColor) do
                 saveInfoPlayer[color] = deepCopy(baseInfo)
-                initBuffs(saveInfoPlayer[color])
             end
             buildXMLStructure()
             rebuildXMLTable()
@@ -464,7 +453,7 @@ function onLoad()
 end
 
 -- Function to set UI elements
-local seeElement = {Health = "", Mana = "", Stamina = "", Level = "", Race = "", Class = "", Characteristics = "", Skills = ""}
+local seeElement = {health = "", mana = "", stamina = "", level = "", race = "", class = "", characteristics = "", skills = ""}
 local function checkSeeElement(name)
     return seeElement[name]
 end
@@ -487,13 +476,13 @@ function setUI(colorPlayer)
         end
     end
 
-    self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (state.Health.current / state.Health.max) * 100)
-    self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (state.Mana.current / state.Mana.max) * 100)
-    self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (state.health.current / state.health.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (state.mana.current / state.mana.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.stamina.current / state.stamina.max) * 100)
 end
 
 local function calculateSkill(player, id)
-    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0)
+    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.buffs.classSpecialization[id] and 5 or 0)
 end
 local function calculateCharacteristics(player, id)
     return calculateBuff(player, BUFF_TYPE.CHARACTERISTIC, id)
@@ -506,23 +495,23 @@ function calculateInfo(colorPlayer)
     local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Skills[skillId] = calculateSkill(player, skillId)
+        player.skills[skillId] = calculateSkill(player, skillId)
     end
     -- Calculate characteristics
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = calculateCharacteristics(player, charId)
+        player.characteristics[charId] = calculateCharacteristics(player, charId)
     end
     -- Calculate HP
-    player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
-    if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
+    player.health.max = math.floor((player.characteristics.strength + player.characteristics.endurance) / 2 + (tonumber(player.level) - 1) * (player.characteristics.endurance / 10))
+    if player.health.current > player.health.max then player.health.current = player.health.max end
     -- Calculate MP
-    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus.race + player.MagicBonus.sign)
-    if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
+    player.mana.max = player.characteristics.intelligence * (1 + player.magicbonus.race + player.magicbonus.sign)
+    if player.mana.current > player.mana.max then player.mana.current = player.mana.max end
     -- Calculate SP
-    player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
-    if player.Stamina.current > player.Stamina.max then player.Stamina.current = player.Stamina.max end
+    player.stamina.max = player.characteristics.strength + player.characteristics.willpower + player.characteristics.agility + player.characteristics.endurance
+    if player.stamina.current > player.stamina.max then player.stamina.current = player.stamina.max end
 
     updateSave()
 end
@@ -535,13 +524,13 @@ end
 
 -- Function to set the player's race
 local function setRaceInfo(info, raceData)
-    local player = saveInfoPlayer[info[1]] player.Race = info[2]
-    local race, prevRace = info[2]:lower(), player.Race:lower()
+    local rRace = info[2]
+    local player = saveInfoPlayer[info[1]]
+    local race, prevRace = info[2]:lower(), player.race:lower()
     if(not isOnLoad) then removeRaceBuffs(player, raceData[prevRace]) end
     applyRaceBuffs(player, raceData[race])
-    player.Buffs.RaceSkills = deepCopy(raceData[race].skills)
-    player.Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
-    player.MagicBonus.race = raceData[race].magicBonus or 0
+    player.race = rRace
+    player.magicbonus.race = raceData[race].magicbonus or 0
 end
 -- Function to fetch and set race bonuses
 function changeRaceBonus(info)
@@ -561,13 +550,14 @@ end
 
 -- Function to set the player's class
 local function setClassInfo(info, classData, specData)
-    local player = saveInfoPlayer[info[1]] player.Class = info[2]
-    local class, prevClass = info[2]:lower(), player.Class:lower()
+    local cClass = info[2]
+    local player = saveInfoPlayer[info[1]]
+    local class, prevClass = info[2]:lower(), player.class:lower()
     if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
     applyClassBuffs(player, classData[class])
-    player.Buffs.ClassSkills = deepCopy(classData[class].skills)
-    player.Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
-    player.Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
+    player.class = cClass
+    player.buffs.classskills = deepCopy(classData[class].skills)
+    player.buffs.classspecialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(info)
@@ -606,15 +596,15 @@ end
 
 -- Function to set the player's sign
 local function setSignInfo(info, signData)
-    local player = saveInfoPlayer[info[1]] player.Sign = info[2]
-    local sign, prevSign = info[2]:lower(), player.Sign:lower()
+    local sSign = info[2]
+    local player = saveInfoPlayer[info[1]]
+    local sign, prevSign = info[2]:lower(), player.sign:lower()
     if(not isOnLoad) then removeSignBuffs(player, signData[prevSign]) end
     applySignBuffs(player, signData[sign])
-    player.Buffs.SignSkills = deepCopy(signData[sign].skills)
-    player.Buffs.SignCharacteristics = deepCopy(signData[sign].characteristics)
-    player.Buffs.SignBuffs = deepCopy(signData[sign].buffs)
-    player.Abilitys.Sign = deepCopy(signData[sign].abilitys)
-    player.MagicBonus.sign = signData[sign].magicBonus or 0
+    player.sign = sSign
+    player.buffs.signbuffs = deepCopy(signData[sign].buffs)
+    player.abilitys.sign = deepCopy(signData[sign].abilitys)
+    player.magicbonus.sign = signData[sign].magicbonus or 0
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(info)
@@ -639,23 +629,23 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Add major skills
     table.insert(sortedSkills, { name = "MajorSkills" })
-    for skill, _ in pairs(player.Buffs.ClassSkills.majorSkills) do
-        if player.Skills[skill] then
-            table.insert(sortedSkills, { name = skill, value = player.Skills[skill] })
+    for skill, _ in pairs(player.buffs.classskills.majorSkills) do
+        if player.skills[skill] then
+            table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
     end
 
     -- Add minor skills
     table.insert(sortedSkills, { name = "MinorSkills" })
-    for skill, _ in pairs(player.Buffs.ClassSkills.minorSkills) do
-        if player.Skills[skill] then
-            table.insert(sortedSkills, { name = skill, value = player.Skills[skill] })
+    for skill, _ in pairs(player.buffs.classskills.minorSkills) do
+        if player.skills[skill] then
+            table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
     end
 
     -- Add miscellaneous skills
     table.insert(sortedSkills, { name = "MiscSkills" })
-    for skill, _ in pairs(player.Skills) do
+    for skill, _ in pairs(player.skills) do
         local flag = true
         for _, v in ipairs(sortedSkills) do
             if v.name == skill then
@@ -664,7 +654,7 @@ function sortSkillsByImportance(colorPlayer)
             end
         end
         if flag then
-            table.insert(sortedSkills, { name = skill, value = player.Skills[skill] })
+            table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
     end
 
@@ -684,8 +674,8 @@ function sortSkillsByImportance(colorPlayer)
 end
 
 local function wasteStamina(player, colorPlayer, valueChange)
-    player.Stamina.current = player.Stamina.current - valueChange
-    player.Stamina.current = checkValue({player.Stamina.current, player.Stamina.max})
+    player.stamina.current = player.stamina.current - valueChange
+    player.stamina.current = checkValue({player.stamina.current, player.stamina.max})
     updatePlayer(colorPlayer)
 end
 -- Function to throw a skill check
@@ -721,8 +711,8 @@ function throwMageSkill(player, alt, id)
     local sound, magicCost, valueStaminaWaste = 0, 10, 0
     -- Calculate the probability of success
     local successChance = calculateMageSuccessChance(
-        skillValue, locPlayer.Characteristics.Willpower, locPlayer.Characteristics.Luck,
-        magicCost, sound, locPlayer.Stamina.current, locPlayer.Stamina.max
+        skillValue, locPlayer.characteristics.willpower, locPlayer.characteristics.luck,
+        magicCost, sound, locPlayer.stamina.current, locPlayer.stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
     local valueStaminaWaste = baseWasteStamina.cast.baseCost + math.random(2, 5)
@@ -750,8 +740,8 @@ function throwCombatSkill(player, alt, id)
     local randomStaminaCheck = math.random(2, 5)
     -- Calculate the probability of success
     local successChance = calculateCombatSuccessChance(
-        skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
-        blind, locPlayer.Stamina.current, locPlayer.Stamina.max
+        skillValue, locPlayer.characteristics.agility, locPlayer.characteristics.luck,
+        blind, locPlayer.stamina.current, locPlayer.stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
     local valueStaminaWaste = baseWasteStamina.combat.baseCost + randomStaminaCheck
@@ -786,16 +776,16 @@ function throwProtectSkill(player, alt, id)
     if(id:find("Block")) then
         -- Calculate the probability of success
         successChance = calculateBlockSuccessChance(
-            skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
-            locPlayer.Stamina.current, locPlayer.Stamina.max
+            skillValue, locPlayer.characteristics.agility, locPlayer.characteristics.luck,
+            locPlayer.stamina.current, locPlayer.stamina.max
         )
         successChance = successChance > 50 and 50 or successChance < 10 and 10 or successChance
         valueStaminaWaste = baseWasteStamina.block.baseCost + randomStaminaCheck
     else
         -- Calculate the probability of success
         successChance = calculateProtectSuccessChance(
-            skillValue, locPlayer.Characteristics.Agility, locPlayer.Characteristics.Luck,
-            luminary, locPlayer.Stamina.current, locPlayer.Stamina.max
+            skillValue, locPlayer.characteristics.agility, locPlayer.characteristics.luck,
+            luminary, locPlayer.stamina.current, locPlayer.stamina.max
         )
         valueStaminaWaste = baseWasteStamina.protect.baseCost + randomStaminaCheck
     end
