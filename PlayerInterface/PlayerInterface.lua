@@ -66,6 +66,81 @@ local function calculateBuff(character, buffType, buffName)
     return 0
 end
 
+-- Function to apply race buffs
+local function applyRaceBuffs(character, raceData)
+    for buffName, value in pairs(raceData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(raceData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+    for buffName, value in pairs(raceData.resistances) do
+        applyBuff(character, BUFF_TYPE_RESISTANCE, buffName, value)
+    end
+    for buffName, value in pairs(raceData.vulnerabilities) do
+        applyBuff(character, BUFF_TYPE_VULNERABILITY, buffName, value)
+    end
+end
+-- Function to remove race buffs
+local function removeRaceBuffs(character, raceData)
+    for buffName, value in pairs(raceData.skills) do
+        removeBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(raceData.characteristics) do
+        removeBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+    for buffName, value in pairs(raceData.resistances) do
+        removeBuff(character, BUFF_TYPE_RESISTANCE, buffName, value)
+    end
+    for buffName, value in pairs(raceData.vulnerabilities) do
+        removeBuff(character, BUFF_TYPE_VULNERABILITY, buffName, value)
+    end
+end
+
+-- Function to apply class buffs
+local function applyClassBuffs(character, classData)
+    for buffName, value in pairs(classData.skills.majorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value * 25)
+    end
+    for buffName, value in pairs(classData.skills.minorSkills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value * 10)
+    end
+    for buffName, value in pairs(classData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value * 10)
+    end
+end
+-- Function to remove class buffs
+local function removeClassBuffs(character, classData)
+    for buffName, value in pairs(classData.skills.majorSkills) do
+        removeBuff(character, BUFF_TYPE_SKILL, buffName, value * 25)
+    end
+    for buffName, value in pairs(classData.skills.minorSkills) do
+        removeBuff(character, BUFF_TYPE_SKILL, buffName, value * 10)
+    end
+    for buffName, value in pairs(classData.characteristics) do
+        removeBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value * 10)
+    end
+end
+
+-- Function to apply sign buffs
+local function applySignBuffs(character, signData)
+    for buffName, value in pairs(signData.skills) do
+        applyBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(signData.characteristics) do
+        applyBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+end
+-- Function to remove sign buffs
+local function removeSignBuffs(character, signData)
+    for buffName, value in pairs(signData.skills) do
+        removeBuff(character, BUFF_TYPE_SKILL, buffName, value)
+    end
+    for buffName, value in pairs(signData.characteristics) do
+        removeBuff(character, BUFF_TYPE_CHARACTERISTIC, buffName, value)
+    end
+end
+
 -- Constants
 local SAVE_CUBE_GUID = "f77b1d"
 local BASE_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseInfoPlayer.json"
@@ -297,28 +372,29 @@ local function rebuildXMLTable()
 end
 
 -- Apply all changes to the character
-local function setCharacter(playerColor)
-    changeRaceBonus(playerColor)
-    changeClassBonus(playerColor)
-    changeSignBonus(playerColor)
+local function setCharacter(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    changeRaceBonus({colorPlayer, player.Race})
+    changeClassBonus({colorPlayer, player.Class})
+    changeSignBonus({colorPlayer, player.Sign})
 end
 
 -- Function to confer saved data
 local function confer()
     broadcastToAll("[ffee8c]Loading. Please wait.[-]")
     local multiplySleepTime = 3
-    for playerColor, _ in pairs(saveInfoPlayer) do
-        setCharacter(playerColor)
-        Wait.time(|| sortSkillsByImportance(playerColor), (enumColor[playerColor] / 3) * multiplySleepTime)
-        Wait.time(|| calculateInfo(playerColor), (enumColor[playerColor] / 2) * multiplySleepTime)
-        Wait.time(|| setUI(playerColor), (enumColor[playerColor]) * multiplySleepTime)
+    for colorPlayer, _ in pairs(saveInfoPlayer) do
+        setCharacter(colorPlayer)
+        Wait.time(|| sortSkillsByImportance(colorPlayer), (enumColor[colorPlayer] / 3) * multiplySleepTime)
+        Wait.time(|| calculateInfo(colorPlayer), (enumColor[colorPlayer] / 2) * multiplySleepTime)
+        Wait.time(|| setUI(colorPlayer), (enumColor[colorPlayer]) * multiplySleepTime)
     end
     Wait.time(|| broadcastToAll("[ffee8c]Download is complete.[-]"), #listColor * multiplySleepTime)
 end
 
 -- Function to activate inventory for a player
-local function activateInventory(playerColor)
-    local panelId = playerColor .. "mainPanel"
+local function activateInventory(colorPlayer)
+    local panelId = colorPlayer .. "mainPanel"
     self.UI.setAttribute(panelId, "active", self.UI.getAttribute(panelId, "active") == "true" and "false" or "true")
 end
 
@@ -355,28 +431,35 @@ local function loadSaveData()
 end
 -- Function to handle loading and initializing the script
 function onLoad()
-    addHotkey("Switching all player inventories", function(playerColor)
-        if playerColor == "Black" then
+    addHotkey("Switching all player inventories", function(colorPlayer)
+        if colorPlayer == "Black" then
             activateInventoryForGM()
         end
     end)
-    addHotkey("Inventory", function(playerColor)
-        activateInventory(playerColor)
+    addHotkey("Inventory", function(colorPlayer)
+        activateInventory(colorPlayer)
     end)
-    
+
     WebRequest.get(BASE_INFO_URL, function(request)
         local baseInfo = JSON.decode(request.text)
-        for color, _ in pairs(enumColor) do
-            saveInfoPlayer[color] = deepCopy(baseInfo)
-            initBuffs(saveInfoPlayer[color])
+        if baseInfo then
+            for color, _ in pairs(enumColor) do
+                saveInfoPlayer[color] = deepCopy(baseInfo)
+                initBuffs(saveInfoPlayer[color])
+            end
+            buildXMLStructure()
+            rebuildXMLTable()
+            loadSaveData()
+        else
+            print("Failed to decode base info.")
         end
-        buildXMLStructure()
-        rebuildXMLTable()
-        loadSaveData()
     end)
 
     WebRequest.get(B_WASTE_S_INFO_URL, function(request)
         baseWasteStamina = JSON.decode(request.text)
+        if not baseWasteStamina then
+            print("Failed to decode base waste stamina.")
+        end
     end)
 end
 
@@ -409,15 +492,8 @@ function setUI(colorPlayer)
     self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.Stamina.current / state.Stamina.max) * 100)
 end
 
--- Function to check class skills bonus
-local function checkClassSkillsBonus(classSkills, skillId)
-    return (classSkills.majorSkills[skillId] and 25) or (classSkills.minorSkills[skillId] and 10) or 0
-end
 local function calculateSkill(player, id)
-    return 5 + (player.Buffs.RaceSkills[id] or 0) + checkClassSkillsBonus(player.Buffs.ClassSkills, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0) + (player.Buffs.SignSkills[id] or 0)
-end
-local function calculateCharacteristic(player, id)
-    return (player.Buffs.RaceCharacteristics[id] or 0) + (player.Buffs.ClassCharacteristics[id] and 10 or 0) + (player.Buffs.SignCharacteristics[id] or 0)
+    return 5 + calculateBuff(player, BUFF_TYPE_SKILL, id) + (player.Buffs.ClassSpecialization[id] and 5 or 0)
 end
 -- Function to calculate player information
 function calculateInfo(colorPlayer)
@@ -433,13 +509,13 @@ function calculateInfo(colorPlayer)
     local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
-        player.Characteristics[charId] = calculateCharacteristic(player, charId)
+        player.Characteristics[charId] = calculateBuff(player, BUFF_TYPE_CHARACTERISTIC, charId)
     end
     -- Calculate HP
     player.Health.max = math.floor((player.Characteristics.Strength + player.Characteristics.Endurance) / 2 + (tonumber(player.Level) - 1) * (player.Characteristics.Endurance / 10))
     if player.Health.current > player.Health.max then player.Health.current = player.Health.max end
     -- Calculate MP
-    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus --[[ Birth sign modifier ]])
+    player.Mana.max = player.Characteristics.Intelligence * (1 + player.MagicBonus.race + player.MagicBonus.sign)
     if player.Mana.current > player.Mana.max then player.Mana.current = player.Mana.max end
     -- Calculate SP
     player.Stamina.max = player.Characteristics.Strength + player.Characteristics.Willpower + player.Characteristics.Agility + player.Characteristics.Endurance
@@ -455,17 +531,26 @@ function updateSave()
 end
 
 -- Function to set the player's race
-local function setRaceInfo(colorPlayer, raceData)
-    local race = saveInfoPlayer[colorPlayer].Race
-    saveInfoPlayer[colorPlayer].Buffs.RaceSkills = deepCopy(raceData[race].skills)
-    saveInfoPlayer[colorPlayer].Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
-    saveInfoPlayer[colorPlayer].MagicBonus = raceData[race].magicBonus or 0
+local function setRaceInfo(info, raceData)
+    local player = saveInfoPlayer[info[1]]
+    local race, prevRace = info[2], player.Race
+    removeRaceBuffs(player, raceData[prevRace])
+    player.Race = race
+    applyRaceBuffs(player, raceData[race])
+    player.Buffs.RaceSkills = deepCopy(raceData[race].skills)
+    player.Buffs.RaceCharacteristics = deepCopy(raceData[race].characteristics)
+    player.MagicBonus.race = raceData[race].magicBonus or 0
 end
 -- Function to fetch and set race bonuses
-function changeRaceBonus(colorPlayer)
+function changeRaceBonus(info)
     WebRequest.get(RACE_INFO_URL, function(request)
         if request.is_done then
-            setRaceInfo(colorPlayer, JSON.decode(request.text))
+            local raceData = JSON.decode(request.text)
+            if raceData then
+                setRaceInfo(info, raceData)
+            else
+                print("Failed to decode race data.")
+            end
         else
             print("Failed to fetch race information.")
         end
@@ -473,27 +558,40 @@ function changeRaceBonus(colorPlayer)
 end
 
 -- Function to set the player's class
-local function setClassInfo(colorPlayer, classData, specData)
-    local class = saveInfoPlayer[colorPlayer].Class
-    saveInfoPlayer[colorPlayer].Buffs.ClassSkills = deepCopy(classData[class].skills)
-    saveInfoPlayer[colorPlayer].Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
+local function setClassInfo(info, classData, specData)
+    local player = saveInfoPlayer[info[1]]
+    local class, prevClass = info[2], player.Class
+    removeClassBuffs(player, classData[class])
+    player.Class = class
+    applyClassBuffs(player, classData[class])
+    player.Buffs.ClassSkills = deepCopy(classData[class].skills)
+    player.Buffs.ClassCharacteristics = deepCopy(classData[class].characteristics)
+    player.Buffs.ClassSpecialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
-function changeClassBonus(colorPlayer)
+function changeClassBonus(info)
     local specData, flag = {}, false
     WebRequest.get(SPEC_INFO_URL, function(request)
         if request.is_done then
             specData = JSON.decode(request.text)
-            flag = true
+            if specData then
+                flag = true
+            else
+                print("Failed to decode specialization data.")
+            end
         else
-            print("Failed to fetch specislization information.")
+            print("Failed to fetch specialization information.")
         end
     end)
     Wait.condition(function()
             WebRequest.get(CLASS_INFO_URL, function(request)
                 if request.is_done then
-                    setClassInfo(colorPlayer, JSON.decode(request.text), specData)
+                    local classData = JSON.decode(request.text)
+                    if classData then
+                        setClassInfo(info, classData, specData)
+                    else
+                        print("Failed to decode class data.")
+                    end
                 else
                     print("Failed to fetch class information.")
                 end
@@ -506,19 +604,28 @@ function changeClassBonus(colorPlayer)
 end
 
 -- Function to set the player's sign
-local function setSignInfo(colorPlayer, signData)
-    local sign = saveInfoPlayer[colorPlayer].Sign
-    saveInfoPlayer[colorPlayer].Buffs.SignSkills = deepCopy(signData[sign].skills)
-    saveInfoPlayer[colorPlayer].Buffs.SignCharacteristics = deepCopy(signData[sign].characteristics)
-    saveInfoPlayer[colorPlayer].Buffs.SignBuffs = deepCopy(signData[sign].buffs)
-    saveInfoPlayer[colorPlayer].Abilitys.Sign = deepCopy(signData[sign].abilitys)
-    saveInfoPlayer[colorPlayer].MagicBonus = signData[sign].magicBonus or 0
+local function setSignInfo(info, signData)
+    local player = saveInfoPlayer[info[1]]
+    local sign, prevSign = info[2], player.Sign
+    removeSignBuffs(player, signData[prevSign])
+    player.Sign = sign
+    applySignBuffs(player, signData[sign])
+    player.Buffs.SignSkills = deepCopy(signData[sign].skills)
+    player.Buffs.SignCharacteristics = deepCopy(signData[sign].characteristics)
+    player.Buffs.SignBuffs = deepCopy(signData[sign].buffs)
+    player.Abilitys.Sign = deepCopy(signData[sign].abilitys)
+    player.MagicBonus.sign = signData[sign].magicBonus or 0
 end
 -- Function to fetch and set sign bonuses
-function changeSignBonus(colorPlayer)
+function changeSignBonus(info)
     WebRequest.get(SIGN_INFO_URL, function(request)
         if request.is_done then
-            setSignInfo(colorPlayer, JSON.decode(request.text))
+            local signData = JSON.decode(request.text)
+            if signData then
+                setSignInfo(info, signData)
+            else
+                print("Failed to decode sign data.")
+            end
         else
             print("Failed to fetch sign information.")
         end

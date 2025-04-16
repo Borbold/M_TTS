@@ -48,7 +48,7 @@
         "Speechcraft": 0
     },
     "Sign": "Atronach",
-    "MagicBonus": 0,
+    "MagicBonus": {"race": 0, "sign": 0},
     "Buffs": {
         "RaceSkills": {},
         "RaceCharacteristics": {},

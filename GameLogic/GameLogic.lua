@@ -27,24 +27,18 @@ local function reCalculatePlayer()
 end
 
 function changeRace(player, race)
-    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
-    player.Race = race
-    Global.call("changeRaceBonus", selectedColorPlayer)
+    Global.call("changeRaceBonus", {selectedColorPlayer, race})
     Wait.time(|| reCalculatePlayer(), 0.2)
 end
 
 function changeClass(player, class)
-    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
-    player.Class = class
-    Global.call("changeClassBonus", selectedColorPlayer)
+    Global.call("changeClassBonus", {selectedColorPlayer, class})
     Wait.time(|| Global.call("sortSkillsByImportance", selectedColorPlayer), 0.2)
     Wait.time(|| reCalculatePlayer(), 0.3)
 end
 
 function changeSign(player, sign)
-    local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
-    player.Sign = sign
-    Global.call("changeSignBonus", selectedColorPlayer)
+    Global.call("changeSignBonus", {selectedColorPlayer, sign})
     Wait.time(|| Global.call("sortSkillsByImportance", selectedColorPlayer), 0.2)
     Wait.time(|| reCalculatePlayer(), 0.3)
 end
