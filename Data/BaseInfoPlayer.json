@@ -3,8 +3,8 @@
     "mana": {"current": 30, "max": 100},
     "stamina": {"current": 30, "max": 100},
     "level": "1",
-    "race": "altmer",
-    "class": "acrobat",
+    "race": "Altmer",
+    "class": "Acrobat",
     "characteristics": {
         "strength": 0,
         "intelligence": 0,
@@ -47,7 +47,7 @@
         "staff": 0,
         "speechcraft": 0
     },
-    "sign": "atronach",
+    "sign": "Atronach",
     "magicbonus": {"race": 0, "sign": 0},
     "buffs": {
         "raceskills": {},

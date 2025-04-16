@@ -1,88 +1,88 @@
 {
-    "Atronach": {
+    "atronach": {
         "description": "Absorbs 50% of  magicka cost of spells cast.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Lady": {
+    "lady": {
         "description": "Grants a 10% chance to resist negative spells.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Lord": {
+    "lord": {
         "description": "Grants a 10% chance to resist positive spells.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Lover": {
+    "lover": {
         "description": "Love and death.",
         "skills": {},
         "characteristics": {"agility": 20},
         "buffs": {"jump": 5, "feather": 50},
         "abilitys": {"A lover's kiss": {"paralysis": {"quantity": 3, "move": 3, "remoteTarget": 1}, "wasteStamina": {"value": 300, "onHimself": 1}}}
     },
-    "Mage": {
+    "mage": {
         "description": "Grants a 10% chance to cast spells for free.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Ritual": {
+    "ritual": {
         "description": "Grants a 10% chance to resist negative spells.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Serpent": {
+    "serpent": {
         "description": "Grants a 10% chance to resist disease and poison.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Shadow": {
+    "shadow": {
         "description": "Grants a 10% chance to resist negative spells.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Steed": {
+    "steed": {
         "description": "Grants a 10% chance to resist fatigue.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Thief": {
+    "thief": {
         "description": "I'm shadow.",
         "skills": {"security": 10},
         "characteristics": {"speed": 10, "agility": 10},
         "buffs": {"luminary": 20},
         "abilitys": {}
     },
-    "Tower": {
+    "tower": {
         "description": "Grants a 10% chance to resist negative spells.",
         "skills": {},
         "characteristics": {},
         "buffs": {},
         "abilitys": {}
     },
-    "Warrior": {
+    "warrior": {
         "description": "I'm Death.",
         "skills": {},
         "characteristics": {"strength": 10},
         "buffs": {"attack": 30, "recoverHealth": 5, "recoverStamina": 5, "sound": 50}
     },
-    "Apprentice": {
+    "apprentice": {
         "description": "Grants a 10% chance to cast spells for free.",
         "skills": {},
         "characteristics": {},
