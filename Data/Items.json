@@ -13,7 +13,7 @@
             "effects": {
             },
             "equipped": true,
-            "imageUrl": "https://example.com/images/iron_sword.png"
+            "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
         },
         {
             "name": "Iron Breastplate",
@@ -58,7 +58,7 @@
             "effects": {
                 "mana": 15
             },
-            "imageUrl": "https://static.wikia.nocookie.net/elderscrolls/images/2/21/ForkMorrowind.png/revision/latest?cb=20160716154933"
+            "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
         }
     ]
 }

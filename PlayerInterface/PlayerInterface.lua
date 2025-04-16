@@ -393,11 +393,11 @@ local function activateInventoryForGM()
     if(indexVisibilityColorGM <= #listColor) then
         if(indexVisibilityColorGM > 1) then
             local prevPlayColor = listColor[indexVisibilityColorGM - 1] .. "mainPanel"
-            self.UI.setAttribute(prevPlayColor, "visibility", prevPlayColor)
+            self.UI.setAttribute(prevPlayColor, "visibility", listColor[indexVisibilityColorGM - 1])
         end
         local curPlayColor = listColor[indexVisibilityColorGM] .. "mainPanel"
         self.UI.setAttribute(curPlayColor, "active", "true")
-        self.UI.setAttribute(curPlayColor, "visibility", curPlayColor .. "|Black")
+        self.UI.setAttribute(curPlayColor, "visibility", listColor[indexVisibilityColorGM] .. "|Black")
         indexVisibilityColorGM = indexVisibilityColorGM + 1
     else
         for _, color in ipairs(listColor) do
