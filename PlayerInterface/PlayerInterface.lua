@@ -136,9 +136,32 @@ local listColor = {
 
 -- Default XML information
 local procuredXMLForm = {
-    tag = "GridLayout",
-    attributes = {id = "mainPanel", active = "true", startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
-    children = {}
+    tag = "TableLayout",
+    attributes = {id = "mainPanel", active = "true", offsetXY = "400 -200", width = "944", height = "365"},
+    children = {
+        tag = "Row",
+        attributes = {preferredHeight = "365"},
+        children = {
+            {
+                tag = "Cell",
+                attributes = {},
+                children = {
+                    tag = "GridLayout",
+                    attributes = {startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
+                    children = {}
+                }
+            },
+            {
+                tag = "Cell",
+                attributes = {},
+                children = {
+                    tag = "GridLayout",
+                    attributes = {startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
+                    children = {}
+                }
+            }
+        }
+    }
 }
 
 -- Save information for players
@@ -311,7 +334,7 @@ local function buildXMLStructure()
         uiElementFunctions["mageSkill"]("Alteration", "alteration")
     }))
 
-    procuredXMLForm.children = rows
+    procuredXMLForm.children.children[2].children.children = rows
 end
 
 -- Function to perform a deep copy of a table
@@ -336,22 +359,22 @@ local function rebuildXMLTable()
         newPanel.attributes.visibility = colorPlayer
         -- Base info
         for i = 1, 2 do
-            for j = 1, #newPanel.children[i].children do
-                for k = 1, #newPanel.children[i].children[j].children[2].children[1].children do
-                    local elementId = newPanel.children[i].children[j].children[2].children[1].children[k].attributes.id
-                    newPanel.children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
+            for j = 1, #newPanel.children.children[2].children.children[i].children do
+                for k = 1, #newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children do
+                    local elementId = newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children[k].attributes.id
+                    newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
                 end
             end
         end
         -- characteristics
-        for j = 1, #newPanel.children[3].children[1].children do
-            local elementId = newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children.children[2].children.children[3].children[1].children do
+            local elementId = newPanel.children.children[2].children.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children.children[2].children.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
         -- skills
-        for j = 1, #newPanel.children[4].children[1].children[1].children do
-            local elementId = newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children.children[2].children.children[4].children[1].children[1].children do
+            local elementId = newPanel.children.children[2].children.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children.children[2].children.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
 
         table.insert(mainPanel, newPanel)
@@ -492,13 +515,14 @@ function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     -- Calculate skills
     local xmlTable = self.UI.getXmlTable()
-    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
+    xmlTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1]
+    local skillsTable = xmlTable.children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
         player.skills[skillId] = calculateSkill(player, skillId)
     end
     -- Calculate characteristics
-    local characteristicsTable = xmlTable[2].children[enumColor[colorPlayer]].children[3].children[1].children
+    local characteristicsTable = xmlTable.children[3].children[1].children
     for index, state in ipairs(characteristicsTable) do
         local charId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
         player.characteristics[charId] = calculateCharacteristics(player, charId)
@@ -556,7 +580,7 @@ local function setClassInfo(info, classData, specData)
     if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
     applyClassBuffs(player, classData[class])
     player.class = cClass
-    player.buffs.classs_kills = deepCopy(classData[class].skills)
+    player.buffs.classs_skills = deepCopy(classData[class].skills)
     player.buffs.class_specialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
@@ -637,7 +661,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Add major skills
     table.insert(sortedSkills, { name = "Major Skills" })
-    for skill, _ in pairs(player.buffs.classs_kills.majorskills) do
+    for skill, _ in pairs(player.buffs.classs_skills.majorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
@@ -645,7 +669,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Add minor skills
     table.insert(sortedSkills, { name = "Minor Skills" })
-    for skill, _ in pairs(player.buffs.classs_kills.minorskills) do
+    for skill, _ in pairs(player.buffs.classs_skills.minorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
@@ -668,7 +692,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Update XML form with sorted skills
     local xmlTable = self.UI.getXmlTable()
-    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[4].children[1].children[1].children
+    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children[4].children[1].children[1].children
     for i, skillEntry in ipairs(sortedSkills) do
         -- Update skill class
         skillsTable[i].children[2].children[1].children[1].attributes.class = self.UI.getAttribute(colorPlayer .. skillEntry.name, "class")

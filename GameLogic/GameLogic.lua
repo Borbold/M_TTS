@@ -23,7 +23,7 @@ function onLoad()
 end
 
 local function reCalculatePlayer()
-    Global.call("calculateInfo", selectedColorPlayer) Global.call("updatePlayer", selectedColorPlayer)
+    Global.call("sortSkillsByImportance", selectedColorPlayer) Global.call("calculateInfo", selectedColorPlayer) Global.call("updatePlayer", selectedColorPlayer)
 end
 
 function changeRace(player, race)

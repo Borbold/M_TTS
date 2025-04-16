@@ -27,7 +27,8 @@
         scrollbarBackgroundImage='Slide_Back' scrollbarImage='Slide_Font' />
 </Defaults>
 
-<Panel offsetXY='600 -200' width='472' height='365'>
+<!--Piece for UI generation-->
+<Panel>
 </Panel>
 
 <Panel id='BlackmainPanel' width='200' height='200' active='false' visibility='Black' color='Black'>
