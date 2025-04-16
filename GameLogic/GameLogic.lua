@@ -17,9 +17,9 @@ function onLoad()
         chest = 30, shoulder = 20, legs = 15, arm = 20, feets = 10, head = 5
     }
     selectedColorPlayer = "White"
-    addStateChangeHotkey("Change player HP", "Health")
-    addStateChangeHotkey("Change player MP", "Mana")
-    addStateChangeHotkey("Change player SP", "Stamina")
+    addStateChangeHotkey("Change player HP", "health")
+    addStateChangeHotkey("Change player MP", "mana")
+    addStateChangeHotkey("Change player SP", "stamina")
 end
 
 local function reCalculatePlayer()
@@ -53,16 +53,16 @@ end
 
 -- Restore all statistical parameters to maximum
 local function restoreAll(player)
-    player.Health.current = player.Health.max
-    player.Mana.current = player.Mana.max
-    player.Stamina.current = player.Stamina.max
+    player.health.current = player.health.max
+    player.mana.current = player.mana.max
+    player.stamina.current = player.stamina.max
 end
--- Stamina regeneration function after each move
+-- stamina regeneration function after each move
 local function restoreStaminaPerTurn()
     local indexSleep = 0.1
     for colorPlayer, player in pairs(Global.getVar("saveInfoPlayer")) do
-        player.Stamina.current = player.Stamina.current + math.floor(2.5 + (0.02 * player.Characteristics.Endurance))
-        player.Stamina.current = Global.call("checkValue", {player.Stamina.current, player.Stamina.max})
+        player.stamina.current = player.stamina.current + math.floor(2.5 + (0.02 * player.characteristics.endurance))
+        player.stamina.current = Global.call("checkValue", {player.stamina.current, player.stamina.max})
         Wait.time(|| Global.call("updatePlayer", colorPlayer), indexSleep)
         indexSleep = indexSleep + 0.1
     end
@@ -74,7 +74,7 @@ function changePlayerState(player, alt, id)
     elseif(id == "restoreStaminaPerTurn") then
         restoreStaminaPerTurn()
     else
-        local state = self.UI.getAttribute(id, "text")
+        local state = self.UI.getAttribute(id, "text"):lower()
         local value = tonumber(self.UI.getAttribute(state, "text")) * (alt == "-1" and 1 or -1)
         player[state].current = player[state].current + value
         player[state].current = Global.call("checkValue", {player[state].current, player[state].max})

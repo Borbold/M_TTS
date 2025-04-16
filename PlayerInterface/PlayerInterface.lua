@@ -276,19 +276,19 @@ local function buildXMLStructure()
         uiElementFunctions["characteristic"]("Luck", "luck")
     }))
     table.insert(rows, createSkillsTableLayout({
-        uiElementFunctions["info"]("Major skills", "MajorSkills"),
+        uiElementFunctions["info"]("Major skills", "Major Skills"),
         uiElementFunctions["combatSkill"]("Marksman", "marksman"),
         uiElementFunctions["combatSkill"]("Short Blade", "short_blade"),
         uiElementFunctions["combatSkill"]("Long Blade", "long_blade"),
         uiElementFunctions["combatSkill"]("Axe", "axe"),
         uiElementFunctions["combatSkill"]("Spear", "spear"),
-        uiElementFunctions["info"]("Minor skills", "MinorSkills"),
+        uiElementFunctions["info"]("Minor skills", "Minor Skills"),
         uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon"),
         uiElementFunctions["combatSkill"]("Staff", "staff"),
         uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand"),
         uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor"),
         uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor"),
-        uiElementFunctions["info"]("Misc skills", "MiscSkills"),
+        uiElementFunctions["info"]("Misc skills", "Misc Skills"),
         uiElementFunctions["protectSkill"]("Light Armor", "light_armor"),
         uiElementFunctions["protectSkill"]("Block", "block"),
         uiElementFunctions["protectSkill"]("Unarmored", "unarmored"),
@@ -626,7 +626,7 @@ local function capitalizeLetter(str)
     local findSecondWord, newWord = str:find("_"), ""
     newWord = str:sub(1, 1):upper() .. str:sub(2)
     if findSecondWord then
-        newWord = newWord:sub(1, findSecondWord - 1) .. newWord:sub(findSecondWord + 1, findSecondWord + 1):upper() .. newWord:sub(findSecondWord + 2)
+        newWord = newWord:sub(1, findSecondWord - 1) .. " " .. newWord:sub(findSecondWord + 1, findSecondWord + 1):upper() .. newWord:sub(findSecondWord + 2)
     end
     return newWord
 end

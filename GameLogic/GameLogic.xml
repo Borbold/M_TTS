@@ -72,11 +72,11 @@
                 <Option>Apprentice</Option>
             </Dropdown>
             <Button class='changeStateButton' id='but1' text='Health' />
-            <InputField id='Health' />
+            <InputField id='health' />
             <Button class='changeStateButton' id='but2' text='Mana' />
-            <InputField id='Mana' />
+            <InputField id='mana' />
             <Button class='changeStateButton' id='but3' text='Stamina' />
-            <InputField id='Stamina' />
+            <InputField id='stamina' />
             <Button class='changeStateButton' id='restoreAll' text='Restore All' />
             <Button class='changeStateButton' id='restoreStaminaPerTurn' text='Restore Stamina Per Turn' />
             <Button class='hitButton' text='What Part Of Body Hit' />
