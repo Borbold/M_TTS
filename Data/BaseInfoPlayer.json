@@ -52,7 +52,7 @@
     "buffs": {
         "skills": {},
         "characteristics": {},
-        "resistance": {},
+        "resistances": {},
         "classskills": {},
         "classspecialization": {},
         "signbuffs": {}
