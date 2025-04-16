@@ -98,7 +98,7 @@ local function removeClassBuffs(character, classData)
 end
 
 -- Function to apply sign buffs
-local function applySignBuffs(character, signData)
+local function applysign_buffs(character, signData)
     for buffName, value in pairs(signData.skills) do
         applyBuff(character, BUFF_TYPE.SKILL, buffName, value)
     end
@@ -107,7 +107,7 @@ local function applySignBuffs(character, signData)
     end
 end
 -- Function to remove sign buffs
-local function removeSignBuffs(character, signData)
+local function removesign_buffs(character, signData)
     for buffName, value in pairs(signData.skills) do
         removeBuff(character, BUFF_TYPE.SKILL, buffName, value)
     end
@@ -482,7 +482,7 @@ function setUI(colorPlayer)
 end
 
 local function calculateSkill(player, id)
-    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.buffs.classspecialization[id] and 5 or 0)
+    return 5 + calculateBuff(player, BUFF_TYPE.SKILL, id) + (player.buffs.class_specialization[id] and 5 or 0)
 end
 local function calculateCharacteristics(player, id)
     return calculateBuff(player, BUFF_TYPE.CHARACTERISTIC, id)
@@ -556,8 +556,8 @@ local function setClassInfo(info, classData, specData)
     if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
     applyClassBuffs(player, classData[class])
     player.class = cClass
-    player.buffs.classskills = deepCopy(classData[class].skills)
-    player.buffs.classspecialization = deepCopy(specData[classData[class].specialization])
+    player.buffs.classs_kills = deepCopy(classData[class].skills)
+    player.buffs.class_specialization = deepCopy(specData[classData[class].specialization])
 end
 -- Function to fetch and set class bonuses
 function changeClassBonus(info)
@@ -599,10 +599,10 @@ local function setSignInfo(info, signData)
     local sSign = info[2]
     local player = saveInfoPlayer[info[1]]
     local sign, prevSign = info[2]:lower(), player.sign:lower()
-    if(not isOnLoad) then removeSignBuffs(player, signData[prevSign]) end
-    applySignBuffs(player, signData[sign])
+    if(not isOnLoad) then removesign_buffs(player, signData[prevSign]) end
+    applysign_buffs(player, signData[sign])
     player.sign = sSign
-    player.buffs.signbuffs = deepCopy(signData[sign].buffs)
+    player.buffs.sign_buffs = deepCopy(signData[sign].buffs)
     player.abilitys.sign = deepCopy(signData[sign].abilitys)
     player.magicbonus.sign = signData[sign].magicbonus or 0
 end
@@ -637,7 +637,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Add major skills
     table.insert(sortedSkills, { name = "Major Skills" })
-    for skill, _ in pairs(player.buffs.classskills.majorskills) do
+    for skill, _ in pairs(player.buffs.classs_kills.majorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end
@@ -645,7 +645,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Add minor skills
     table.insert(sortedSkills, { name = "Minor Skills" })
-    for skill, _ in pairs(player.buffs.classskills.minorskills) do
+    for skill, _ in pairs(player.buffs.classs_kills.minorskills) do
         if player.skills[skill] then
             table.insert(sortedSkills, { name = skill, value = player.skills[skill] })
         end

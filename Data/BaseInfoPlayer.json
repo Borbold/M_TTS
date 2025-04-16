@@ -53,9 +53,9 @@
         "skills": {},
         "characteristics": {},
         "resistances": {},
-        "classskills": {},
-        "classspecialization": {},
-        "signbuffs": {}
+        "classs_kills": {},
+        "class_specialization": {},
+        "sign_buffs": {}
     },
     "debuffs": {
         "vulnerability": {}

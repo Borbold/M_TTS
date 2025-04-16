@@ -4,7 +4,8 @@
             "name": "Iron Sword",
             "type": "weapon",
             "weight": 1,
-            "damageRange": {
+            "base_cost": 30,
+            "damage_range": {
                 "min": 5,
                 "max": 10
             },
@@ -18,6 +19,7 @@
             "name": "Iron Breastplate",
             "type": "armor",
             "weight": 1,
+            "base_cost": 20,
             "defense": 20,
             "durability": 150,
             "effects": {
@@ -29,6 +31,7 @@
             "name": "Healing Potion",
             "type": "consumable",
             "weight": 1,
+            "base_cost": 50,
             "effects": {
                 "restore": {"health": 5, "time": 10}
             },
@@ -39,6 +42,7 @@
             "name": "Sujamma",
             "type": "consumable",
             "weight": 1,
+            "base_cost": 20,
             "effects": {
                 "buffs": {"strength": 50, "time": 60},
                 "debuffs": {"intelligence": 50, "time": 60}
@@ -49,6 +53,7 @@
         {
             "name": "Fork",
             "type": "other",
+            "base_cost": 2,
             "weight": 1,
             "effects": {
                 "mana": 15
