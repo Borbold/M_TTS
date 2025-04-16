@@ -12,7 +12,7 @@
     <Button class='mageSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkill' />
     <Button class='combatSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwCombatSkill' />
     <Button class='protectSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwProtectSkill' />
-    <Button class='stateV' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwSkill' />
+    <Button class='skill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwSkill' />
     <Text class='stateV' offsetXY='40 0' alignment='MiddleRight' />
     <Text class='infoSkill' active='false' />
     <Text class='progressBarV' offsetXY='65 0' />

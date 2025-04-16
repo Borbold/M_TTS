@@ -249,65 +249,89 @@ local function createSkillsTableLayout(rows)
     }
 end
 
+-- Table to map UI element types to their respective creation functions
+local uiElementFunctions = {
+    ["progress"] = function(name, value) return createRow(name, value, "progress", "mainInfo", "stateV", "Text") end,
+    ["value"] = function(name, value) return createRow(name, value, "value", "mainInfo", "stateV", "Text") end,
+    ["info"] = function(name, value) return createRow(name, value, "value", "mainInfo", "infoSkill", "Text") end,
+    ["characteristic"] = function(name, value) return createRow(name, value, "value", "gameInfo", "skill", "Button") end,
+    ["combatSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "combatSkill", "Button") end,
+    ["mageSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button") end,
+    ["protectSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button") end,
+    ["skill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "skill", "Button") end
+}
+
 -- Create the main XML structure
 local function buildXMLStructure()
-    procuredXMLForm.children = {
-        createTableLayout({
-            createRow("Health", "Health", "progress", "mainInfo", "stateV", "Text"),
-            createRow("Mana", "Mana", "progress", "mainInfo", "stateV", "Text"),
-            createRow("Stamina", "Stamina", "progress", "mainInfo", "stateV", "Text")
-        }),
-        createTableLayout({
-            createRow("Level", "Level", "value", "mainInfo", "stateV", "Text"),
-            createRow("Race", "Race", "value", "mainInfo", "stateV", "Text"),
-            createRow("Class", "Class", "value", "mainInfo", "stateV", "Text")
-        }),
-        createCharacteristicsTableLayout({
-            createRow("Strength", "Strength", "value", "gameInfo", "stateV", "Button"),
-            createRow("Intelligence", "Intelligence", "value", "gameInfo", "stateV", "Button"),
-            createRow("Willpower", "Willpower", "value", "gameInfo", "stateV", "Button"),
-            createRow("Agility", "Agility", "value", "gameInfo", "stateV", "Button"),
-            createRow("Speed", "Speed", "value", "gameInfo", "stateV", "Button"),
-            createRow("Endurance", "Endurance", "value", "gameInfo", "stateV", "Button"),
-            createRow("Personality", "Personality", "value", "gameInfo", "stateV", "Button"),
-            createRow("Luck", "Luck", "value", "gameInfo", "stateV", "Button")
-        }),
-        createSkillsTableLayout({
-            createRow("Major Skills", "MajorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MajorSkills
-            createRow("Marksman", "Marksman", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Short Blade", "ShortBlade", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Long Blade", "LongBlade", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Axe", "Axe", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Spear", "Spear", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Minor Skills", "MinorSkills", "value", "mainInfo", "infoSkill", "Text"), -- MinorSkills
-            createRow("Blunt Weapon", "BluntWeapon", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Staff", "Staff", "value", "skillsInfo", "combatSkill", "Button"), -- Endurance
-            createRow("Medium Armor", "MediumArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Heavy Armor", "HeavyArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Light Armor", "LightArmor", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Misc Skills", "MiscSkills", "value", "mainInfo", "infoSkill", "Text"), -- MiscSkills
-            createRow("Block", "Block", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Armorer", "Armorer", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Athletics", "Athletics", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Acrobatics", "Acrobatics", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Security", "Security", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Sneak", "Sneak", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Perception", "Perception", "value", "skillsInfo", "stateV", "Button"), -- Willpower
-            createRow("Unarmored", "Unarmored", "value", "skillsInfo", "protectSkill", "Button"),
-            createRow("Hand to Hand", "HandToHand", "value", "skillsInfo", "combatSkill", "Button"),
-            createRow("Mercantile", "Mercantile", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Speechcraft", "Speechcraft", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Alchemy", "Alchemy", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Enchant", "Enchant", "value", "skillsInfo", "stateV", "Button"),
-            createRow("Analysis", "Analysis", "value", "skillsInfo", "stateV", "Button"), -- Intelligence
-            createRow("Conjuration", "Conjuration", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Illusion", "Illusion", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Restoration", "Restoration", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Mysticism", "Mysticism", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Destruction", "Destruction", "value", "skillsInfo", "mageSkill", "Button"),
-            createRow("Alteration", "Alteration", "value", "skillsInfo", "mageSkill", "Button")
-        })
+    local rows = {}
+    local characteristics = {
+        "Strength", "Intelligence", "Willpower", "Agility", "Speed", "Endurance", "Personality", "Luck"
     }
+    local skills = {
+        "MajorSkills", "Marksman", "ShortBlade", "LongBlade", "Axe", "Spear",
+        "MinorSkills", "BluntWeapon", "Staff", "MediumArmor", "HeavyArmor", "LightArmor",
+        "MiscSkills", "Block", "Armorer", "Athletics", "Acrobatics", "Security", "Sneak", "Perception",
+        "Unarmored", "HandToHand", "Mercantile", "Speechcraft", "Alchemy", "Enchant", "Analysis",
+        "Conjuration", "Illusion", "Restoration", "Mysticism", "Destruction", "Alteration"
+    }
+
+    table.insert(rows, createTableLayout({
+        uiElementFunctions["progress"]("Health", "Health"),
+        uiElementFunctions["progress"]("Mana", "Mana"),
+        uiElementFunctions["progress"]("Stamina", "Stamina")
+    }))
+    table.insert(rows, createTableLayout({
+        uiElementFunctions["value"]("Level", "Level"),
+        uiElementFunctions["value"]("Race", "Race"),
+        uiElementFunctions["value"]("Class", "Class")
+    }))
+    table.insert(rows, createCharacteristicsTableLayout({
+        uiElementFunctions["characteristic"]("Strength", "Strength"),
+        uiElementFunctions["characteristic"]("Intelligence", "Intelligence"),
+        uiElementFunctions["characteristic"]("Willpower", "Willpower"),
+        uiElementFunctions["characteristic"]("Agility", "Agility"),
+        uiElementFunctions["characteristic"]("Speed", "Speed"),
+        uiElementFunctions["characteristic"]("Endurance", "Endurance"),
+        uiElementFunctions["characteristic"]("Personality", "Personality"),
+        uiElementFunctions["characteristic"]("Luck", "Luck")
+    }))
+    table.insert(rows, createSkillsTableLayout({
+        uiElementFunctions["info"]("MajorSkills", "MajorSkills"),
+        uiElementFunctions["combatSkill"]("Marksman", "Marksman"),
+        uiElementFunctions["combatSkill"]("ShortBlade", "ShortBlade"),
+        uiElementFunctions["combatSkill"]("LongBlade", "LongBlade"),
+        uiElementFunctions["combatSkill"]("Axe", "Axe"),
+        uiElementFunctions["combatSkill"]("Spear", "Spear"),
+        uiElementFunctions["info"]("MinorSkills", "MinorSkills"),
+        uiElementFunctions["combatSkill"]("BluntWeapon", "BluntWeapon"),
+        uiElementFunctions["combatSkill"]("Staff", "Staff"),
+        uiElementFunctions["combatSkill"]("HandToHand", "HandToHand"),
+        uiElementFunctions["protectSkill"]("MediumArmor", "MediumArmor"),
+        uiElementFunctions["protectSkill"]("HeavyArmor", "HeavyArmor"),
+        uiElementFunctions["info"]("MiscSkills", "MiscSkills"),
+        uiElementFunctions["protectSkill"]("LightArmor", "LightArmor"),
+        uiElementFunctions["protectSkill"]("Block", "Block"),
+        uiElementFunctions["protectSkill"]("Unarmored", "Unarmored"),
+        uiElementFunctions["skill"]("Armorer", "Armorer"),
+        uiElementFunctions["skill"]("Athletics", "Athletics"),
+        uiElementFunctions["skill"]("Acrobatics", "Acrobatics"),
+        uiElementFunctions["skill"]("Security", "Security"),
+        uiElementFunctions["skill"]("Sneak", "Sneak"),
+        uiElementFunctions["skill"]("Perception", "Perception"),
+        uiElementFunctions["skill"]("Mercantile", "Mercantile"),
+        uiElementFunctions["skill"]("Speechcraft", "Speechcraft"),
+        uiElementFunctions["skill"]("Alchemy", "Alchemy"),
+        uiElementFunctions["skill"]("Enchant", "Enchant"),
+        uiElementFunctions["skill"]("Analysis", "Analysis"),
+        uiElementFunctions["mageSkill"]("Conjuration", "Conjuration"),
+        uiElementFunctions["mageSkill"]("Illusion", "Illusion"),
+        uiElementFunctions["mageSkill"]("Restoration", "Restoration"),
+        uiElementFunctions["mageSkill"]("Mysticism", "Mysticism"),
+        uiElementFunctions["mageSkill"]("Destruction", "Destruction"),
+        uiElementFunctions["mageSkill"]("Alteration", "Alteration")
+    }))
+
+    procuredXMLForm.children = rows
 end
 
 -- Function to perform a deep copy of a table
