@@ -375,24 +375,32 @@ local function activateInventoryForGM()
     end
 end
 
+local function updateItems(player)
+    local xmlTable, rowItems = self.UI.getXmlTable(), {}
+    for _, item in ipairs(player.items) do
+        table.insert(rowItems, uiElementFunctions["item"](item[1], item[2], item[3]))
+    end
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = rowItems
+    self.UI.setXmlTable(xmlTable)
+    Wait.time(|| updatePlayer(colorPlayer), 0.3)
+end
+
 -- Picking up an item and transferring it to the inventory
 local function takeItem(colorPlayer, object)
     if object.hasTag("item") then
         --destroyObject(object)
-        local l1 = '"ImageURL":'
-        local l2 = '"ImageSecondaryURL"'
+        local player = saveInfoPlayer[colorPlayer]
+        local l1, l2 = '"ImageURL":', '"ImageSecondaryURL"'
         local objJSON = object.getJSON()
-        local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1)
-        URLImage = URLImage:match([["([^"]+)]])
+        local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1):match([["([^"]+)]])
         local name = object.getName():gsub("%[.-%]","")
         local tooltip = string.format("%s\n%s", name, object.getDescription())
-        local xmlTable = self.UI.getXmlTable()
-        xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = {
-            uiElementFunctions["item"](name, URLImage, tooltip)
-        }
-        self.UI.setXmlTable(xmlTable)
-        Wait.time(|| updatePlayer(colorPlayer), 0.3)
+        table.insert(player.items, {name, URLImage, tooltip})
+        updateItems(player)
     end
+end
+
+function putItem(player, alt, id)
 end
 
 -- Function to load save data
