@@ -125,6 +125,7 @@ local SIGN_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/head
 local SPEC_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SpecializationInfo.json"
 local B_WASTE_S_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseWasteStamina.json"
 local TOOLTIP_B_I_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/TooltipBaseInfo.json"
+local ITEMS_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/Items.json"
 
 local enumColor = {
     Red = 1, White = 2, Blue = 3
@@ -328,6 +329,43 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
+-- Update inventory xml form
+local function updateItems(colorPlayer)
+    local xmlTable, rowItems = self.UI.getXmlTable(), {}
+    for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
+        table.insert(rowItems, uiElementFunctions["item"](item[1], item[2], item[3]))
+    end
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = rowItems
+    self.UI.setXmlTable(xmlTable)
+    updatePlayer(colorPlayer)
+end
+
+-- Picking up an item and transferring it to the inventory
+local function takeItem(colorPlayer, object)
+    if object and object.hasTag("item") then
+        local l1, l2 = '"ImageURL":', '"ImageSecondaryURL"'
+        local objJSON = object.getJSON()
+        local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1):match([["([^"]+)]])
+        local name = object.getName():gsub("%[.-%]","")
+        local tooltip = string.format("%s\n%s", name, object.getDescription())
+        table.insert(saveInfoPlayer[colorPlayer].items, {name, URLImage, tooltip})
+        updateItems(colorPlayer)
+    end
+end
+
+-- Remove an item from your inventory or use it
+function putItem(player, alt, id)
+    local colorPlayer = player.color
+    local locPlayer = saveInfoPlayer[colorPlayer]
+    for i, item in ipairs(locPlayer.items) do
+        if item[1] == id then
+            table.remove(locPlayer.items, i)
+            updateItems(colorPlayer)
+            return
+        end
+    end
+end
+
 -- Apply all changes to the character
 local function setCharacter(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
@@ -337,12 +375,13 @@ local function setCharacter(colorPlayer)
 end
 
 -- Function to confer saved data
-local function confer()
+local function confer(isLoad)
     isOnLoad = true
     broadcastToAll("[ffee8c]Loading. Please wait.[-]")
     local multiplySleepTime = 3
     for colorPlayer, _ in pairs(saveInfoPlayer) do
-        setCharacter(colorPlayer)
+        if not isLoad then setCharacter(colorPlayer) end
+        updateItems(colorPlayer)
         Wait.time(|| sortSkillsByImportance(colorPlayer), (enumColor[colorPlayer] / 3) * multiplySleepTime)
         Wait.time(|| calculateInfo(colorPlayer), (enumColor[colorPlayer] / 2) * multiplySleepTime)
         Wait.time(|| setUI(colorPlayer), (enumColor[colorPlayer]) * multiplySleepTime)
@@ -375,43 +414,15 @@ local function activateInventoryForGM()
     end
 end
 
-local function updateItems(player)
-    local xmlTable, rowItems = self.UI.getXmlTable(), {}
-    for _, item in ipairs(player.items) do
-        table.insert(rowItems, uiElementFunctions["item"](item[1], item[2], item[3]))
-    end
-    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = rowItems
-    self.UI.setXmlTable(xmlTable)
-    Wait.time(|| updatePlayer(colorPlayer), 0.3)
-end
-
--- Picking up an item and transferring it to the inventory
-local function takeItem(colorPlayer, object)
-    if object.hasTag("item") then
-        --destroyObject(object)
-        local player = saveInfoPlayer[colorPlayer]
-        local l1, l2 = '"ImageURL":', '"ImageSecondaryURL"'
-        local objJSON = object.getJSON()
-        local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1):match([["([^"]+)]])
-        local name = object.getName():gsub("%[.-%]","")
-        local tooltip = string.format("%s\n%s", name, object.getDescription())
-        table.insert(player.items, {name, URLImage, tooltip})
-        updateItems(player)
-    end
-end
-
-function putItem(player, alt, id)
-end
-
 -- Function to load save data
 local function loadSaveData()
-    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
-        Wait.time(confer, 1)
+        Wait.time(|| confer(true), 1)
     else
         print("Fail to get save. Re-saving.")
-        Wait.time(confer, 1)
+        Wait.time(|| confer(false), 1)
         updateSave()
     end
 end
@@ -424,10 +435,22 @@ function onLoad()
         end
     end)
     addHotkey("Inventory", function(colorPlayer)
-        activateInventory(colorPlayer)
+        if not isOnLoad then
+            activateInventory(colorPlayer)
+        end
     end)
     addHotkey("Take item", function(playerColor, object, pointerPosition, isKeyUp)
-        takeItem(playerColor, object)
+        if not isOnLoad then
+            takeItem(playerColor, object)
+        end
+    end)
+
+    WebRequest.get(ITEMS_URL, function(request)
+        if request.is_done then
+            items = JSON.decode(request.text)
+        else
+            print("Failed to decode items info.")
+        end
     end)
 
     WebRequest.get(BASE_INFO_URL, function(request)

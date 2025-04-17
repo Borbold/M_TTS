@@ -14,6 +14,7 @@
             "effects": {
             },
             "equipped": true,
+            "used": false,
             "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
         },
         {
@@ -27,6 +28,7 @@
             "effects": {
             },
             "equipped": true,
+            "used": false,
             "imageUrl": "https://example.com/images/iron_breastplate.png"
         },
         {
@@ -38,6 +40,7 @@
             "effects": {
                 "restore": {"health": 5, "time": 10}
             },
+            "equipped": false,
             "used": true,
             "imageUrl": "https://example.com/images/healing_potion.png"
         },
@@ -51,6 +54,7 @@
                 "buffs": {"strength": 50, "time": 60},
                 "debuffs": {"intelligence": 50, "time": 60}
             },
+            "equipped": false,
             "used": true,
             "imageUrl": "https://example.com/images/sujama.png"
         },
@@ -63,6 +67,8 @@
             "effects": {
                 "mana": 15
             },
+            "equipped": false,
+            "used": false,
             "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
         },
         {
@@ -72,8 +78,9 @@
             "base_cost": 2,
             "weight": 1,
             "effects": {
-                "mana": 15
             },
+            "equipped": false,
+            "used": false,
             "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
         },
         {
@@ -83,8 +90,9 @@
             "base_cost": 2,
             "weight": 1,
             "effects": {
-                "mana": 15
             },
+            "equipped": false,
+            "used": false,
             "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
         }
     ]
