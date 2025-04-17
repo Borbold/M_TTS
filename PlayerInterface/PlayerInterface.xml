@@ -18,8 +18,10 @@
     <Text class='progressBarV' offsetXY='65 0' />
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
-    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#dfaf37' font='Font/Gothic' />
-    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#ffffff00' font='Font/Gothic' />
+    <Text resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#dfaf37' font='Font/Gothic'
+        tooltipFont='Font/Gothic' tooltipFontSize='35' tooltipPosition='Above' />
+    <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#ffffff00' font='Font/Gothic'
+        tooltipFont='Font/Gothic' tooltipFontSize='35' tooltipPosition='Above' />
     <TableLayout cellSpacing='5' />
     <Row preferredHeight='20' />
     <Cell dontUseTableCellBackground='true' />
@@ -34,7 +36,7 @@
 <Panel id='BlackmainPanel' width='200' height='200' active='false' visibility='Black' color='Black'>
 </Panel>
 
-<!--procuredXMLForm-->
+<!--xml billet for players-->
 <TableLayout id='mainPanel' active='false' offsetXY='400 -200' width='944' height='365'>
     <Row preferredHeight='365'>
         <Cell>

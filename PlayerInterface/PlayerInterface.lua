@@ -124,6 +124,7 @@ local CLASS_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/hea
 local SIGN_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SignInfo.json"
 local SPEC_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/SpecializationInfo.json"
 local B_WASTE_S_INFO_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/BaseWasteStamina.json"
+local TOOLTIP_B_I_URL = "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Data/TooltipBaseInfo.json"
 
 local enumColor = {
     Red = 1, White = 2, Blue = 3
@@ -140,7 +141,7 @@ saveInfoPlayer = {
 }
 
 -- Helper function to create a row with name and value
-local function createRow(name, value, valueType, nameClass, valueClass, valueTag)
+local function createRow(name, value, valueType, nameClass, valueClass, valueTag, tooltip)
     local valueChildren = valueType == "progress" and {
         {
             tag = "ProgressBar",
@@ -169,7 +170,7 @@ local function createRow(name, value, valueType, nameClass, valueClass, valueTag
                         children = {
                             {
                                 tag = "Text",
-                                attributes = { class = nameClass, text = name }
+                                attributes = { class = nameClass, text = name, tooltip = tooltip }
                             }
                         }
                     }
@@ -189,112 +190,86 @@ local function createRow(name, value, valueType, nameClass, valueClass, valueTag
     }
 end
 
--- Helper function to create a characteristics table layout
-local function createCharacteristicsTableLayout(rows)
-    return {
-        tag = "Row",
-        children = {
-            {
-                tag = "TableLayout",
-                attributes = {width = "230", height = "200", offsetXY = "0 -62", image = "TableLayout_Back_Long"},
-                children = rows
-            }
-        }
-    }
-end
-
--- Helper function to create a skills table layout
-local function createSkillsTableLayout(rows)
-    return {
-        tag = "Row",
-        children = {
-            {
-                tag = "VerticalScrollView",
-                attributes = {width = "230", height = "358", offsetXY = "235 96", image = "TableLayout_Back_Long"},
-                children = {
-                    {
-                        tag = "TableLayout",
-                        attributes = {width = "190", height = "825"},
-                        children = rows
-                    }
-                }
-            }
-        }
-    }
-end
-
 -- Table to map UI element types to their respective creation functions
 local uiElementFunctions = {
-    ["progress"] = function(name, value) return createRow(name, value, "progress", "mainInfo", "stateV", "Text") end,
-    ["value"] = function(name, value) return createRow(name, value, "value", "mainInfo", "stateV", "Text") end,
-    ["info"] = function(name, value) return createRow(name, value, "value", "mainInfo", "infoSkill", "Text") end,
-    ["characteristic"] = function(name, value) return createRow(name, value, "value", "gameInfo", "skill", "Button") end,
-    ["combatSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "combatSkill", "Button") end,
-    ["mageSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button") end,
-    ["protectSkill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button") end,
-    ["skill"] = function(name, value) return createRow(name, value, "value", "skillsInfo", "skill", "Button") end
+    ["progress"] = function(name, value, tooltip) return createRow(name, value, "progress", "mainInfo", "stateV", "Text", tooltip) end,
+    ["value"] = function(name, value, tooltip) return createRow(name, value, "value", "mainInfo", "stateV", "Text", tooltip) end,
+    ["info"] = function(name, value, tooltip) return createRow(name, value, "value", "mainInfo", "infoSkill", "Text", tooltip) end,
+    ["characteristic"] = function(name, value, tooltip) return createRow(name, value, "value", "gameInfo", "skill", "Button", tooltip) end,
+    ["combatSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "combatSkill", "Button", tooltip) end,
+    ["mageSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button", tooltip) end,
+    ["protectSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button", tooltip) end,
+    ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end
 }
 
 -- Create the main XML structure
 local function buildXMLStructure()
+    local tooltip = {}
+    WebRequest.get(TOOLTIP_B_I_URL, function(request)
+        tooltip = JSON.decode(request.text)
+        if not tooltip then
+            print("Failed to decode base waste stamina.")
+        end
+    end)
+
     -- Default XML information
     local xmlTable = self.UI.getXmlTable()
     procuredXMLForm = xmlTable[4]
     
     procuredXMLForm.children[1].children[2].children[1].children[1].children = {
-        uiElementFunctions["progress"]("Health", "health"),
-        uiElementFunctions["progress"]("Mana", "mana"),
-        uiElementFunctions["progress"]("Stamina", "stamina")
+        uiElementFunctions["progress"]("Health", "health", ""),
+        uiElementFunctions["progress"]("Mana", "mana", ""),
+        uiElementFunctions["progress"]("Stamina", "stamina", "")
     }
     procuredXMLForm.children[1].children[2].children[1].children[2].children = {
-        uiElementFunctions["value"]("Level", "level"),
-        uiElementFunctions["value"]("Race", "race"),
-        uiElementFunctions["value"]("Class", "class")
+        uiElementFunctions["value"]("Level", "level", ""),
+        uiElementFunctions["value"]("Race", "race", ""),
+        uiElementFunctions["value"]("Class", "class", "")
     }
     procuredXMLForm.children[1].children[2].children[1].children[3].children[1].children = {
-        uiElementFunctions["characteristic"]("Strength", "strength"),
-        uiElementFunctions["characteristic"]("Intelligence", "intelligence"),
-        uiElementFunctions["characteristic"]("Willpower", "willpower"),
-        uiElementFunctions["characteristic"]("Agility", "agility"),
-        uiElementFunctions["characteristic"]("Speed", "speed"),
-        uiElementFunctions["characteristic"]("Endurance", "endurance"),
-        uiElementFunctions["characteristic"]("Personality", "personality"),
-        uiElementFunctions["characteristic"]("Luck", "luck")
+        uiElementFunctions["characteristic"]("Strength", "strength", tooltip.characteristics.strength),
+        uiElementFunctions["characteristic"]("Intelligence", "intelligence", ""),
+        uiElementFunctions["characteristic"]("Willpower", "willpower", ""),
+        uiElementFunctions["characteristic"]("Agility", "agility", ""),
+        uiElementFunctions["characteristic"]("Speed", "speed", ""),
+        uiElementFunctions["characteristic"]("Endurance", "endurance", ""),
+        uiElementFunctions["characteristic"]("Personality", "personality", ""),
+        uiElementFunctions["characteristic"]("Luck", "luck", "")
     }
     procuredXMLForm.children[1].children[2].children[1].children[4].children[1].children[1].children = {
-        uiElementFunctions["info"]("Major skills", "Major Skills"),
-        uiElementFunctions["combatSkill"]("Marksman", "marksman"),
-        uiElementFunctions["combatSkill"]("Short Blade", "short_blade"),
-        uiElementFunctions["combatSkill"]("Long Blade", "long_blade"),
-        uiElementFunctions["combatSkill"]("Axe", "axe"),
-        uiElementFunctions["combatSkill"]("Spear", "spear"),
-        uiElementFunctions["info"]("Minor skills", "Minor Skills"),
-        uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon"),
-        uiElementFunctions["combatSkill"]("Staff", "staff"),
-        uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand"),
-        uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor"),
-        uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor"),
-        uiElementFunctions["info"]("Misc skills", "Misc Skills"),
-        uiElementFunctions["protectSkill"]("Light Armor", "light_armor"),
-        uiElementFunctions["protectSkill"]("Block", "block"),
-        uiElementFunctions["protectSkill"]("Unarmored", "unarmored"),
-        uiElementFunctions["skill"]("Armorer", "armorer"),
-        uiElementFunctions["skill"]("Athletics", "athletics"),
-        uiElementFunctions["skill"]("Acrobatics", "acrobatics"),
-        uiElementFunctions["skill"]("Security", "security"),
-        uiElementFunctions["skill"]("Sneak", "sneak"),
-        uiElementFunctions["skill"]("Perception", "perception"),
-        uiElementFunctions["skill"]("Mercantile", "mercantile"),
-        uiElementFunctions["skill"]("Speechcraft", "speechcraft"),
-        uiElementFunctions["skill"]("Alchemy", "alchemy"),
-        uiElementFunctions["skill"]("Enchant", "enchant"),
-        uiElementFunctions["skill"]("Analysis", "analysis"),
-        uiElementFunctions["mageSkill"]("Conjuration", "conjuration"),
-        uiElementFunctions["mageSkill"]("Illusion", "illusion"),
-        uiElementFunctions["mageSkill"]("Restoration", "restoration"),
-        uiElementFunctions["mageSkill"]("Mysticism", "mysticism"),
-        uiElementFunctions["mageSkill"]("Destruction", "destruction"),
-        uiElementFunctions["mageSkill"]("Alteration", "alteration")
+        uiElementFunctions["info"]("Major skills", "Major Skills", ""),
+        uiElementFunctions["combatSkill"]("Marksman", "marksman", ""),
+        uiElementFunctions["combatSkill"]("Short Blade", "short_blade", ""),
+        uiElementFunctions["combatSkill"]("Long Blade", "long_blade", ""),
+        uiElementFunctions["combatSkill"]("Axe", "axe", ""),
+        uiElementFunctions["combatSkill"]("Spear", "spear", ""),
+        uiElementFunctions["info"]("Minor skills", "Minor Skills", ""),
+        uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon", ""),
+        uiElementFunctions["combatSkill"]("Staff", "staff", ""),
+        uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand", ""),
+        uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor", ""),
+        uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor", ""),
+        uiElementFunctions["info"]("Misc skills", "Misc Skills", ""),
+        uiElementFunctions["protectSkill"]("Light Armor", "light_armor", ""),
+        uiElementFunctions["protectSkill"]("Block", "block", ""),
+        uiElementFunctions["protectSkill"]("Unarmored", "unarmored", ""),
+        uiElementFunctions["skill"]("Armorer", "armorer", ""),
+        uiElementFunctions["skill"]("Athletics", "athletics", ""),
+        uiElementFunctions["skill"]("Acrobatics", "acrobatics", ""),
+        uiElementFunctions["skill"]("Security", "security", ""),
+        uiElementFunctions["skill"]("Sneak", "sneak", ""),
+        uiElementFunctions["skill"]("Perception", "perception", ""),
+        uiElementFunctions["skill"]("Mercantile", "mercantile", ""),
+        uiElementFunctions["skill"]("Speechcraft", "speechcraft", ""),
+        uiElementFunctions["skill"]("Alchemy", "alchemy", ""),
+        uiElementFunctions["skill"]("Enchant", "enchant", ""),
+        uiElementFunctions["skill"]("Analysis", "analysis", ""),
+        uiElementFunctions["mageSkill"]("Conjuration", "conjuration", ""),
+        uiElementFunctions["mageSkill"]("Illusion", "illusion", ""),
+        uiElementFunctions["mageSkill"]("Restoration", "restoration", ""),
+        uiElementFunctions["mageSkill"]("Mysticism", "mysticism", ""),
+        uiElementFunctions["mageSkill"]("Destruction", "destruction", ""),
+        uiElementFunctions["mageSkill"]("Alteration", "alteration", "")
     }
 end
 
