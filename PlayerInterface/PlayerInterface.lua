@@ -134,36 +134,6 @@ local listColor = {
     "Red", "White", "Blue"
 }
 
--- Default XML information
-local procuredXMLForm = {
-    tag = "TableLayout",
-    attributes = {id = "mainPanel", active = "true", offsetXY = "400 -200", width = "944", height = "365"},
-    children = {
-        tag = "Row",
-        attributes = {preferredHeight = "365"},
-        children = {
-            {
-                tag = "Cell",
-                attributes = {},
-                children = {
-                    tag = "GridLayout",
-                    attributes = {startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
-                    children = {}
-                }
-            },
-            {
-                tag = "Cell",
-                attributes = {},
-                children = {
-                    tag = "GridLayout",
-                    attributes = {startAxis = "Vertical", padding = "3 3 3 3", spacing = "3 3", cellSize = "230 76", color = "Black"},
-                    children = {}
-                }
-            }
-        }
-    }
-}
-
 -- Save information for players
 saveInfoPlayer = {
     Red = {}, White = {}, Blue = {}
@@ -276,19 +246,21 @@ local uiElementFunctions = {
 
 -- Create the main XML structure
 local function buildXMLStructure()
-    local rows = {}
+    -- Default XML information
+    local xmlTable = self.UI.getXmlTable()
+    procuredXMLForm = xmlTable[4]
     
-    table.insert(rows, createTableLayout({
+    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createTableLayout({
         uiElementFunctions["progress"]("Health", "health"),
         uiElementFunctions["progress"]("Mana", "mana"),
         uiElementFunctions["progress"]("Stamina", "stamina")
     }))
-    table.insert(rows, createTableLayout({
+    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createTableLayout({
         uiElementFunctions["value"]("Level", "level"),
         uiElementFunctions["value"]("Race", "race"),
         uiElementFunctions["value"]("Class", "class")
     }))
-    table.insert(rows, createCharacteristicsTableLayout({
+    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createCharacteristicsTableLayout({
         uiElementFunctions["characteristic"]("Strength", "strength"),
         uiElementFunctions["characteristic"]("Intelligence", "intelligence"),
         uiElementFunctions["characteristic"]("Willpower", "willpower"),
@@ -298,7 +270,7 @@ local function buildXMLStructure()
         uiElementFunctions["characteristic"]("Personality", "personality"),
         uiElementFunctions["characteristic"]("Luck", "luck")
     }))
-    table.insert(rows, createSkillsTableLayout({
+    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createSkillsTableLayout({
         uiElementFunctions["info"]("Major skills", "Major Skills"),
         uiElementFunctions["combatSkill"]("Marksman", "marksman"),
         uiElementFunctions["combatSkill"]("Short Blade", "short_blade"),
@@ -333,8 +305,6 @@ local function buildXMLStructure()
         uiElementFunctions["mageSkill"]("Destruction", "destruction"),
         uiElementFunctions["mageSkill"]("Alteration", "alteration")
     }))
-
-    procuredXMLForm.children.children[2].children.children = rows
 end
 
 -- Function to perform a deep copy of a table
@@ -359,22 +329,22 @@ local function rebuildXMLTable()
         newPanel.attributes.visibility = colorPlayer
         -- Base info
         for i = 1, 2 do
-            for j = 1, #newPanel.children.children[2].children.children[i].children do
-                for k = 1, #newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children do
-                    local elementId = newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children[k].attributes.id
-                    newPanel.children.children[2].children.children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
+            for j = 1, #newPanel.children[1].children[2].children[1].children[i].children do
+                for k = 1, #newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children do
+                    local elementId = newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id
+                    newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
                 end
             end
         end
         -- characteristics
-        for j = 1, #newPanel.children.children[2].children.children[3].children[1].children do
-            local elementId = newPanel.children.children[2].children.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children.children[2].children.children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children[1].children[2].children[1].children[3].children[1].children do
+            local elementId = newPanel.children[1].children[2].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[1].children[2].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
         -- skills
-        for j = 1, #newPanel.children.children[2].children.children[4].children[1].children[1].children do
-            local elementId = newPanel.children.children[2].children.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children.children[2].children.children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children do
+            local elementId = newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
 
         table.insert(mainPanel, newPanel)

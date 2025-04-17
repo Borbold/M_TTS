@@ -33,3 +33,15 @@
 
 <Panel id='BlackmainPanel' width='200' height='200' active='false' visibility='Black' color='Black'>
 </Panel>
+
+<!--procuredXMLForm-->
+<TableLayout id='mainPanel' active='false' offsetXY='400 -200' width='944' height='365'>
+    <Row preferredHeight='365'>
+        <Cell>
+            <GridLayout id='inventory' startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='50 50' color='Black' />
+        </Cell>
+        <Cell>
+            <GridLayout id='statistic' startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='230 76' color='Black' />
+        </Cell>
+    </Row>
+</TableLayout>
