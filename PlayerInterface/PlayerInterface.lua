@@ -140,6 +140,13 @@ saveInfoPlayer = {
     Red = {}, White = {}, Blue = {}
 }
 
+local function createItem(name, image, nameClass, tooltip)
+    return {
+        tag = "Button",
+        attributes = { class = nameClass, id = name, tooltip = tooltip, image = image }
+    }
+end
+
 -- Helper function to create a row with name and value
 local function createRow(name, value, valueType, nameClass, valueClass, valueTag, tooltip)
     local valueChildren = valueType == "progress" and {
@@ -199,7 +206,8 @@ local uiElementFunctions = {
     ["combatSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "combatSkill", "Button", tooltip) end,
     ["mageSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button", tooltip) end,
     ["protectSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button", tooltip) end,
-    ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end
+    ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end,
+    ["item"] = function(name, image, tooltip) return createItem(name, image, "item", tooltip) end,
 }
 
 -- Generate xml and add tooltip
@@ -367,6 +375,26 @@ local function activateInventoryForGM()
     end
 end
 
+-- Picking up an item and transferring it to the inventory
+local function takeItem(colorPlayer, object)
+    if object.hasTag("item") then
+        --destroyObject(object)
+        local l1 = '"ImageURL":'
+        local l2 = '"ImageSecondaryURL"'
+        local objJSON = object.getJSON()
+        local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1)
+        URLImage = URLImage:match([["([^"]+)]])
+        local name = object.getName():gsub("%[.-%]","")
+        local tooltip = string.format("%s\n%s", name, object.getDescription())
+        local xmlTable = self.UI.getXmlTable()
+        xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = {
+            uiElementFunctions["item"](name, URLImage, tooltip)
+        }
+        self.UI.setXmlTable(xmlTable)
+        Wait.time(|| updatePlayer(colorPlayer), 0.3)
+    end
+end
+
 -- Function to load save data
 local function loadSaveData()
     --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
@@ -379,6 +407,7 @@ local function loadSaveData()
         updateSave()
     end
 end
+
 -- Function to handle loading and initializing the script
 function onLoad()
     addHotkey("Switching all player inventories", function(colorPlayer)
@@ -388,6 +417,9 @@ function onLoad()
     end)
     addHotkey("Inventory", function(colorPlayer)
         activateInventory(colorPlayer)
+    end)
+    addHotkey("Take item", function(playerColor, object, pointerPosition, isKeyUp)
+        takeItem(playerColor, object)
     end)
 
     WebRequest.get(BASE_INFO_URL, function(request)

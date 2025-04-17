@@ -3,6 +3,7 @@
         {
             "name": "Iron Sword",
             "type": "weapon",
+            "description": "text",
             "weight": 1,
             "base_cost": 30,
             "damage_range": {
@@ -18,6 +19,7 @@
         {
             "name": "Iron Breastplate",
             "type": "armor",
+            "description": "text",
             "weight": 1,
             "base_cost": 20,
             "defense": 20,
@@ -30,6 +32,7 @@
         {
             "name": "Healing Potion",
             "type": "consumable",
+            "description": "text",
             "weight": 1,
             "base_cost": 50,
             "effects": {
@@ -41,6 +44,7 @@
         {
             "name": "Sujamma",
             "type": "consumable",
+            "description": "text",
             "weight": 1,
             "base_cost": 20,
             "effects": {
@@ -53,12 +57,35 @@
         {
             "name": "Fork",
             "type": "other",
+            "description": "text",
             "base_cost": 2,
             "weight": 1,
             "effects": {
                 "mana": 15
             },
             "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
+        },
+        {
+            "name": "Test item 1",
+            "type": "other",
+            "description": "Description",
+            "base_cost": 2,
+            "weight": 1,
+            "effects": {
+                "mana": 15
+            },
+            "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
+        },
+        {
+            "name": "Test item 2",
+            "type": "other",
+            "description": "Description",
+            "base_cost": 2,
+            "weight": 1,
+            "effects": {
+                "mana": 15
+            },
+            "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
         }
     ]
 }
