@@ -202,20 +202,8 @@ local uiElementFunctions = {
     ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end
 }
 
--- Create the main XML structure
-local function buildXMLStructure()
-    local tooltip = {}
-    WebRequest.get(TOOLTIP_B_I_URL, function(request)
-        tooltip = JSON.decode(request.text)
-        if not tooltip then
-            print("Failed to decode base waste stamina.")
-        end
-    end)
-
-    -- Default XML information
-    local xmlTable = self.UI.getXmlTable()
-    procuredXMLForm = xmlTable[4]
-    
+-- Generate xml and add tooltip
+local function generateXML(tooltip)
     procuredXMLForm.children[1].children[2].children[1].children[1].children = {
         uiElementFunctions["progress"]("Health", "health", ""),
         uiElementFunctions["progress"]("Mana", "mana", ""),
@@ -228,49 +216,62 @@ local function buildXMLStructure()
     }
     procuredXMLForm.children[1].children[2].children[1].children[3].children[1].children = {
         uiElementFunctions["characteristic"]("Strength", "strength", tooltip.characteristics.strength),
-        uiElementFunctions["characteristic"]("Intelligence", "intelligence", ""),
-        uiElementFunctions["characteristic"]("Willpower", "willpower", ""),
-        uiElementFunctions["characteristic"]("Agility", "agility", ""),
-        uiElementFunctions["characteristic"]("Speed", "speed", ""),
-        uiElementFunctions["characteristic"]("Endurance", "endurance", ""),
-        uiElementFunctions["characteristic"]("Personality", "personality", ""),
-        uiElementFunctions["characteristic"]("Luck", "luck", "")
+        uiElementFunctions["characteristic"]("Intelligence", "intelligence", tooltip.characteristics.intelligence),
+        uiElementFunctions["characteristic"]("Willpower", "willpower", tooltip.characteristics.willpower),
+        uiElementFunctions["characteristic"]("Agility", "agility", tooltip.characteristics.agility),
+        uiElementFunctions["characteristic"]("Speed", "speed", tooltip.characteristics.speed),
+        uiElementFunctions["characteristic"]("Endurance", "endurance", tooltip.characteristics.endurance),
+        uiElementFunctions["characteristic"]("Personality", "personality", tooltip.characteristics.personality),
+        uiElementFunctions["characteristic"]("Luck", "luck", tooltip.characteristics.luck)
     }
     procuredXMLForm.children[1].children[2].children[1].children[4].children[1].children[1].children = {
         uiElementFunctions["info"]("Major skills", "Major Skills", ""),
-        uiElementFunctions["combatSkill"]("Marksman", "marksman", ""),
-        uiElementFunctions["combatSkill"]("Short Blade", "short_blade", ""),
-        uiElementFunctions["combatSkill"]("Long Blade", "long_blade", ""),
-        uiElementFunctions["combatSkill"]("Axe", "axe", ""),
-        uiElementFunctions["combatSkill"]("Spear", "spear", ""),
+        uiElementFunctions["combatSkill"]("Marksman", "marksman", tooltip.skills.marksman),
+        uiElementFunctions["combatSkill"]("Short Blade", "short_blade", tooltip.skills.short_blade),
+        uiElementFunctions["combatSkill"]("Long Blade", "long_blade", tooltip.skills.long_blade),
+        uiElementFunctions["combatSkill"]("Axe", "axe", tooltip.skills.axe),
+        uiElementFunctions["combatSkill"]("Spear", "spear", tooltip.skills.spear),
         uiElementFunctions["info"]("Minor skills", "Minor Skills", ""),
-        uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon", ""),
-        uiElementFunctions["combatSkill"]("Staff", "staff", ""),
-        uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand", ""),
-        uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor", ""),
-        uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor", ""),
+        uiElementFunctions["combatSkill"]("Blunt Weapon", "blunt_weapon", tooltip.skills.blunt_weapon),
+        uiElementFunctions["combatSkill"]("Staff", "staff", tooltip.skills.staff),
+        uiElementFunctions["combatSkill"]("Hand To Hand", "hand_to_hand", tooltip.skills.hand_to_hand),
+        uiElementFunctions["protectSkill"]("Medium Armor", "medium_armor", tooltip.skills.medium_armor),
+        uiElementFunctions["protectSkill"]("Heavy Armor", "heavy_armor", tooltip.skills.heavy_armor),
         uiElementFunctions["info"]("Misc skills", "Misc Skills", ""),
-        uiElementFunctions["protectSkill"]("Light Armor", "light_armor", ""),
-        uiElementFunctions["protectSkill"]("Block", "block", ""),
-        uiElementFunctions["protectSkill"]("Unarmored", "unarmored", ""),
-        uiElementFunctions["skill"]("Armorer", "armorer", ""),
-        uiElementFunctions["skill"]("Athletics", "athletics", ""),
-        uiElementFunctions["skill"]("Acrobatics", "acrobatics", ""),
-        uiElementFunctions["skill"]("Security", "security", ""),
-        uiElementFunctions["skill"]("Sneak", "sneak", ""),
-        uiElementFunctions["skill"]("Perception", "perception", ""),
-        uiElementFunctions["skill"]("Mercantile", "mercantile", ""),
-        uiElementFunctions["skill"]("Speechcraft", "speechcraft", ""),
-        uiElementFunctions["skill"]("Alchemy", "alchemy", ""),
-        uiElementFunctions["skill"]("Enchant", "enchant", ""),
-        uiElementFunctions["skill"]("Analysis", "analysis", ""),
-        uiElementFunctions["mageSkill"]("Conjuration", "conjuration", ""),
-        uiElementFunctions["mageSkill"]("Illusion", "illusion", ""),
-        uiElementFunctions["mageSkill"]("Restoration", "restoration", ""),
-        uiElementFunctions["mageSkill"]("Mysticism", "mysticism", ""),
-        uiElementFunctions["mageSkill"]("Destruction", "destruction", ""),
-        uiElementFunctions["mageSkill"]("Alteration", "alteration", "")
+        uiElementFunctions["protectSkill"]("Light Armor", "light_armor", tooltip.skills.light_armor),
+        uiElementFunctions["protectSkill"]("Block", "block", tooltip.skills.block),
+        uiElementFunctions["protectSkill"]("Unarmored", "unarmored", tooltip.skills.unarmored),
+        uiElementFunctions["skill"]("Armorer", "armorer", tooltip.skills.armorer),
+        uiElementFunctions["skill"]("Athletics", "athletics", tooltip.skills.athletics),
+        uiElementFunctions["skill"]("Acrobatics", "acrobatics", tooltip.skills.acrobatics),
+        uiElementFunctions["skill"]("Security", "security", tooltip.skills.security),
+        uiElementFunctions["skill"]("Sneak", "sneak", tooltip.skills.sneak),
+        uiElementFunctions["skill"]("Perception", "perception", tooltip.skills.perception),
+        uiElementFunctions["skill"]("Mercantile", "mercantile", tooltip.skills.mercantile),
+        uiElementFunctions["skill"]("Speechcraft", "speechcraft", tooltip.skills.speechcraft),
+        uiElementFunctions["skill"]("Alchemy", "alchemy", tooltip.skills.alchemy),
+        uiElementFunctions["skill"]("Enchant", "enchant", tooltip.skills.enchant),
+        uiElementFunctions["skill"]("Analysis", "analysis", tooltip.skills.analysis),
+        uiElementFunctions["mageSkill"]("Conjuration", "conjuration", tooltip.skills.conjuration),
+        uiElementFunctions["mageSkill"]("Illusion", "illusion", tooltip.skills.illusion),
+        uiElementFunctions["mageSkill"]("Restoration", "restoration", tooltip.skills.restoration),
+        uiElementFunctions["mageSkill"]("Mysticism", "mysticism", tooltip.skills.mysticism),
+        uiElementFunctions["mageSkill"]("Destruction", "destruction", tooltip.skills.destruction),
+        uiElementFunctions["mageSkill"]("Alteration", "alteration", tooltip.skills.alteration)
     }
+end
+
+-- Create the main XML structure
+local function buildXMLStructure(requestText)
+    -- Default XML information
+    local xmlTable = self.UI.getXmlTable()
+    procuredXMLForm = xmlTable[4]
+    local tooltip = JSON.decode(requestText)
+    if not tooltip then
+        print("Failed to decode tooltip.")
+    else
+        generateXML(tooltip)
+    end
 end
 
 -- Function to perform a deep copy of a table
@@ -390,23 +391,37 @@ function onLoad()
     end)
 
     WebRequest.get(BASE_INFO_URL, function(request)
-        local baseInfo = JSON.decode(request.text)
-        if baseInfo then
-            for color, _ in pairs(enumColor) do
-                saveInfoPlayer[color] = deepCopy(baseInfo)
+        if request.is_done then
+            local baseInfo = JSON.decode(request.text)
+            if baseInfo then
+                for color, _ in pairs(enumColor) do
+                    saveInfoPlayer[color] = deepCopy(baseInfo)
+                end
+                local flag = false
+                WebRequest.get(TOOLTIP_B_I_URL, function(request)
+                    if request.is_done then
+                        buildXMLStructure(request.text)
+                        flag = true
+                    end
+                end)
+                Wait.condition(function()
+                        rebuildXMLTable()
+                        loadSaveData()
+                    end,
+                    function() return flag end
+                )
+            else
+                print("Failed to decode base info.")
             end
-            buildXMLStructure()
-            rebuildXMLTable()
-            loadSaveData()
-        else
-            print("Failed to decode base info.")
         end
     end)
 
     WebRequest.get(B_WASTE_S_INFO_URL, function(request)
-        baseWasteStamina = JSON.decode(request.text)
-        if not baseWasteStamina then
-            print("Failed to decode base waste stamina.")
+        if request.is_done then
+            baseWasteStamina = JSON.decode(request.text)
+            if not baseWasteStamina then
+                print("Failed to decode base waste stamina.")
+            end
         end
     end)
 end
@@ -548,9 +563,7 @@ function changeClassBonus(info)
                 end
             end)
         end,
-        function()
-            return flag
-        end
+        function() return flag end
     )
 end
 

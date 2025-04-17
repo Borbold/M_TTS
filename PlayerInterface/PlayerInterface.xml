@@ -19,9 +19,9 @@
     <!---->
     <ProgressBar percentageTextFormat='0' showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#dfaf37' font='Font/Gothic'
-        tooltipFont='Font/Gothic' tooltipFontSize='35' tooltipPosition='Above' />
+        tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#ffffff00' font='Font/Gothic'
-        tooltipFont='Font/Gothic' tooltipFontSize='35' tooltipPosition='Above' />
+        tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <TableLayout cellSpacing='5' />
     <Row preferredHeight='20' />
     <Cell dontUseTableCellBackground='true' />
