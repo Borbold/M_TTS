@@ -189,15 +189,6 @@ local function createRow(name, value, valueType, nameClass, valueClass, valueTag
     }
 end
 
--- Helper function to create a table layout with rows
-local function createTableLayout(rows)
-    return {
-        tag = "TableLayout",
-        attributes = {image = "TableLayout_Back"},
-        children = rows
-    }
-end
-
 -- Helper function to create a characteristics table layout
 local function createCharacteristicsTableLayout(rows)
     return {
@@ -250,17 +241,17 @@ local function buildXMLStructure()
     local xmlTable = self.UI.getXmlTable()
     procuredXMLForm = xmlTable[4]
     
-    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createTableLayout({
+    procuredXMLForm.children[1].children[2].children[1].children[1].children = {
         uiElementFunctions["progress"]("Health", "health"),
         uiElementFunctions["progress"]("Mana", "mana"),
         uiElementFunctions["progress"]("Stamina", "stamina")
-    }))
-    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createTableLayout({
+    }
+    procuredXMLForm.children[1].children[2].children[1].children[2].children = {
         uiElementFunctions["value"]("Level", "level"),
         uiElementFunctions["value"]("Race", "race"),
         uiElementFunctions["value"]("Class", "class")
-    }))
-    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createCharacteristicsTableLayout({
+    }
+    procuredXMLForm.children[1].children[2].children[1].children[3].children[1].children = {
         uiElementFunctions["characteristic"]("Strength", "strength"),
         uiElementFunctions["characteristic"]("Intelligence", "intelligence"),
         uiElementFunctions["characteristic"]("Willpower", "willpower"),
@@ -269,8 +260,8 @@ local function buildXMLStructure()
         uiElementFunctions["characteristic"]("Endurance", "endurance"),
         uiElementFunctions["characteristic"]("Personality", "personality"),
         uiElementFunctions["characteristic"]("Luck", "luck")
-    }))
-    table.insert(procuredXMLForm.children[1].children[2].children[1].children, createSkillsTableLayout({
+    }
+    procuredXMLForm.children[1].children[2].children[1].children[4].children[1].children[1].children = {
         uiElementFunctions["info"]("Major skills", "Major Skills"),
         uiElementFunctions["combatSkill"]("Marksman", "marksman"),
         uiElementFunctions["combatSkill"]("Short Blade", "short_blade"),
@@ -304,7 +295,7 @@ local function buildXMLStructure()
         uiElementFunctions["mageSkill"]("Mysticism", "mysticism"),
         uiElementFunctions["mageSkill"]("Destruction", "destruction"),
         uiElementFunctions["mageSkill"]("Alteration", "alteration")
-    }))
+    }
 end
 
 -- Function to perform a deep copy of a table
