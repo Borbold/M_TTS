@@ -12,6 +12,18 @@ local function addStateChangeHotkey(name, state)
     end)
 end
 
+-- Stamina regeneration function after each move
+local function restoreStaminaPerTurn(playerColor)
+    if playerColor ~= "Black" then return end
+    local indexSleep = 0.1
+    for colorPlayer, player in pairs(Global.getVar("saveInfoPlayer")) do
+        player.stamina.current = player.stamina.current + math.floor(2.5 + (0.02 * player.characteristics.endurance))
+        player.stamina.current = Global.call("checkValue", {player.stamina.current, player.stamina.max})
+        Wait.time(|| Global.call("updatePlayer", colorPlayer), indexSleep)
+        indexSleep = indexSleep + 0.1
+    end
+end
+
 function onLoad()
     bodyHitTable = {
         chest = 30, shoulder = 20, legs = 15, arm = 20, feets = 10, head = 5
@@ -20,8 +32,10 @@ function onLoad()
     addStateChangeHotkey("Change player HP", "health")
     addStateChangeHotkey("Change player MP", "mana")
     addStateChangeHotkey("Change player SP", "stamina")
+    addHotkey("Restore Stamina Per Turn", function(playerColor, object, pointerPosition, isKeyUp) restoreStaminaPerTurn(playerColor) end)
 end
 
+-- Update the player's basic information
 local function reCalculatePlayer()
     Global.call("sortSkillsByImportance", selectedColorPlayer) Global.call("calculateInfo", selectedColorPlayer) Global.call("updatePlayer", selectedColorPlayer)
 end
@@ -47,6 +61,7 @@ function changeColor(player, color)
     selectedColorPlayer = color
 end
 
+-- That's the way to do it. TTS does not know how to write text to InputField text by itself.
 function fieldEdit(player, value, id)
     self.UI.setAttribute(id, "text", value)
 end
@@ -57,16 +72,7 @@ local function restoreAll(player)
     player.mana.current = player.mana.max
     player.stamina.current = player.stamina.max
 end
--- stamina regeneration function after each move
-local function restoreStaminaPerTurn()
-    local indexSleep = 0.1
-    for colorPlayer, player in pairs(Global.getVar("saveInfoPlayer")) do
-        player.stamina.current = player.stamina.current + math.floor(2.5 + (0.02 * player.characteristics.endurance))
-        player.stamina.current = Global.call("checkValue", {player.stamina.current, player.stamina.max})
-        Wait.time(|| Global.call("updatePlayer", colorPlayer), indexSleep)
-        indexSleep = indexSleep + 0.1
-    end
-end
+
 function changePlayerState(player, alt, id)
     local player = Global.getVar("saveInfoPlayer")[selectedColorPlayer]
     if(id == "restoreAll") then

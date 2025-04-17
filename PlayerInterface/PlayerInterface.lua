@@ -141,6 +141,7 @@ saveInfoPlayer = {
     Red = {}, White = {}, Blue = {}
 }
 
+-- Helper function to create a row with item information
 local function createItem(name, image, nameClass, tooltip)
     return {
         tag = "Button",
@@ -270,9 +271,8 @@ local function generateXML(tooltip)
     }
 end
 
--- Create the main XML structure
+-- Function to create the main XML structure
 local function buildXMLStructure(requestText)
-    -- Default XML information
     local xmlTable = self.UI.getXmlTable()
     procuredXMLForm = xmlTable[4]
     local tooltip = JSON.decode(requestText)
