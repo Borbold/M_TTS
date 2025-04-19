@@ -214,17 +214,17 @@ local uiElementFunctions = {
 
 -- Generate xml and add tooltip
 local function generateXML(tooltip)
-    procuredXMLForm.children[1].children[2].children[1].children[1].children = {
+    procuredXMLForm.children[1].children[3].children[1].children[1].children = {
         uiElementFunctions["progress"]("Health", "health", ""),
         uiElementFunctions["progress"]("Mana", "mana", ""),
         uiElementFunctions["progress"]("Stamina", "stamina", "")
     }
-    procuredXMLForm.children[1].children[2].children[1].children[2].children = {
+    procuredXMLForm.children[1].children[3].children[1].children[2].children = {
         uiElementFunctions["value"]("Level", "level", ""),
         uiElementFunctions["value"]("Race", "race", ""),
         uiElementFunctions["value"]("Class", "class", "")
     }
-    procuredXMLForm.children[1].children[2].children[1].children[3].children[1].children = {
+    procuredXMLForm.children[1].children[3].children[1].children[3].children[1].children = {
         uiElementFunctions["characteristic"]("Strength", "strength", tooltip.characteristics.strength),
         uiElementFunctions["characteristic"]("Intelligence", "intelligence", tooltip.characteristics.intelligence),
         uiElementFunctions["characteristic"]("Willpower", "willpower", tooltip.characteristics.willpower),
@@ -234,7 +234,7 @@ local function generateXML(tooltip)
         uiElementFunctions["characteristic"]("Personality", "personality", tooltip.characteristics.personality),
         uiElementFunctions["characteristic"]("Luck", "luck", tooltip.characteristics.luck)
     }
-    procuredXMLForm.children[1].children[2].children[1].children[4].children[1].children[1].children = {
+    procuredXMLForm.children[1].children[3].children[1].children[4].children[1].children[1].children = {
         uiElementFunctions["info"]("Major skills", "Major Skills", ""),
         uiElementFunctions["combatSkill"]("Marksman", "marksman", tooltip.skills.marksman),
         uiElementFunctions["combatSkill"]("Short Blade", "short_blade", tooltip.skills.short_blade),
@@ -303,29 +303,33 @@ local function rebuildXMLTable()
         local newPanel = deepCopy(procuredXMLForm)
         newPanel.attributes.id = colorPlayer .. newPanel.attributes.id
         newPanel.attributes.visibility = colorPlayer
+        local elementId = ""
+        -- See info
+        newPanel.children[1].children[1].children[1].children[1].children[1].attributes.id = colorPlayer .. "weight"
+        newPanel.children[1].children[1].children[1].children[1].children[2].attributes.id = colorPlayer .. "textWeight"
         -- Base info
         for i = 1, 2 do
-            for j = 1, #newPanel.children[1].children[2].children[1].children[i].children do
-                for k = 1, #newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children do
-                    local elementId = newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id
-                    newPanel.children[1].children[2].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
+            for j = 1, #newPanel.children[1].children[3].children[1].children[i].children do
+                for k = 1, #newPanel.children[1].children[3].children[1].children[i].children[j].children[2].children[1].children do
+                    elementId = newPanel.children[1].children[3].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id
+                    newPanel.children[1].children[3].children[1].children[i].children[j].children[2].children[1].children[k].attributes.id = colorPlayer .. elementId
                 end
             end
         end
         -- characteristics
-        for j = 1, #newPanel.children[1].children[2].children[1].children[3].children[1].children do
-            local elementId = newPanel.children[1].children[2].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children[1].children[2].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children[1].children[3].children[1].children[3].children[1].children do
+            elementId = newPanel.children[1].children[3].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[1].children[3].children[1].children[3].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
         -- skills
-        for j = 1, #newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children do
-            local elementId = newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
-            newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
+        for j = 1, #newPanel.children[1].children[3].children[1].children[4].children[1].children[1].children do
+            elementId = newPanel.children[1].children[3].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
+            newPanel.children[1].children[3].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
         -- items
         for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
-            table.insert(newPanel.children[1].children[1].children[1].children,
-                uiElementFunctions["item"](item[1], item[2], item[3]))
+            table.insert(newPanel.children[1].children[1].children[2].children,
+                uiElementFunctions["item"](item.name, item.image, item.description))
         end
 
         table.insert(mainPanel, newPanel)
@@ -337,10 +341,12 @@ end
 -- Update inventory xml form
 local function updateItems(colorPlayer)
     local xmlTable, rowItems = self.UI.getXmlTable(), {}
+    saveInfoPlayer[colorPlayer].items_weight = 0
     for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
-        table.insert(rowItems, uiElementFunctions["item"](item[1], item[2], item[3]))
+        table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
+        saveInfoPlayer[colorPlayer].items_weight = saveInfoPlayer[colorPlayer].items_weight + jsonItems[item.name].weight
     end
-    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children = rowItems
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
     self.UI.setXmlTable(xmlTable)
     updatePlayer(colorPlayer)
 end
@@ -352,8 +358,8 @@ local function takeItem(colorPlayer, object)
         local objJSON = object.getJSON()
         local URLImage = objJSON:sub(objJSON:find(l1) + #l1, objJSON:find(l2) - 1):match([["([^"]+)]])
         local name = object.getName():gsub("%[.-%]","")
-        local tooltip = string.format("%s\n%s", name, object.getDescription())
-        table.insert(saveInfoPlayer[colorPlayer].items, {name, URLImage, tooltip})
+        local description = string.format("%s\n%s", name, object.getDescription())
+        table.insert(saveInfoPlayer[colorPlayer].items, {name = name, image = URLImage, description = description})
         updateItems(colorPlayer)
     end
 end
@@ -420,7 +426,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(|| confer(true), 1)
@@ -451,7 +457,7 @@ function onLoad()
 
     WebRequest.get(ITEMS_URL, function(request)
         if request.is_done then
-            items = JSON.decode(request.text)
+            jsonItems = JSON.decode(request.text)
         else
             print("Failed to decode items info.")
         end
@@ -499,8 +505,8 @@ local function checkSeeElement(name)
     return seeElement[name]
 end
 function setUI(colorPlayer)
-    local state = saveInfoPlayer[colorPlayer]
-    for name, value in pairs(state) do
+    local player = saveInfoPlayer[colorPlayer]
+    for name, value in pairs(player) do
         if checkSeeElement(name) then
             if type(value) == "string" then
                 self.UI.setAttribute(colorPlayer .. name, "text", value)
@@ -517,9 +523,11 @@ function setUI(colorPlayer)
         end
     end
 
-    self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (state.health.current / state.health.max) * 100)
-    self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (state.mana.current / state.mana.max) * 100)
-    self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (state.stamina.current / state.stamina.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "HealthPB", "percentage", (player.health.current / player.health.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "ManaPB", "percentage", (player.mana.current / player.mana.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "StaminaPB", "percentage", (player.stamina.current / player.stamina.max) * 100)
+    self.UI.setAttribute(colorPlayer .. "textWeight", "text", string.format("%s/%s", player.items_weight, player.characteristics.strength * 5))
+    self.UI.setAttribute(colorPlayer .. "weight", "percentage", (player.items_weight / (player.characteristics.strength * 5)) * 100)
 end
 
 local function calculateSkill(player, id)
@@ -533,7 +541,7 @@ function calculateInfo(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     -- Calculate skills
     local xmlTable = self.UI.getXmlTable()
-    xmlTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1]
+    xmlTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[3].children[1]
     local skillsTable = xmlTable.children[4].children[1].children[1].children
     for index, state in ipairs(skillsTable) do
         local skillId = state.children[2].children[1].children[1].attributes.id:gsub(colorPlayer, "")
@@ -708,7 +716,7 @@ function sortSkillsByImportance(colorPlayer)
 
     -- Update XML form with sorted skills
     local xmlTable = self.UI.getXmlTable()
-    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children[4].children[1].children[1].children
+    local skillsTable = xmlTable[2].children[enumColor[colorPlayer]].children[1].children[3].children[1].children[4].children[1].children[1].children
     for i, skillEntry in ipairs(sortedSkills) do
         -- Update skill class
         skillsTable[i].children[2].children[1].children[1].attributes.class = self.UI.getAttribute(colorPlayer .. skillEntry.name, "class")

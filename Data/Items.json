@@ -1,99 +1,90 @@
 {
-    "items": [
-        {
-            "name": "Iron Sword",
-            "type": "weapon",
-            "description": "text",
-            "weight": 1,
-            "base_cost": 30,
-            "damage_range": {
-                "min": 5,
-                "max": 10
-            },
-            "durability": 100,
-            "effects": {
-            },
-            "equipped": true,
-            "used": false,
-            "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
+    "Iron Sword": {
+        "type": "weapon",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 30,
+        "damage_range": {
+            "min": 5,
+            "max": 10
         },
-        {
-            "name": "Iron Breastplate",
-            "type": "armor",
-            "description": "text",
-            "weight": 1,
-            "base_cost": 20,
-            "defense": 20,
-            "durability": 150,
-            "effects": {
-            },
-            "equipped": true,
-            "used": false,
-            "image_url": "https://example.com/images/iron_breastplate.png"
+        "durability": 100,
+        "effects": {
         },
-        {
-            "name": "Healing Potion",
-            "type": "consumable",
-            "description": "text",
-            "weight": 1,
-            "base_cost": 50,
-            "effects": {
-                "restore": {"health": 5, "time": 10}
-            },
-            "equipped": false,
-            "used": true,
-            "image_url": "https://example.com/images/healing_potion.png"
+        "equipped": true,
+        "used": false,
+        "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
+    },
+    "Iron Breastplate": {
+        "type": "armor",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 20,
+        "defense": 20,
+        "durability": 150,
+        "effects": {
         },
-        {
-            "name": "Sujamma",
-            "type": "consumable",
-            "description": "text",
-            "weight": 1,
-            "base_cost": 20,
-            "effects": {
-                "buffs": {"strength": 50, "time": 60},
-                "debuffs": {"intelligence": 50, "time": 60}
-            },
-            "equipped": false,
-            "used": true,
-            "image_url": "https://example.com/images/sujama.png"
+        "equipped": true,
+        "used": false,
+        "image_url": "https://example.com/images/iron_breastplate.png"
+    },
+    "Healing Potion": {
+        "type": "consumable",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 50,
+        "effects": {
+            "restore": {"health": 5, "time": 10}
         },
-        {
-            "name": "Fork",
-            "type": "other",
-            "description": "text",
-            "base_cost": 2,
-            "weight": 1,
-            "effects": {
-                "mana": 15
-            },
-            "equipped": false,
-            "used": false,
-            "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
+        "equipped": false,
+        "used": true,
+        "image_url": "https://example.com/images/healing_potion.png"
+    },
+    "Sujamma": {
+        "type": "consumable",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 20,
+        "effects": {
+            "buffs": {"strength": 50, "time": 60},
+            "debuffs": {"intelligence": 50, "time": 60}
         },
-        {
-            "name": "Test item 1",
-            "type": "other",
-            "description": "Description",
-            "base_cost": 2,
-            "weight": 1,
-            "effects": {
-            },
-            "equipped": false,
-            "used": false,
-            "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
+        "equipped": false,
+        "used": true,
+        "image_url": "https://example.com/images/sujama.png"
+    },
+    "Fork": {
+        "type": "other",
+        "description": "text",
+        "base_cost": 2,
+        "weight": 1,
+        "effects": {
+            "mana": 15
         },
-        {
-            "name": "Test item 2",
-            "type": "other",
-            "description": "Description",
-            "base_cost": 2,
-            "weight": 1,
-            "effects": {
-            },
-            "equipped": false,
-            "used": false,
-            "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
-        }
-    ]
+        "equipped": false,
+        "used": false,
+        "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
+    },
+    "Test item 1": {
+        "type": "other",
+        "description": "Description",
+        "base_cost": 2,
+        "weight": 1,
+        "effects": {
+        },
+        "equipped": false,
+        "used": false,
+        "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
+    },
+    "Test item 2": {
+        "type": "other",
+        "description": "Description",
+        "base_cost": 2,
+        "weight": 1,
+        "effects": {
+        },
+        "equipped": false,
+        "used": false,
+        "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
+    }
 }

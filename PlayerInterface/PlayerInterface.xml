@@ -18,7 +18,7 @@
     <Text class='infoSkill' active='false' />
     <Text class='progressBarV' offsetXY='65 0' />
     <!---->
-    <ProgressBar percentageTextFormat='0' showPercentageText='false' />
+    <ProgressBar showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#dfaf37' font='Font/Gothic'
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' font='Font/Gothic'
@@ -38,13 +38,23 @@
 </Panel>
 
 <!--xml billet for players-->
-<TableLayout id='mainPanel' active='false' offsetXY='400 -200' width='944' height='365'>
+<TableLayout id='mainPanel' active='false' offsetXY='300 -200' width='1190' height='365'>
     <Row preferredHeight='365'>
-        <Cell>
-            <GridLayout id='inventory' startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='50 50' color='Black' />
+        <Cell id='visibleInformation' columnSpan='1'>
+            <TableLayout color='Black' cellPadding='3 3 3 3'>
+                <Row preferredHeight='30'>
+                    <ProgressBar id='weight' percentage='0.5' image='States_Back' offsetXY='0 -3' width='225' />
+                    <Text id='textWeight' text='50/100' offsetXY='0 -3' width='200' />
+                </Row>
+                <Row>
+                </Row>
+            </TableLayout>
         </Cell>
-        <Cell>
-            <GridLayout id='statistic' startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='230 76' color='Black'>
+        <Cell id='inventory' columnSpan='2'>
+            <GridLayout startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='50 50' color='Black' />
+        </Cell>
+        <Cell id='statistic' columnSpan='2'>
+            <GridLayout startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='230 76' color='Black'>
                 <TableLayout image='TableLayout_Back' />
                 <TableLayout image='TableLayout_Back' />
                 <Row>
