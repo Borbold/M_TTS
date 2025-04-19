@@ -328,7 +328,7 @@ local function rebuildXMLTable()
         end
         -- items
         for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
-            table.insert(newPanel.children[1].children[1].children[2].children,
+            table.insert(newPanel.children[1].children[2].children[1].children,
                 uiElementFunctions["item"](item.name, item.image, item.description))
         end
 
@@ -369,7 +369,7 @@ function putItem(player, alt, id)
     local colorPlayer = player.color
     local locPlayer = saveInfoPlayer[colorPlayer]
     for i, item in ipairs(locPlayer.items) do
-        if item[1] == id then
+        if item.name == id then
             table.remove(locPlayer.items, i)
             updateItems(colorPlayer)
             return
@@ -426,7 +426,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(|| confer(true), 1)
@@ -478,10 +478,10 @@ function onLoad()
                     end
                 end)
                 Wait.condition(function()
-                        loadSaveData()
-                        rebuildXMLTable()
-                    end,
-                    function() return flag end
+                    loadSaveData()
+                    rebuildXMLTable()
+                end,
+                function() return flag end
                 )
             else
                 print("Failed to decode base info.")
