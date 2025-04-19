@@ -12,107 +12,107 @@ local DEBUFF_TYPE = {
     VULNERABILITY = "vulnerabilities"
 }
 
--- Apply or remove a buff to/from a character
-local function modifyBuff(character, buffType, buffName, value, apply)
-    local buffValue = character.buffs[buffType][buffName] or 0
+-- Apply or remove a buff to/from a player
+local function modifyBuff(player, buffType, buffName, value, apply)
+    local buffValue = player.buffs[buffType][buffName] or 0
     if apply then
-        character.buffs[buffType][buffName] = buffValue + value
+        player.buffs[buffType][buffName] = buffValue + value
     else
-        character.buffs[buffType][buffName] = buffValue - value
-        if character.buffs[buffType][buffName] <= 0 then
-            character.buffs[buffType][buffName] = nil
+        player.buffs[buffType][buffName] = buffValue - value
+        if player.buffs[buffType][buffName] <= 0 then
+            player.buffs[buffType][buffName] = nil
         end
     end
 end
 
--- Function to apply a buff to a character
-local function applyBuff(character, buffType, buffName, value)
-    modifyBuff(character, buffType, buffName, value, true)
+-- Function to apply a buff to a player
+local function applyBuff(player, buffType, buffName, value)
+    modifyBuff(player, buffType, buffName, value, true)
 end
 
--- Function to remove a buff from a character
-local function removeBuff(character, buffType, buffName, value)
-    modifyBuff(character, buffType, buffName, value, false)
+-- Function to remove a buff from a player
+local function removeBuff(player, buffType, buffName, value)
+    modifyBuff(player, buffType, buffName, value, false)
 end
 
 -- Calculate the total buff value for a given buff type and name
-local function calculateBuff(character, buffType, buffName)
+local function calculateBuff(player, buffType, buffName)
     if buffType == BUFF_TYPE.SKILL then
-        return character.buffs.skills[buffName] or 0
+        return player.buffs.skills[buffName] or 0
     elseif buffType == BUFF_TYPE.CHARACTERISTIC then
-        return character.buffs.characteristics[buffName] or 0
+        return player.buffs.characteristics[buffName] or 0
     elseif buffType == BUFF_TYPE.RESISTANCE then
-        return character.buffs.resistances[buffName] or 0
+        return player.buffs.resistances[buffName] or 0
     end
     return 0
 end
 
 -- Function to apply race buffs
-local function applyRaceBuffs(character, raceData)
+local function applyRaceBuffs(player, raceData)
     for buffName, value in pairs(raceData.skills) do
-        applyBuff(character, BUFF_TYPE.SKILL, buffName, value)
+        applyBuff(player, BUFF_TYPE.SKILL, buffName, value)
     end
     for buffName, value in pairs(raceData.characteristics) do
-        applyBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value)
+        applyBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value)
     end
     for buffName, value in pairs(raceData.resistances) do
-        applyBuff(character, BUFF_TYPE.RESISTANCE, buffName, value)
+        applyBuff(player, BUFF_TYPE.RESISTANCE, buffName, value)
     end
 end
 -- Function to remove race buffs
-local function removeRaceBuffs(character, raceData)
+local function removeRaceBuffs(player, raceData)
     for buffName, value in pairs(raceData.skills) do
-        removeBuff(character, BUFF_TYPE.SKILL, buffName, value)
+        removeBuff(player, BUFF_TYPE.SKILL, buffName, value)
     end
     for buffName, value in pairs(raceData.characteristics) do
-        removeBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value)
+        removeBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value)
     end
     for buffName, value in pairs(raceData.resistances) do
-        removeBuff(character, BUFF_TYPE.RESISTANCE, buffName, value)
+        removeBuff(player, BUFF_TYPE.RESISTANCE, buffName, value)
     end
 end
 
 -- Function to apply class buffs
-local function applyClassBuffs(character, classData)
+local function applyClassBuffs(player, classData)
     for buffName, value in pairs(classData.skills.majorskills) do
-        applyBuff(character, BUFF_TYPE.SKILL, buffName, value * 25)
+        applyBuff(player, BUFF_TYPE.SKILL, buffName, value * 25)
     end
     for buffName, value in pairs(classData.skills.minorskills) do
-        applyBuff(character, BUFF_TYPE.SKILL, buffName, value * 10)
+        applyBuff(player, BUFF_TYPE.SKILL, buffName, value * 10)
     end
     for buffName, value in pairs(classData.characteristics) do
-        applyBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value * 10)
+        applyBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value * 10)
     end
 end
 -- Function to remove class buffs
-local function removeClassBuffs(character, classData)
+local function removeClassBuffs(player, classData)
     for buffName, value in pairs(classData.skills.majorskills) do
-        removeBuff(character, BUFF_TYPE.SKILL, buffName, value * 25)
+        removeBuff(player, BUFF_TYPE.SKILL, buffName, value * 25)
     end
     for buffName, value in pairs(classData.skills.minorskills) do
-        removeBuff(character, BUFF_TYPE.SKILL, buffName, value * 10)
+        removeBuff(player, BUFF_TYPE.SKILL, buffName, value * 10)
     end
     for buffName, value in pairs(classData.characteristics) do
-        removeBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value * 10)
+        removeBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value * 10)
     end
 end
 
 -- Function to apply sign buffs
-local function applysign_buffs(character, signData)
+local function applysign_buffs(player, signData)
     for buffName, value in pairs(signData.skills) do
-        applyBuff(character, BUFF_TYPE.SKILL, buffName, value)
+        applyBuff(player, BUFF_TYPE.SKILL, buffName, value)
     end
     for buffName, value in pairs(signData.characteristics) do
-        applyBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value)
+        applyBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value)
     end
 end
 -- Function to remove sign buffs
-local function removesign_buffs(character, signData)
+local function removesign_buffs(player, signData)
     for buffName, value in pairs(signData.skills) do
-        removeBuff(character, BUFF_TYPE.SKILL, buffName, value)
+        removeBuff(player, BUFF_TYPE.SKILL, buffName, value)
     end
     for buffName, value in pairs(signData.characteristics) do
-        removeBuff(character, BUFF_TYPE.CHARACTERISTIC, buffName, value)
+        removeBuff(player, BUFF_TYPE.CHARACTERISTIC, buffName, value)
     end
 end
 
@@ -322,6 +322,11 @@ local function rebuildXMLTable()
             local elementId = newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
             newPanel.children[1].children[2].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
+        -- items
+        for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
+            table.insert(newPanel.children[1].children[1].children[1].children,
+                uiElementFunctions["item"](item[1], item[2], item[3]))
+        end
 
         table.insert(mainPanel, newPanel)
     end
@@ -381,7 +386,6 @@ local function confer(isLoad)
     local multiplySleepTime = 3
     for colorPlayer, _ in pairs(saveInfoPlayer) do
         if not isLoad then setCharacter(colorPlayer) end
-        updateItems(colorPlayer)
         Wait.time(|| sortSkillsByImportance(colorPlayer), (enumColor[colorPlayer] / 3) * multiplySleepTime)
         Wait.time(|| calculateInfo(colorPlayer), (enumColor[colorPlayer] / 2) * multiplySleepTime)
         Wait.time(|| setUI(colorPlayer), (enumColor[colorPlayer]) * multiplySleepTime)
@@ -468,8 +472,8 @@ function onLoad()
                     end
                 end)
                 Wait.condition(function()
-                        rebuildXMLTable()
                         loadSaveData()
+                        rebuildXMLTable()
                     end,
                     function() return flag end
                 )

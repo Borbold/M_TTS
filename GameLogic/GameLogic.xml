@@ -2,7 +2,7 @@
     <Button class='changeStateButton' onClick='changePlayerState' />
     <Button class='hitButton' onClick='whatPartBodyHit' />
     <!---->
-    <Dropdown class='colorPlayer' id='colorPlayer' onValueChanged='changeClass' />
+    <Dropdown class='colorPlayer' id='colorPlayer' onValueChanged='changeColor' />
     <Dropdown class='class' onValueChanged='changeClass' />
     <Dropdown class='race' onValueChanged='changeRace' />
     <Dropdown class='sign' onValueChanged='changeSign' />
@@ -13,12 +13,13 @@
     <InputField resizeTextForBestFit='true' resizeTextMaxSize='80' font='Font/Gothic' characterValidation='Integer' text='0' onEndEdit='fieldEdit' color='#1c1c1c' textColor='#d4af37' />
     <VerticalScrollView scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f'
         horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='15' />
-    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='15' />
+    <Dropdown resizeTextForBestFit='true' resizeTextMaxSize='80' color='#dfaf37' itemBackgroundColors='#dfaf37' scrollSensitivity='15' itemHeight='70'
+        scrollbarColors='#d4af37|#d4af37|#d4af37|rgba(0.1,0.1,0.1,0)' scrollbarBackgroundColor='#fafafa4f' />
 </Defaults>
 
 <Panel position='0 0 -70' scale='0.25'>
     <VerticalScrollView width='400' height='400'>
-        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='380 120' height='1605' color='Black'>
+        <GridLayout startAxis='Vertical' spacing='3 3' cellSize='380 120' height='1480' color='Black'>
             <Dropdown class='colorPlayer'>
                 <Option selected='true'>White</Option>
                 <Option>Red</Option>
@@ -78,7 +79,6 @@
             <Button class='changeStateButton' id='but3' text='Stamina' />
             <InputField id='stamina' />
             <Button class='changeStateButton' id='restoreAll' text='Restore All' />
-            <Button class='changeStateButton' id='restoreStaminaPerTurn' text='Restore Stamina Per Turn' />
             <Button class='hitButton' text='What Part Of Body Hit' />
         </GridLayout>
     </VerticalScrollView>

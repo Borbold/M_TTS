@@ -52,7 +52,7 @@
                 </Row>
                 <Row>
                     <VerticalScrollView width='230' height='358' offsetXY='235 96' image='TableLayout_Back_Long'>
-                        <TableLayout width='190' height='925' />
+                        <TableLayout width='190' height='830' />
                     </VerticalScrollView>
                 </Row>
             </GridLayout>

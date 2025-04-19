@@ -47,13 +47,11 @@ end
 
 function changeClass(player, class)
     Global.call("changeClassBonus", {selectedColorPlayer, class})
-    Wait.time(|| Global.call("sortSkillsByImportance", selectedColorPlayer), 0.2)
     Wait.time(|| reCalculatePlayer(), 0.3)
 end
 
 function changeSign(player, sign)
     Global.call("changeSignBonus", {selectedColorPlayer, sign})
-    Wait.time(|| Global.call("sortSkillsByImportance", selectedColorPlayer), 0.2)
     Wait.time(|| reCalculatePlayer(), 0.3)
 end
 
