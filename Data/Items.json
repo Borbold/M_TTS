@@ -15,7 +15,7 @@
             },
             "equipped": true,
             "used": false,
-            "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
+            "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
         },
         {
             "name": "Iron Breastplate",
@@ -29,7 +29,7 @@
             },
             "equipped": true,
             "used": false,
-            "imageUrl": "https://example.com/images/iron_breastplate.png"
+            "image_url": "https://example.com/images/iron_breastplate.png"
         },
         {
             "name": "Healing Potion",
@@ -42,7 +42,7 @@
             },
             "equipped": false,
             "used": true,
-            "imageUrl": "https://example.com/images/healing_potion.png"
+            "image_url": "https://example.com/images/healing_potion.png"
         },
         {
             "name": "Sujamma",
@@ -56,7 +56,7 @@
             },
             "equipped": false,
             "used": true,
-            "imageUrl": "https://example.com/images/sujama.png"
+            "image_url": "https://example.com/images/sujama.png"
         },
         {
             "name": "Fork",
@@ -69,7 +69,7 @@
             },
             "equipped": false,
             "used": false,
-            "imageUrl": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
+            "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
         },
         {
             "name": "Test item 1",
@@ -81,7 +81,7 @@
             },
             "equipped": false,
             "used": false,
-            "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
+            "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
         },
         {
             "name": "Test item 2",
@@ -93,7 +93,7 @@
             },
             "equipped": false,
             "used": false,
-            "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
+            "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
         }
     ]
 }

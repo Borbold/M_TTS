@@ -1,30 +1,30 @@
 {
     "run": {
-        "baseCost": 5,
-        "additionalCost": "2 * (ТекущаяНагрузка / МаксимальнаяНагрузка)"
+        "base_cost": 5,
+        "additional_cost": "2 * (ТекущаяНагрузка / МаксимальнаяНагрузка)"
     },
     "swim": {
-        "baseCost": 3,
-        "additionalCost": "1 * (ТекущаяНагрузка / МаксимальнаяНагрузка)"
+        "base_cost": 3,
+        "additional_cost": "1 * (ТекущаяНагрузка / МаксимальнаяНагрузка)"
     },
     "jump": {
-        "baseCost": 10,
-        "additionalCost": "0"
+        "base_cost": 10,
+        "additional_cost": "0"
     },
     "combat": {
-        "baseCost": 2,
-        "additionalCost": "0.25 * весОружия * длинаМаха"
+        "base_cost": 2,
+        "additional_cost": "0.25 * весОружия * длинаМаха"
     },
     "block": {
-        "baseCost": 1,
-        "additionalCost": "0.25 * весЩита"
+        "base_cost": 1,
+        "additional_cost": "0.25 * весЩита"
     },
     "protect": {
-        "baseCost": 1,
-        "additionalCost": "0.25 * весЩита"
+        "base_cost": 1,
+        "additional_cost": "0.25 * весЩита"
     },
     "cast": {
-        "baseCost": 2,
-        "additionalCost": "0"
+        "base_cost": 2,
+        "additional_cost": "0"
     }
 }

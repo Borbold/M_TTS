@@ -48,7 +48,7 @@
         "speechcraft": 0
     },
     "sign": "Atronach",
-    "magicbonus": {"race": 0, "sign": 0},
+    "magic_bonus": {"race": 0, "sign": 0},
     "buffs": {
         "skills": {},
         "characteristics": {},
@@ -64,5 +64,6 @@
         "sign": {},
         "race": {}
     },
+    "items_weight": 0,
     "items": []
 }

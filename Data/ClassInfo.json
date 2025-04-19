@@ -6,7 +6,6 @@
             "minorskills": {"illusion": 1, "athletics": 1, "speechcraft": 1, "unarmored": 1, "hand_to_hand": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "speed": 1}
     },
     "assassin": {
@@ -16,7 +15,6 @@
             "minorskills": {"speechcraft": 1, "restoration": 1, "illusion": 1, "alteration": 1, "enchant": 1}
         },
         "specialization": "combat",
-        "spechar": {},
         "characteristics": {"agility": 1, "strength": 1}
     },
     "barbarian": {
@@ -26,7 +24,6 @@
             "minorskills": {"destruction": 1, "restoration": 1, "conjuration": 1, "alteration": 1, "speechcraft": 1}
         },
         "specialization": "combat",
-        "spechar": {},
         "characteristics": {"strength": 1, "endurance": 1}
     },
     "battlemage": {
@@ -36,7 +33,6 @@
             "minorskills": {"conjuration": 1, "restoration": 1, "enchant": 1, "illusion": 1, "mysticism": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     },
     "crusader": {
@@ -46,7 +42,6 @@
             "minorskills": {"alteration": 1, "conjuration": 1, "illusion": 1, "enchant": 1, "speechcraft": 1}
         },
         "specialization": "combat",
-        "spechar": {},
         "characteristics": {"willpower": 1, "endurance": 1}
     },
     "healer": {
@@ -56,7 +51,6 @@
             "minorskills": {"enchant": 1, "speechcraft": 1, "destruction": 1, "security": 1, "marksman": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     },
     "knight": {
@@ -66,7 +60,6 @@
             "minorskills": {"alteration": 1, "speechcraft": 1, "conjuration": 1, "illusion": 1, "enchant": 1}
         },
         "specialization": "combat",
-        "spechar": {},
         "characteristics": {"strength": 1, "endurance": 1}
     },
     "mage": {
@@ -76,7 +69,6 @@
             "minorskills": {"enchant": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     },
     "monk": {
@@ -86,7 +78,6 @@
             "minorskills": {"marksman": 1, "meditation": 1, "speechcraft": 1, "security": 1, "sneak": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "speed": 1}
     },
     "nightblade": {
@@ -96,7 +87,6 @@
             "minorskills": {"illusion": 1, "speechcraft": 1, "restoration": 1, "alteration": 1, "conjuration": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "intelligence": 1}
     },
     "pilgrim": {
@@ -106,7 +96,6 @@
             "minorskills": {"enchant": 1, "speechcraft": 1, "security": 1, "marksman": 1, "acrobatics": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     },
     "rogue": {
@@ -116,7 +105,6 @@
             "minorskills": {"athletics": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "intelligence": 1}
     },
     "scout": {
@@ -126,7 +114,6 @@
             "minorskills": {"marksman": 1, "alchemy": 1, "alteration": 1, "light_armor": 1, "unarmored": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "speed": 1}
     },
     "agent": {
@@ -136,7 +123,6 @@
             "minorskills": {"mercantile": 1, "conjuration": 1, "block": 1, "unarmored": 1, "illusion": 1}
         },
         "specialization": "stealth",
-        "spechar": {},
         "characteristics": {"agility": 1, "speed": 1}
     },
     "sorcerer": {
@@ -146,7 +132,6 @@
             "minorskills": {"mysticism": 1, "speechcraft": 1, "blunt_weapon": 1, "heavy_armor": 1, "block": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     },
     "spellsword": {
@@ -156,7 +141,6 @@
             "minorskills": {"restoration": 1, "speechcraft": 1, "illusion": 1, "mysticism": 1, "enchant": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "strength": 1}
     },
     "warrior": {
@@ -166,7 +150,6 @@
             "minorskills": {"armorer": 1, "spear": 1, "marksman": 1, "axe": 1, "blunt_weapon": 1}
         },
         "specialization": "combat",
-        "spechar": {},
         "characteristics": {"strength": 1, "endurance": 1}
     },
     "witchhunter": {
@@ -176,7 +159,6 @@
             "minorskills": {"restoration": 1, "speechcraft": 1, "illusion": 1, "mysticism": 1, "enchant": 1}
         },
         "specialization": "magic",
-        "spechar": {},
         "characteristics": {"intelligence": 1, "willpower": 1}
     }
 }

@@ -25,7 +25,7 @@
         "resistances": {
             "fire": 50
         },
-        "magicbonus": 2
+        "magic_bonus": 2
     },
     "argonian": {
         "characteristics": {
@@ -110,7 +110,7 @@
             "electricity": 10,
             "fire": 10
         },
-        "magicbonus": 1
+        "magic_bonus": 1
     },
     "dunmer": {
         "characteristics": {
@@ -139,7 +139,7 @@
         "resistances": {
             "fire": 50
         },
-        "magicbonus": 1
+        "magic_bonus": 1
     },
     "imperial": {
         "characteristics": {

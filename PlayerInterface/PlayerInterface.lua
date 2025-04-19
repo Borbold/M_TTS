@@ -549,7 +549,7 @@ function calculateInfo(colorPlayer)
     player.health.max = math.floor((player.characteristics.strength + player.characteristics.endurance) / 2 + (tonumber(player.level) - 1) * (player.characteristics.endurance / 10))
     if player.health.current > player.health.max then player.health.current = player.health.max end
     -- Calculate MP
-    player.mana.max = player.characteristics.intelligence * (1 + player.magicbonus.race + player.magicbonus.sign)
+    player.mana.max = player.characteristics.intelligence * (1 + player.magic_bonus.race + player.magic_bonus.sign)
     if player.mana.current > player.mana.max then player.mana.current = player.mana.max end
     -- Calculate SP
     player.stamina.max = player.characteristics.strength + player.characteristics.willpower + player.characteristics.agility + player.characteristics.endurance
@@ -572,7 +572,7 @@ local function setRaceInfo(info, raceData)
     if(not isOnLoad) then removeRaceBuffs(player, raceData[prevRace]) end
     applyRaceBuffs(player, raceData[race])
     player.race = rRace
-    player.magicbonus.race = raceData[race].magicbonus or 0
+    player.magic_bonus.race = raceData[race].magic_bonus or 0
 end
 -- Function to fetch and set race bonuses
 function changeRaceBonus(info)
@@ -644,7 +644,7 @@ local function setSignInfo(info, signData)
     player.sign = sSign
     player.buffs.sign_buffs = deepCopy(signData[sign].buffs)
     player.abilitys.sign = deepCopy(signData[sign].abilitys)
-    player.magicbonus.sign = signData[sign].magicbonus or 0
+    player.magic_bonus.sign = signData[sign].magic_bonus or 0
 end
 -- Function to fetch and set sign bonuses
 function changeSignBonus(info)
@@ -736,9 +736,9 @@ function throwSkill(player, alt, id)
     local valueStaminaWaste = 0
     if id:find("athletics") then
         -- run or swim
-        valueStaminaWaste = baseWasteStamina.run.baseCost + math.random(1, 6)
+        valueStaminaWaste = baseWasteStamina.run.base_cost + math.random(1, 6)
     elseif id:find("acrobatics") then
-        valueStaminaWaste = baseWasteStamina.jump.baseCost
+        valueStaminaWaste = baseWasteStamina.jump.base_cost
     end
     wasteStamina(locPlayer, player.color, valueStaminaWaste)
 end
@@ -763,7 +763,7 @@ function throwMageSkill(player, alt, id)
         magicCost, sound, locPlayer.stamina.current, locPlayer.stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
-    local valueStaminaWaste = baseWasteStamina.cast.baseCost + math.random(2, 5)
+    local valueStaminaWaste = baseWasteStamina.cast.base_cost + math.random(2, 5)
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -792,7 +792,7 @@ function throwCombatSkill(player, alt, id)
         blind, locPlayer.stamina.current, locPlayer.stamina.max
     )
     print("Probability of success: " .. successChance .. "%")
-    local valueStaminaWaste = baseWasteStamina.combat.baseCost + randomStaminaCheck
+    local valueStaminaWaste = baseWasteStamina.combat.base_cost + randomStaminaCheck
 
     -- Generate a random number from 1 to 100
     local roll = math.random(1, 100)
@@ -828,14 +828,14 @@ function throwProtectSkill(player, alt, id)
             locPlayer.stamina.current, locPlayer.stamina.max
         )
         successChance = successChance > 50 and 50 or successChance < 10 and 10 or successChance
-        valueStaminaWaste = baseWasteStamina.block.baseCost + randomStaminaCheck
+        valueStaminaWaste = baseWasteStamina.block.base_cost + randomStaminaCheck
     else
         -- Calculate the probability of success
         successChance = calculateProtectSuccessChance(
             skillValue, locPlayer.characteristics.agility, locPlayer.characteristics.luck,
             luminary, locPlayer.stamina.current, locPlayer.stamina.max
         )
-        valueStaminaWaste = baseWasteStamina.protect.baseCost + randomStaminaCheck
+        valueStaminaWaste = baseWasteStamina.protect.base_cost + randomStaminaCheck
     end
     print("Probability of success: " .. successChance .. "%")
 
