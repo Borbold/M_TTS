@@ -144,7 +144,7 @@ saveInfoPlayer = {
 -- Helper function to create a row with item information
 local function addVisibleElement(name, image, nameClass, tooltip)
     return {
-        tag = nameClass == "item" and "Button" or "Image",
+        tag = "Button",
         attributes = { class = nameClass, id = name, tooltip = tooltip, image = image }
     }
 end
@@ -339,9 +339,9 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
-local function updateEffects(player)
+local function updateEffects(colorPlayer)
     local xmlTable, rowEffects = self.UI.getXmlTable(), {}
-    for _, effect in ipairs(player.active_effects) do
+    for _, effect in ipairs(saveInfoPlayer[colorPlayer].active_effects) do
         table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
     end
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
@@ -351,11 +351,12 @@ end
 
 -- Update inventory xml form
 local function updateItems(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
     local xmlTable, rowItems = self.UI.getXmlTable(), {}
-    saveInfoPlayer[colorPlayer].items_weight = 0
-    for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
+    player.items_weight = 0
+    for _, item in ipairs(player.items) do
         table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
-        saveInfoPlayer[colorPlayer].items_weight = saveInfoPlayer[colorPlayer].items_weight + jsonItems[item.name].weight
+        player.items_weight = player.items_weight + jsonItems[item.name].weight
     end
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
     self.UI.setXmlTable(xmlTable)
@@ -378,7 +379,8 @@ end
 local function equipItem(player)
 end
 
-local function useItem(t, player)
+local function useItem(itemName, t, colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
     if t.type == "potion" then
         if t.effects then
             if t.effects.restore then
@@ -387,26 +389,27 @@ local function useItem(t, player)
                     player[state].current = player[state].current + value
                     player[state].current = checkValue({player[state].current, player[state].max})
                 end
-                local description = string.format("%s\n%s\nAction time: %d\nEffect: restore %s %d", t.name, t.description, time, state, value)
+                local description = string.format("%s\n%s\nAction time: %d\nEffect: restore %s %d", itemName, t.description, time, state, value)
                 if time then
-                    table.insert(player.active_effects, {name = t.name, image = t.image_url, description = time})
+                    table.insert(player.active_effects, {name = itemName, image = t.image_url, description = description})
                 end
             end
-            updateEffects(player)
+            updateEffects(colorPlayer)
         end
     end
 end
 
-local function checkItem(itemName, player)
+local function checkItem(itemName, colorPlayer)
     local flag = true
     for name, t in pairs(jsonItems) do
         if name == itemName then
             if t.equipped then
                 flag = false
-                equipItem(player)
+                equipItem(colorPlayer)
             elseif t.used then
-                useItem(t, player)
+                useItem(name, t, colorPlayer)
             end
+            break
         end
     end
     return flag
@@ -420,11 +423,11 @@ function putItem(player, alt, id)
         if item.name == id then
             local removeFlag = true
             if alt == "-2" then
-                removeFlag = checkItem(item.name, locPlayer)
+                removeFlag = checkItem(item.name, colorPlayer)
             end
             if removeFlag then
                 table.remove(locPlayer.items, i)
-                updateItems(colorPlayer)
+                Wait.time(|| updateItems(colorPlayer), 0.1)
             end
             return
         end
@@ -480,7 +483,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
-    local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
+    --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave
         Wait.time(|| confer(true), 1)

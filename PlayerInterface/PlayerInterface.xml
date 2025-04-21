@@ -14,6 +14,7 @@
     <Button class='protectSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwProtectSkill' color='#ffffff00' />
     <Button class='skill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwSkill' color='#ffffff00' />
     <Button class='item' onClick='putItem' />
+    <Button class='effect' interactable='false' />
     <Text class='stateV' offsetXY='40 0' alignment='MiddleRight' />
     <Text class='infoSkill' active='false' />
     <Text class='progressBarV' offsetXY='65 0' />
@@ -28,6 +29,7 @@
     <Cell dontUseTableCellBackground='true' />
     <VerticalScrollView horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10'
         scrollbarBackgroundImage='Slide_Back' scrollbarImage='Slide_Font' />
+    <GridLayout spacing='3 3' />
 </Defaults>
 
 <!--Piece for UI generation-->
@@ -47,17 +49,19 @@
                     <Text id='textWeight' text='50/100' offsetXY='0 -3' width='200' />
                 </Row>
                 <Row preferredHeight='30'>
-                    <GridLayout cellSize='28 28' spacing='2 2' color='#ffffff00' />
+                    <GridLayout cellSize='30 30' color='Grey' >
+                        <Button color='Red' />
+                    </GridLayout>
                 </Row>
                 <Row>
                 </Row>
             </TableLayout>
         </Cell>
         <Cell id='inventory' columnSpan='2'>
-            <GridLayout startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='50 50' color='Black' />
+            <GridLayout startAxis='Vertical' padding='3 3 3 3' cellSize='50 50' color='Black' />
         </Cell>
         <Cell id='statistic' columnSpan='2'>
-            <GridLayout startAxis='Vertical' padding='3 3 3 3' spacing='3 3' cellSize='230 76' color='Black'>
+            <GridLayout startAxis='Vertical' padding='3 3 3 3' cellSize='230 76' color='Black'>
                 <TableLayout image='TableLayout_Back' />
                 <TableLayout image='TableLayout_Back' />
                 <Row>
