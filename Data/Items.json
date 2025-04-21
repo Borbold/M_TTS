@@ -1,5 +1,5 @@
 {
-    "Iron Sword": {
+    "Iron Longsword": {
         "type": "weapon",
         "description": "text",
         "weight": 1,
@@ -12,9 +12,9 @@
         "effects": {
         },
         "equipped": true,
-        "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/34/M_IronLongsword.png/revision/latest?cb=20120301212953"
     },
-    "Iron Breastplate": {
+    "Iron Cuirass": {
         "type": "armor",
         "description": "text",
         "weight": 1,
@@ -24,7 +24,19 @@
         "effects": {
         },
         "equipped": true,
-        "image_url": "https://example.com/images/iron_breastplate.png"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Boots": {
+        "type": "armor",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 20,
+        "defense": 20,
+        "durability": 150,
+        "effects": {
+        },
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/IronBootsMW.png/revision/latest?cb=20120328233649"
     },
     "Healing Potion": {
         "type": "potion",
@@ -35,7 +47,7 @@
             "restore": ["health", 5, "time", 10]
         },
         "used": true,
-        "image_url": "https://example.com/images/healing_potion.png"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/8/81/BargainPotionMW.png/revision/latest?cb=20120512204207"
     },
     "Sujamma": {
         "type": "potion",
@@ -47,7 +59,7 @@
             "debuffs": {"intelligence": 50, "time": 60}
         },
         "used": true,
-        "image_url": "https://example.com/images/sujama.png"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/a/a3/LocalLiquor.png/revision/latest?cb=20120513034303"
     },
     "Fork": {
         "type": "other",
@@ -57,7 +69,7 @@
         "effects": {
             "mana": 15
         },
-        "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/2/21/ForkMorrowind.png/revision/latest?cb=20160716154933"
     },
     "Test item 1": {
         "type": "other",
