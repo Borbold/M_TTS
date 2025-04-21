@@ -142,9 +142,9 @@ saveInfoPlayer = {
 }
 
 -- Helper function to create a row with item information
-local function createItem(name, image, nameClass, tooltip)
+local function addVisibleElement(name, image, nameClass, tooltip)
     return {
-        tag = "Button",
+        tag = nameClass == "item" and "Button" or "Image",
         attributes = { class = nameClass, id = name, tooltip = tooltip, image = image }
     }
 end
@@ -209,7 +209,8 @@ local uiElementFunctions = {
     ["mageSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button", tooltip) end,
     ["protectSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button", tooltip) end,
     ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end,
-    ["item"] = function(name, image, tooltip) return createItem(name, image, "item", tooltip) end,
+    ["item"] = function(name, image, tooltip) return addVisibleElement(name, image, "item", tooltip) end,
+    ["effect"] = function(name, image, tooltip) return addVisibleElement(name, image, "effect", tooltip) end,
 }
 
 -- Generate xml and add tooltip
@@ -338,6 +339,16 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
+local function updateEffects(player)
+    local xmlTable, rowEffects = self.UI.getXmlTable(), {}
+    for _, effect in ipairs(player.active_effects) do
+        table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
+    end
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
+    self.UI.setXmlTable(xmlTable)
+    updatePlayer(colorPlayer)
+end
+
 -- Update inventory xml form
 local function updateItems(colorPlayer)
     local xmlTable, rowItems = self.UI.getXmlTable(), {}
@@ -369,12 +380,19 @@ end
 
 local function useItem(t, player)
     if t.type == "potion" then
-        if t.effects.restore then
-            local state = t.effects.restore[1]
-            if player[state].current then
-                player[state].current = player[state].current + t.effects.restore[2]
-                player[state].current = checkValue({player[state].current, player[state].max})
+        if t.effects then
+            if t.effects.restore then
+                local state, value, time = t.effects.restore[1], t.effects.restore[2], t.effects.restore[4]
+                if player[state].current then
+                    player[state].current = player[state].current + value
+                    player[state].current = checkValue({player[state].current, player[state].max})
+                end
+                local description = string.format("%s\n%s\nAction time: %d\nEffect: restore %s %d", t.name, t.description, time, state, value)
+                if time then
+                    table.insert(player.active_effects, {name = t.name, image = t.image_url, description = time})
+                end
             end
+            updateEffects(player)
         end
     end
 end

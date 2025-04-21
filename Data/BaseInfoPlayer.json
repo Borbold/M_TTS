@@ -65,5 +65,6 @@
         "race": {}
     },
     "items_weight": 0,
-    "items": []
+    "items": [],
+    "active_effects": []
 }

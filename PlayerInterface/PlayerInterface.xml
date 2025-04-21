@@ -46,6 +46,9 @@
                     <ProgressBar id='weight' percentage='0.5' image='States_Back' offsetXY='0 -3' width='225' />
                     <Text id='textWeight' text='50/100' offsetXY='0 -3' width='200' />
                 </Row>
+                <Row preferredHeight='30'>
+                    <GridLayout cellSize='28 28' spacing='2 2' color='#ffffff00' />
+                </Row>
                 <Row>
                 </Row>
             </TableLayout>
