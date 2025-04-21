@@ -364,14 +364,50 @@ local function takeItem(colorPlayer, object)
     end
 end
 
+local function equipItem(player)
+end
+
+local function useItem(t, player)
+    if t.type == "potion" then
+        if t.effects.restore then
+            local state = t.effects.restore[1]
+            if player[state].current then
+                player[state].current = player[state].current + t.effects.restore[2]
+                player[state].current = checkValue({player[state].current, player[state].max})
+            end
+        end
+    end
+end
+
+local function checkItem(itemName, player)
+    local flag = true
+    for name, t in pairs(jsonItems) do
+        if name == itemName then
+            if t.equipped then
+                flag = false
+                equipItem(player)
+            elseif t.used then
+                useItem(t, player)
+            end
+        end
+    end
+    return flag
+end
+
 -- Remove an item from your inventory or use it
 function putItem(player, alt, id)
     local colorPlayer = player.color
     local locPlayer = saveInfoPlayer[colorPlayer]
     for i, item in ipairs(locPlayer.items) do
         if item.name == id then
-            table.remove(locPlayer.items, i)
-            updateItems(colorPlayer)
+            local removeFlag = true
+            if alt == "-2" then
+                removeFlag = checkItem(item.name, locPlayer)
+            end
+            if removeFlag then
+                table.remove(locPlayer.items, i)
+                updateItems(colorPlayer)
+            end
             return
         end
     end

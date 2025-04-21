@@ -12,7 +12,6 @@
         "effects": {
         },
         "equipped": true,
-        "used": false,
         "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Iron_Sword.png"
     },
     "Iron Breastplate": {
@@ -25,23 +24,21 @@
         "effects": {
         },
         "equipped": true,
-        "used": false,
         "image_url": "https://example.com/images/iron_breastplate.png"
     },
     "Healing Potion": {
-        "type": "consumable",
+        "type": "potion",
         "description": "text",
         "weight": 1,
         "base_cost": 50,
         "effects": {
-            "restore": {"health": 5, "time": 10}
+            "restore": ["health", 5, "time", 10]
         },
-        "equipped": false,
         "used": true,
         "image_url": "https://example.com/images/healing_potion.png"
     },
     "Sujamma": {
-        "type": "consumable",
+        "type": "potion",
         "description": "text",
         "weight": 1,
         "base_cost": 20,
@@ -49,7 +46,6 @@
             "buffs": {"strength": 50, "time": 60},
             "debuffs": {"intelligence": 50, "time": 60}
         },
-        "equipped": false,
         "used": true,
         "image_url": "https://example.com/images/sujama.png"
     },
@@ -61,8 +57,6 @@
         "effects": {
             "mana": 15
         },
-        "equipped": false,
-        "used": false,
         "image_url": "https://raw.githubusercontent.com/Borbold/M_TTS/refs/heads/main/Images/Items/Fork.png"
     },
     "Test item 1": {
@@ -72,8 +66,6 @@
         "weight": 1,
         "effects": {
         },
-        "equipped": false,
-        "used": false,
         "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
     },
     "Test item 2": {
@@ -83,8 +75,6 @@
         "weight": 1,
         "effects": {
         },
-        "equipped": false,
-        "used": false,
         "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
     }
 }
