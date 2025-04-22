@@ -1,6 +1,6 @@
 {
     "Iron Longsword": {
-        "type": "weapon",
+        "type": "weapon one_handed long_blade",
         "description": "text",
         "weight": 1,
         "base_cost": 30,
@@ -9,20 +9,18 @@
             "max": 10
         },
         "durability": 100,
-        "effects": {
-        },
+        "effects": {},
         "equipped": true,
         "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/34/M_IronLongsword.png/revision/latest?cb=20120301212953"
     },
     "Iron Cuirass": {
-        "type": "armor",
+        "type": "armor chest heavy_armor",
         "description": "text",
         "weight": 1,
         "base_cost": 20,
         "defense": 20,
         "durability": 150,
-        "effects": {
-        },
+        "effects": {},
         "equipped": true,
         "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
     },
@@ -33,10 +31,20 @@
         "base_cost": 20,
         "defense": 20,
         "durability": 150,
-        "effects": {
-        },
+        "effects": {},
         "equipped": true,
         "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/IronBootsMW.png/revision/latest?cb=20120328233649"
+    },
+    "Iron Greaves": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 18,
+        "defense": 25,
+        "durability": 100,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1b/Iron_Greaves_%28Morrowind%29.png/revision/latest?cb=20141214173548"
     },
     "Healing Potion": {
         "type": "potion",
@@ -76,8 +84,7 @@
         "description": "Description",
         "base_cost": 2,
         "weight": 1,
-        "effects": {
-        },
+        "effects": {},
         "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
     },
     "Test item 2": {
@@ -85,8 +92,73 @@
         "description": "Description",
         "base_cost": 2,
         "weight": 1,
-        "effects": {
-        },
+        "effects": {},
         "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
+    },
+    "Iron Helmet": {
+        "type": "armor",
+        "description": "text",
+        "weight": 11,
+        "base_cost": 5,
+        "defense": 25,
+        "durability": 300,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Left Bracer": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 5,
+        "defense": 200,
+        "durability": 50,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Left Gauntlet": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 7,
+        "defense": 25,
+        "durability": 50,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Left Pauldron": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 10,
+        "defense": 20,
+        "durability": 100,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Right Bracer": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 5,
+        "defense": 200,
+        "durability": 50,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
+    },
+    "Iron Right Gauntlet": {
+        "type": "armor",
+        "description": "text",
+        "weight": 10,
+        "base_cost": 7,
+        "defense": 25,
+        "durability": 50,
+        "effects": {},
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
     }
 }
