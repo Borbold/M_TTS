@@ -142,9 +142,9 @@ saveInfoPlayer = {
 }
 
 -- Helper function to create a row with item information
-local function addVisibleElement(name, image, nameClass, tooltip)
+local function addVisibleElement(name, image, nameClass, tooltip, nameTag)
     return {
-        tag = "Button",
+        tag = nameTag,
         attributes = { class = nameClass, id = name, tooltip = tooltip, image = image }
     }
 end
@@ -209,8 +209,8 @@ local uiElementFunctions = {
     ["mageSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "mageSkill", "Button", tooltip) end,
     ["protectSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button", tooltip) end,
     ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end,
-    ["item"] = function(name, image, tooltip) return addVisibleElement(name, image, "item", tooltip) end,
-    ["effect"] = function(name, image, tooltip) return addVisibleElement(name, image, "effect", tooltip) end,
+    ["item"] = function(name, image, tooltip) return addVisibleElement(name, image, "item", tooltip, "Button") end,
+    ["effect"] = function(name, image, tooltip) return addVisibleElement(name, image, "", tooltip, "Image") end,
 }
 
 -- Generate xml and add tooltip
@@ -339,28 +339,31 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
-local function updateEffects(colorPlayer)
-    local xmlTable, rowEffects = self.UI.getXmlTable(), {}
-    for _, effect in ipairs(saveInfoPlayer[colorPlayer].active_effects) do
+local function updateXML(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    local rowItems = {}
+    for _, item in ipairs(player.items) do
+        table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
+    end
+    local rowEffects = {}
+    for _, effect in ipairs(player.active_effects) do
         table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
     end
+    local xmlTable = self.UI.getXmlTable()
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
     self.UI.setXmlTable(xmlTable)
     updatePlayer(colorPlayer)
 end
 
--- Update inventory xml form
-local function updateItems(colorPlayer)
+-- Extract a function to update the inventory XML form
+local function updateInventory(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
-    local xmlTable, rowItems = self.UI.getXmlTable(), {}
     player.items_weight = 0
     for _, item in ipairs(player.items) do
-        table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
         player.items_weight = player.items_weight + jsonItems[item.name].weight
     end
-    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
-    self.UI.setXmlTable(xmlTable)
-    updatePlayer(colorPlayer)
+    updateXML(colorPlayer)
 end
 
 -- Picking up an item and transferring it to the inventory
@@ -372,7 +375,7 @@ local function takeItem(colorPlayer, object)
         local name = object.getName():gsub("%[.-%]","")
         local description = string.format("%s\n%s", name, object.getDescription())
         table.insert(saveInfoPlayer[colorPlayer].items, {name = name, image = URLImage, description = description})
-        updateItems(colorPlayer)
+        updateInventory(colorPlayer)
     end
 end
 
@@ -394,11 +397,11 @@ local function useItem(itemName, t, colorPlayer)
                     table.insert(player.active_effects, {name = itemName, image = t.image_url, description = description})
                 end
             end
-            updateEffects(colorPlayer)
         end
     end
 end
 
+-- If you put the item on, change the background of the icon. If used, remove it.
 local function checkItem(itemName, colorPlayer)
     local flag = true
     for name, t in pairs(jsonItems) do
@@ -427,8 +430,8 @@ function putItem(player, alt, id)
             end
             if removeFlag then
                 table.remove(locPlayer.items, i)
-                Wait.time(|| updateItems(colorPlayer), 0.1)
             end
+            updateXML(colorPlayer)
             return
         end
     end
@@ -527,19 +530,21 @@ function onLoad()
                 for color, _ in pairs(enumColor) do
                     saveInfoPlayer[color] = deepCopy(baseInfo)
                 end
-                local flag = false
-                WebRequest.get(TOOLTIP_B_I_URL, function(request)
-                    if request.is_done then
-                        buildXMLStructure(request.text)
-                        flag = true
-                    end
-                end)
-                Wait.condition(function()
-                    loadSaveData()
-                    rebuildXMLTable()
-                end,
-                function() return flag end
-                )
+                do
+                    local flag = false
+                    WebRequest.get(TOOLTIP_B_I_URL, function(request)
+                        if request.is_done then
+                            buildXMLStructure(request.text)
+                            flag = true
+                        end
+                    end)
+                    Wait.condition(function()
+                        loadSaveData()
+                        rebuildXMLTable()
+                    end,
+                    function() return flag end
+                    )
+                end
             else
                 print("Failed to decode base info.")
             end
@@ -739,6 +744,8 @@ end
 function sortSkillsByImportance(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     local sortedSkills = {}
+
+    if not player.buffs.classs_skills.majorskills then print("There was an error in loading the data. Reload the table.") end
 
     -- Add major skills
     table.insert(sortedSkills, { name = "Major Skills" })
