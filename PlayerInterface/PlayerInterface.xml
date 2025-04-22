@@ -51,7 +51,7 @@
                     <GridLayout cellSize='30 30' color='#ffffff00' />
                 </Row>
                 <Row>
-                    <TableLayout image='TableLayout_Back' />
+                    <TableLayout image='TableLayout_Back_Long' />
                 </Row>
             </TableLayout>
         </Cell>

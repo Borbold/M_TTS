@@ -392,7 +392,7 @@ local function useItem(itemName, t, colorPlayer)
                     player[state].current = player[state].current + value
                     player[state].current = checkValue({player[state].current, player[state].max})
                 end
-                local description = string.format("%s\n%s\nAction time: %d\nEffect: restore %s %d", itemName, t.description, time, state, value)
+                local description = string.format("%s\n%s\nAction time: %d round\nEffect: restore %s %d", itemName, t.description, time, state, value)
                 if time then
                     table.insert(player.active_effects, {name = itemName, image = t.image_url, description = description})
                 end
