@@ -23,8 +23,7 @@
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' font='Font/Gothic'
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
-    <TableLayout cellSpacing='5' />
-    <Row preferredHeight='20' />
+    <TableLayout cellSpacing='5' padding='0 0 0 3' />
     <Cell dontUseTableCellBackground='true' />
     <VerticalScrollView horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10'
         scrollbarBackgroundImage='Slide_Back' scrollbarImage='Slide_Font' />
@@ -63,10 +62,10 @@
             <GridLayout startAxis='Vertical' padding='3 3 3 3' cellSize='230 76' color='Black'>
                 <TableLayout image='TableLayout_Back' />
                 <TableLayout image='TableLayout_Back' />
-                <Row>
+                <Row preferredHeight='20'>
                     <TableLayout width='230' height='200' offsetXY='0 -62' image='TableLayout_Back_Long' />
                 </Row>
-                <Row>
+                <Row preferredHeight='20'>
                     <VerticalScrollView width='230' height='358' offsetXY='235 96' image='TableLayout_Back_Long'>
                         <TableLayout width='190' height='830' />
                     </VerticalScrollView>
