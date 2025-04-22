@@ -339,11 +339,13 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
-local function updateXML(colorPlayer)
+local function updateUpdatableXML(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     local rowItems = {}
+    player.items_weight = 0
     for _, item in ipairs(player.items) do
         table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
+        player.items_weight = player.items_weight + jsonItems[item.name].weight
     end
     local rowEffects = {}
     for _, effect in ipairs(player.active_effects) do
@@ -356,16 +358,6 @@ local function updateXML(colorPlayer)
     updatePlayer(colorPlayer)
 end
 
--- Extract a function to update the inventory XML form
-local function updateInventory(colorPlayer)
-    local player = saveInfoPlayer[colorPlayer]
-    player.items_weight = 0
-    for _, item in ipairs(player.items) do
-        player.items_weight = player.items_weight + jsonItems[item.name].weight
-    end
-    updateXML(colorPlayer)
-end
-
 -- Picking up an item and transferring it to the inventory
 local function takeItem(colorPlayer, object)
     if object and object.hasTag("item") then
@@ -375,7 +367,7 @@ local function takeItem(colorPlayer, object)
         local name = object.getName():gsub("%[.-%]","")
         local description = string.format("%s\n%s", name, object.getDescription())
         table.insert(saveInfoPlayer[colorPlayer].items, {name = name, image = URLImage, description = description})
-        updateInventory(colorPlayer)
+        updateUpdatableXML(colorPlayer)
     end
 end
 
@@ -431,7 +423,7 @@ function putItem(player, alt, id)
             if removeFlag then
                 table.remove(locPlayer.items, i)
             end
-            updateXML(colorPlayer)
+            updateUpdatableXML(colorPlayer)
             return
         end
     end
