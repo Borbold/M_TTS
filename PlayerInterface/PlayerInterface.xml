@@ -46,10 +46,10 @@
 <Panel id='BlackmainPanel' width='400' height='200' active='false' visibility='Black' color='Black'>
     <!--Initiative tracker-->
     <VerticalScrollView width='400' height='200' image='TableLayout_Back'>
-        <TableLayout width='380'>
+        <TableLayout width='375' height='440'>
             <Row preferredHeight='40'>
                 <Cell>
-                    <TableLayout padding='5 0 0 5'>
+                    <TableLayout padding='5 0 0 0'>
                         <Row>
                             <Cell columnSpan='3'>
                                 <Text alignment='MiddleLeft' text='Rounds:1' />
@@ -64,9 +64,9 @@
                     </TableLayout>
                 </Cell>
             </Row>
-            <Row preferredHeight='400'>
+            <Row>
                 <Cell>
-                    <TableLayout padding='5 0 0 5' columnWidths='50 0 50 50 50' />
+                    <TableLayout padding='0 0 0 5' columnWidths='50 0 50 50 50' />
                 </Cell>
             </Row>
         </TableLayout>

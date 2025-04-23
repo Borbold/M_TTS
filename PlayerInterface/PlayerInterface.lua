@@ -299,21 +299,21 @@ end
 -- Function to rebuild the XML table
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
-    local mainPanel, gmPanel = xmlTable[2].children, xmlTable[3].children
-    local initiativePanel = gmPanel.children[1].children[1].children[1].children[2].children[1].children[1].children
-    initiativePanel = {}
-    local initiativeRow = xmlTable[5]
-    initiativeRow.attributes.active = "true"
+    local mainPanel, gmPanel = xmlTable[2].children, xmlTable[3]
+    local initiativePanel = gmPanel.children[1].children[1].children[2].children[1].children[1].children
     for i, colorPlayer in ipairs(listColor) do
         -- GM UI
+        local initiativeRow = deepCopy(xmlTable[5])
+        initiativeRow.attributes.active = "true"
         local index = tostring(i)
         -- Initiative tracker
-        initiativeRow.children[1].attributes.id = "lampChar" .. index
-        initiativeRow.children[2].attributes.id = "nameChar" .. index
-        initiativeRow.children[2].attributes.text = saveInfoPlayer[colorPlayer].name
-        initiativeRow.children[3].attributes.id = "up" .. index
-        initiativeRow.children[4].attributes.id = "down" .. index
-        initiativeRow.children[5].attributes.id = "part" .. index
+        if i > 1 then initiativeRow.children[1].children[1].attributes.color = "Grey" end
+        initiativeRow.children[1].children[1].attributes.id = "lampChar" .. index
+        initiativeRow.children[2].children[1].attributes.id = "nameChar" .. index
+        initiativeRow.children[2].children[1].attributes.text = saveInfoPlayer[colorPlayer].name
+        initiativeRow.children[3].children[1].attributes.id = "up" .. index
+        initiativeRow.children[4].children[1].attributes.id = "down" .. index
+        initiativeRow.children[5].children[1].attributes.id = "part" .. index
         table.insert(initiativePanel, initiativeRow)
         -- Player UI
         local newPanel = deepCopy(procuredXMLForm)
