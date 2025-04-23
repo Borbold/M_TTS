@@ -9,6 +9,11 @@
     <!---->
     <ProgressBar class='statePB' width='145' height='20' offsetXY='65 -3' />
     <!---->
+    <Button class='part' color='#645c5c' text='+' onClick='' />
+    <Button class='arrowUP' color='#645c5c' text='↑' onClick='' />
+    <Button class='arrowDown' color='#645c5c' text='↓' onClick='' />
+    <InputField class='nameCharacter' placeholder='Name' textColor='#dfaf37' color='#645c5c' />
+    <!---->
     <Button class='mageSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkill' color='#ffffff00' />
     <Button class='combatSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwCombatSkill' color='#ffffff00' />
     <Button class='protectSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwProtectSkill' color='#ffffff00' />
@@ -20,6 +25,8 @@
     <!---->
     <ProgressBar showPercentageText='false' />
     <Text resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' color='#dfaf37' font='Font/Gothic'
+        tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
+    <InputField resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' font='Font/Gothic'
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' font='Font/Gothic'
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
@@ -35,7 +42,35 @@
 <Panel>
 </Panel>
 
-<Panel id='BlackmainPanel' width='200' height='200' active='false' visibility='Black' color='Black'>
+<!--GM UI-->
+<Panel id='BlackmainPanel' width='400' height='200' active='false' visibility='Black' color='Black'>
+    <!--Initiative tracker-->
+    <VerticalScrollView width='400' height='200' image='TableLayout_Back'>
+        <TableLayout width='380'>
+            <Row preferredHeight='40'>
+                <Cell>
+                    <TableLayout padding='5 0 0 5'>
+                        <Row>
+                            <Cell columnSpan='3'>
+                                <Text alignment='MiddleLeft' text='Rounds:1' />
+                            </Cell>
+                            <Cell columnSpan='3'>
+                                <Text alignment='MiddleLeft' text='Members:1' />
+                            </Cell>
+                            <Cell columnSpan='2'>
+                                <Button text='Reset' textColor='Red' color='#ffffff00' />
+                            </Cell>
+                        </Row>
+                    </TableLayout>
+                </Cell>
+            </Row>
+            <Row preferredHeight='400'>
+                <Cell>
+                    <TableLayout padding='5 0 0 5' columnWidths='50 0 50 50 50' />
+                </Cell>
+            </Row>
+        </TableLayout>
+    </VerticalScrollView>
 </Panel>
 
 <!--xml billet for players-->
@@ -74,3 +109,22 @@
         </Cell>
     </Row>
 </TableLayout>
+
+<!--xml billet for initiative tracker-->
+<Row active='false' preferredHeight='50'>
+    <Cell>
+        <Text id='lampChar1' text='[x]' color='Green' />
+    </Cell>
+    <Cell>
+        <InputField id='nameChar1' class='nameCharacter'  />
+    </Cell>
+    <Cell>
+        <Button id='up1' class='arrowUP' />
+    </Cell>
+    <Cell>
+        <Button id='down1' class='arrowDown' />
+    </Cell>
+    <Cell>
+        <Button id='part1' class='part' />
+    </Cell>
+</Row>

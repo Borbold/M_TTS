@@ -299,8 +299,23 @@ end
 -- Function to rebuild the XML table
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
-    local mainPanel = xmlTable[2].children
-    for _, colorPlayer in ipairs(listColor) do
+    local mainPanel, gmPanel = xmlTable[2].children, xmlTable[3].children
+    local initiativePanel = gmPanel.children[1].children[1].children[1].children[2].children[1].children[1].children
+    initiativePanel = {}
+    local initiativeRow = xmlTable[5]
+    initiativeRow.attributes.active = "true"
+    for i, colorPlayer in ipairs(listColor) do
+        -- GM UI
+        local index = tostring(i)
+        -- Initiative tracker
+        initiativeRow.children[1].attributes.id = "lampChar" .. index
+        initiativeRow.children[2].attributes.id = "nameChar" .. index
+        initiativeRow.children[2].attributes.text = saveInfoPlayer[colorPlayer].name
+        initiativeRow.children[3].attributes.id = "up" .. index
+        initiativeRow.children[4].attributes.id = "down" .. index
+        initiativeRow.children[5].attributes.id = "part" .. index
+        table.insert(initiativePanel, initiativeRow)
+        -- Player UI
         local newPanel = deepCopy(procuredXMLForm)
         newPanel.attributes.id = colorPlayer .. newPanel.attributes.id
         newPanel.attributes.visibility = colorPlayer
@@ -441,7 +456,7 @@ end
 local function confer(isLoad)
     isOnLoad = true
     broadcastToAll("[ffee8c]Loading. Please wait.[-]")
-    local multiplySleepTime = 3
+    local multiplySleepTime = 4
     for colorPlayer, _ in pairs(saveInfoPlayer) do
         if not isLoad then setCharacter(colorPlayer) end
         Wait.time(|| sortSkillsByImportance(colorPlayer), (enumColor[colorPlayer] / 3) * multiplySleepTime)
@@ -505,6 +520,12 @@ function onLoad()
         if not isOnLoad then
             takeItem(playerColor, object)
         end
+    end)
+    addHotkey("Following initiative", function(playerColor)
+        
+    end)
+    addHotkey("Prior initiative", function(playerColor)
+        
     end)
 
     WebRequest.get(ITEMS_URL, function(request)
