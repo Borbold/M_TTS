@@ -272,6 +272,52 @@ local function generateXML(tooltip)
     }
 end
 
+local function MessageStep(name1, name2)
+    local info = "[948773]{ru}Ход переходит [0FFF74]%s [948773]Следующий [0FFF74]%s{en}Move passed [0FFF74]%s [948773]Next [0FFF74]%s"
+    broadcastToAll(info:format(name1, name2, name1, name2))
+end
+
+local currentInitiative, countRound = 1, 1
+local function changeInitiativeUI(countMember)
+    for i = 1, countMember do
+        if(i == currentInitiative) then
+            self.UI.setAttribute("lampChar" .. i, "color", "Green")
+        --elseif(diedCharacter[i]) then
+        --    self.UI.setAttribute("lampChar" .. i, "color", "Red")
+        else
+            self.UI.setAttribute("lampChar" .. i, "color", "Gray")
+        end
+    end
+    self.UI.setAttribute("rounds", "text", "Round:" .. countRound)
+    self.UI.setAttribute("members", "text", "Members:" .. countMember)
+end
+
+local function changeStep(colorPlayer, value)
+    if(colorPlayer != "Black") then print("Только GM") return end
+    local countMember = tonumber(self.UI.getAttribute("members", "text"):match("[%d]"))
+    while(self.UI.getAttribute("lampChar" .. (currentInitiative + value), "color") == "Red") do
+        currentInitiative = currentInitiative + value
+        if(currentInitiative > countMember) then break end
+    end
+
+    currentInitiative = currentInitiative + value
+    if(currentInitiative > countMember) then
+        currentInitiative = 1
+        countRound = countRound + 1
+    elseif(currentInitiative < 1) then
+        currentInitiative = 1
+    end
+    local nextInit = (((currentInitiative + math.abs(value)) <= countMember and (currentInitiative + math.abs(value))) or 1)
+    while(self.UI.getAttribute("lampChar" .. (nextInit), "color") == "Red") do
+        nextInit = (((nextInit + math.abs(value)) <= countMember and (nextInit + math.abs(value))) or 1)
+        if(nextInit > countMember) then break end
+    end
+    local name1 = self.UI.getAttribute("nameChar" .. currentInitiative, "text") ~= "" and self.UI.getAttribute("nameChar" .. currentInitiative, "text") or currentInitiative
+    local name2 = self.UI.getAttribute("nameChar" .. nextInit, "text") ~= "" and self.UI.getAttribute("nameChar" .. nextInit, "text") or nextInit
+    MessageStep(name1, name2)
+    changeInitiativeUI(countMember)
+end
+
 -- Function to create the main XML structure
 local function buildXMLStructure(requestText)
     local xmlTable = self.UI.getXmlTable()
@@ -300,6 +346,7 @@ end
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
     local mainPanel, gmPanel = xmlTable[2].children, xmlTable[3]
+    gmPanel.children[1].children[1].children[1].children[1].children[1].children[1].children[2].children[1].attributes.text = "Members:" .. #listColor
     local initiativePanel = gmPanel.children[1].children[1].children[2].children[1].children[1].children
     for i, colorPlayer in ipairs(listColor) do
         -- GM UI
@@ -310,7 +357,7 @@ local function rebuildXMLTable()
         if i > 1 then initiativeRow.children[1].children[1].attributes.color = "Grey" end
         initiativeRow.children[1].children[1].attributes.id = "lampChar" .. index
         initiativeRow.children[2].children[1].attributes.id = "nameChar" .. index
-        initiativeRow.children[2].children[1].attributes.text = saveInfoPlayer[colorPlayer].name
+        initiativeRow.children[2].children[1].attributes.text = colorPlayer --saveInfoPlayer[colorPlayer].name
         initiativeRow.children[3].children[1].attributes.id = "up" .. index
         initiativeRow.children[4].children[1].attributes.id = "down" .. index
         initiativeRow.children[5].children[1].attributes.id = "part" .. index
@@ -375,6 +422,7 @@ end
 
 -- Picking up an item and transferring it to the inventory
 local function takeItem(colorPlayer, object)
+    if colorPlayer ~= "Black" then return end
     if object and object.hasTag("item") then
         local l1, l2 = '"ImageURL":', '"ImageSecondaryURL"'
         local objJSON = object.getJSON()
@@ -468,12 +516,14 @@ end
 
 -- Function to activate inventory for a player
 local function activateInventory(colorPlayer)
+    if isOnLoad then return end
     local panelId = colorPlayer .. "mainPanel"
     self.UI.setAttribute(panelId, "active", self.UI.getAttribute(panelId, "active") == "true" and "false" or "true")
 end
 
 -- Function to activate inventory for GM
-local function activateInventoryForGM()
+local function activateInventoryForGM(colorPlayer)
+    if colorPlayer ~= "Black" then return end
     if(indexVisibilityColorGM <= #listColor) then
         if(indexVisibilityColorGM > 1) then
             local prevPlayColor = listColor[indexVisibilityColorGM - 1] .. "mainPanel"
@@ -506,27 +556,11 @@ end
 
 -- Function to handle loading and initializing the script
 function onLoad()
-    addHotkey("Switching all player inventories", function(colorPlayer)
-        if colorPlayer == "Black" then
-            activateInventoryForGM()
-        end
-    end)
-    addHotkey("Inventory", function(colorPlayer)
-        if not isOnLoad then
-            activateInventory(colorPlayer)
-        end
-    end)
-    addHotkey("Take item", function(playerColor, object, pointerPosition, isKeyUp)
-        if not isOnLoad then
-            takeItem(playerColor, object)
-        end
-    end)
-    addHotkey("Following initiative", function(playerColor)
-        
-    end)
-    addHotkey("Prior initiative", function(playerColor)
-        
-    end)
+    addHotkey("Switching all player inventories", function(colorPlayer) activateInventoryForGM(colorPlayer) end)
+    addHotkey("Inventory", function(colorPlayer) activateInventory(colorPlayer) end)
+    addHotkey("Take item", function(playerColor, object, pointerPosition, isKeyUp) takeItem(playerColor, object) end)
+    addHotkey("Following initiative", function(playerColor) changeStep(playerColor, 1) end)
+    addHotkey("Prior initiative", function(playerColor) changeStep(playerColor, -1) end)
 
     WebRequest.get(ITEMS_URL, function(request)
         if request.is_done then
@@ -652,7 +686,7 @@ local function setRaceInfo(info, raceData)
     local rRace = info[2]
     local player = saveInfoPlayer[info[1]]
     local race, prevRace = info[2]:lower(), player.race:lower()
-    if(not isOnLoad) then removeRaceBuffs(player, raceData[prevRace]) end
+    if not isOnLoad then removeRaceBuffs(player, raceData[prevRace]) end
     applyRaceBuffs(player, raceData[race])
     player.race = rRace
     player.magic_bonus.race = raceData[race].magic_bonus or 0
@@ -678,7 +712,7 @@ local function setClassInfo(info, classData, specData)
     local cClass = info[2]
     local player = saveInfoPlayer[info[1]]
     local class, prevClass = info[2]:lower(), player.class:lower()
-    if(not isOnLoad) then removeClassBuffs(player, classData[prevClass]) end
+    if not isOnLoad then removeClassBuffs(player, classData[prevClass]) end
     applyClassBuffs(player, classData[class])
     player.class = cClass
     player.buffs.classs_skills = deepCopy(classData[class].skills)
@@ -722,7 +756,7 @@ local function setSignInfo(info, signData)
     local sSign = info[2]
     local player = saveInfoPlayer[info[1]]
     local sign, prevSign = info[2]:lower(), player.sign:lower()
-    if(not isOnLoad) then removesign_buffs(player, signData[prevSign]) end
+    if not isOnLoad then removesign_buffs(player, signData[prevSign]) end
     applysign_buffs(player, signData[sign])
     player.sign = sSign
     player.buffs.sign_buffs = deepCopy(signData[sign].buffs)

@@ -52,13 +52,13 @@
                     <TableLayout padding='5 0 0 0'>
                         <Row>
                             <Cell columnSpan='3'>
-                                <Text alignment='MiddleLeft' text='Rounds:1' />
+                                <Text id='rounds' alignment='MiddleLeft' text='Rounds:1' />
                             </Cell>
                             <Cell columnSpan='3'>
-                                <Text alignment='MiddleLeft' text='Members:1' />
+                                <Text id='members' alignment='MiddleLeft' text='Members:1' />
                             </Cell>
                             <Cell columnSpan='2'>
-                                <Button text='Reset' textColor='Red' color='#ffffff00' />
+                                <Button text='Reset' textColor='Red' color='#ffffff00' onClick='' />
                             </Cell>
                         </Row>
                     </TableLayout>
@@ -113,18 +113,18 @@
 <!--xml billet for initiative tracker-->
 <Row active='false' preferredHeight='50'>
     <Cell>
-        <Text id='lampChar1' text='[x]' color='Green' />
+        <Text id='lampChar' text='[x]' color='Green' />
     </Cell>
     <Cell>
-        <InputField id='nameChar1' class='nameCharacter'  />
+        <InputField id='nameChar' class='nameCharacter'  />
     </Cell>
     <Cell>
-        <Button id='up1' class='arrowUP' />
+        <Button id='up' class='arrowUP' />
     </Cell>
     <Cell>
-        <Button id='down1' class='arrowDown' />
+        <Button id='down' class='arrowDown' />
     </Cell>
     <Cell>
-        <Button id='part1' class='part' />
+        <Button id='part' class='part' />
     </Cell>
 </Row>
