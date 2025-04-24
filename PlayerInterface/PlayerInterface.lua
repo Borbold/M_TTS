@@ -210,7 +210,7 @@ local uiElementFunctions = {
     ["protectSkill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "protectSkill", "Button", tooltip) end,
     ["skill"] = function(name, value, tooltip) return createRow(name, value, "value", "skillsInfo", "skill", "Button", tooltip) end,
     ["item"] = function(name, image, tooltip) return addVisibleElement(name, image, "item", tooltip, "Button") end,
-    ["effect"] = function(name, image, tooltip) return addVisibleElement(name, image, "", tooltip, "Image") end,
+    ["effect"] = function(name, image, tooltip) return addVisibleElement(name, image, "effect", tooltip, "Button") end,
 }
 
 -- Generate xml and add tooltip
@@ -277,7 +277,50 @@ local function MessageStep(name1, name2)
     broadcastToAll(info:format(name1, name2, name1, name2))
 end
 
-local currentInitiative, countRound = 1, 1
+local function updateUpdatableXML(colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    local rowItems = {}
+    player.items_weight = 0
+    for _, item in ipairs(player.items) do
+        table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
+        player.items_weight = player.items_weight + jsonItems[item.name].weight
+    end
+    local rowEffects = {}
+    for _, effect in ipairs(player.active_effects) do
+        table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
+    end
+    local xmlTable = self.UI.getXmlTable()
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
+    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
+    self.UI.setXmlTable(xmlTable)
+    updatePlayer(colorPlayer)
+end
+
+local function checkActiveEffects()
+    for index, colorPlayer in ipairs(listColor) do
+        local player, delId = saveInfoPlayer[colorPlayer], {}
+        for i, effect in ipairs(player.active_effects) do
+            local descriptionEffect = player.active_effects[i].description
+            local roundFinish = tonumber(descriptionEffect:match("Round of finish: (%d+)"))
+            if roundFinish == countRound then
+                table.insert(delId, i)
+                if descriptionEffect:find("restore") then
+                    local state = descriptionEffect:match("Effect: restore (%a+)")
+                    local value = tonumber(descriptionEffect:match("Effect: restore " .. state .. " (%d+)"))
+                    if player[state].current then
+                        player[state].current = player[state].current + value
+                        player[state].current = checkValue({player[state].current, player[state].max})
+                    end
+                end
+            end
+        end
+        for _, i in ipairs(delId) do
+            table.remove(player.active_effects, i)
+        end
+        Wait.time(|| updateUpdatableXML(colorPlayer), index)
+    end
+end
+
 local function changeInitiativeUI(countMember)
     for i = 1, countMember do
         if(i == currentInitiative) then
@@ -304,6 +347,7 @@ local function changeStep(colorPlayer, value)
     if(currentInitiative > countMember) then
         currentInitiative = 1
         countRound = countRound + 1
+        checkActiveEffects()
     elseif(currentInitiative < 1) then
         currentInitiative = 1
     end
@@ -401,28 +445,9 @@ local function rebuildXMLTable()
     self.UI.setXmlTable(xmlTable)
 end
 
-local function updateUpdatableXML(colorPlayer)
-    local player = saveInfoPlayer[colorPlayer]
-    local rowItems = {}
-    player.items_weight = 0
-    for _, item in ipairs(player.items) do
-        table.insert(rowItems, uiElementFunctions["item"](item.name, item.image, item.description))
-        player.items_weight = player.items_weight + jsonItems[item.name].weight
-    end
-    local rowEffects = {}
-    for _, effect in ipairs(player.active_effects) do
-        table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
-    end
-    local xmlTable = self.UI.getXmlTable()
-    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
-    xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
-    self.UI.setXmlTable(xmlTable)
-    updatePlayer(colorPlayer)
-end
-
 -- Picking up an item and transferring it to the inventory
 local function takeItem(colorPlayer, object)
-    if colorPlayer ~= "Black" then return end
+    if isOnLoad then return end
     if object and object.hasTag("item") then
         local l1, l2 = '"ImageURL":', '"ImageSecondaryURL"'
         local objJSON = object.getJSON()
@@ -437,20 +462,18 @@ end
 local function equipItem(player)
 end
 
-local function useItem(itemName, t, colorPlayer)
+local function useItem(itemName, item, colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
-    if t.type == "potion" then
-        if t.effects then
-            if t.effects.restore then
-                local state, value, time = t.effects.restore[1], t.effects.restore[2], t.effects.restore[4]
-                if player[state].current then
-                    player[state].current = player[state].current + value
-                    player[state].current = checkValue({player[state].current, player[state].max})
-                end
-                local description = string.format("%s\n%s\nAction time: %d round\nEffect: restore %s %d", itemName, t.description, time, state, value)
-                if time then
-                    table.insert(player.active_effects, {name = itemName, image = t.image_url, description = description})
-                end
+    if item.type == "potion" then
+        if item.effects.restore then
+            local state, value, time = item.effects.restore[1], item.effects.restore[2], item.effects.restore[4]
+            if player[state].current then
+                player[state].current = player[state].current + value
+                player[state].current = checkValue({player[state].current, player[state].max})
+            end
+            local description = string.format("%s\n%s\nAction time: %d round\nRound of finish: %d\nEffect: restore %s %d", itemName, item.description, time, time + countRound, state, value)
+            if time then
+                table.insert(player.active_effects, {name = itemName, image = item.image_url, description = description})
             end
         end
     end
@@ -459,13 +482,13 @@ end
 -- If you put the item on, change the background of the icon. If used, remove it.
 local function checkItem(itemName, colorPlayer)
     local flag = true
-    for name, t in pairs(jsonItems) do
+    for name, item in pairs(jsonItems) do
         if name == itemName then
-            if t.equipped then
+            if item.equipped then
                 flag = false
                 equipItem(colorPlayer)
-            elseif t.used then
-                useItem(name, t, colorPlayer)
+            elseif item.used then
+                useItem(name, item, colorPlayer)
             end
             break
         end
@@ -474,11 +497,11 @@ local function checkItem(itemName, colorPlayer)
 end
 
 -- Remove an item from your inventory or use it
-function putItem(player, alt, id)
+function putItem(player, alt, nameItem)
     local colorPlayer = player.color
     local locPlayer = saveInfoPlayer[colorPlayer]
     for i, item in ipairs(locPlayer.items) do
-        if item.name == id then
+        if item.name == nameItem then
             local removeFlag = true
             if alt == "-2" then
                 removeFlag = checkItem(item.name, colorPlayer)
@@ -486,6 +509,18 @@ function putItem(player, alt, id)
             if removeFlag then
                 table.remove(locPlayer.items, i)
             end
+            updateUpdatableXML(colorPlayer)
+            return
+        end
+    end
+end
+
+function terminateEffect(player, alt, nameEffect)
+    local colorPlayer = player.color
+    local locPlayer = saveInfoPlayer[colorPlayer]
+    for i, effect in ipairs(locPlayer.active_effects) do
+        if effect.name == nameEffect then
+            table.remove(locPlayer.active_effects, i)
             updateUpdatableXML(colorPlayer)
             return
         end
@@ -543,6 +578,7 @@ end
 
 -- Function to load save data
 local function loadSaveData()
+    currentInitiative, countRound = 1, 1
     --local loadSave = JSON.decode(getObjectFromGUID(SAVE_CUBE_GUID).getGMNotes())
     if loadSave then
         saveInfoPlayer = loadSave

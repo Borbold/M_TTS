@@ -14,11 +14,13 @@
     <Button class='arrowDown' color='#645c5c' text='↓' onClick='' />
     <InputField class='nameCharacter' placeholder='Name' textColor='#dfaf37' color='#645c5c' />
     <!---->
+    <Button class='effect' onClick='terminateEffect' />
+    <Button class='item' onClick='putItem' />
+    <!---->
     <Button class='mageSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkill' color='#ffffff00' />
     <Button class='combatSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwCombatSkill' color='#ffffff00' />
     <Button class='protectSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwProtectSkill' color='#ffffff00' />
     <Button class='skill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwSkill' color='#ffffff00' />
-    <Button class='item' onClick='putItem' />
     <Text class='stateV' offsetXY='40 0' alignment='MiddleRight' />
     <Text class='infoSkill' active='false' />
     <Text class='progressBarV' offsetXY='65 0' />
