@@ -16,6 +16,7 @@
     <!---->
     <Button class='effect' onClick='terminateEffect' />
     <Button class='item' onClick='putItem' />
+    <Button class='itemSpawn' onClick='spawnItem' />
     <!---->
     <Button class='mageSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkill' color='#ffffff00' />
     <Button class='combatSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwCombatSkill' color='#ffffff00' />
@@ -32,7 +33,7 @@
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
     <Button resizeTextForBestFit='true' resizeTextMaxSize='50' width='200' height='30' font='Font/Gothic'
         tooltipFont='Font/Gothic' tooltipFontSize='30' tooltipPosition='Above' tooltipTextColor='#dfaf37' tooltipBackgroundColor='rgba(0.17,0.14,0.14,1)' />
-    <TableLayout cellSpacing='5' padding='0 0 0 3' />
+    <TableLayout cellSpacing='5' padding='0 0 0 5' />
     <Cell dontUseTableCellBackground='true' />
     <VerticalScrollView horizontalScrollbarVisibility='AutoHideAndExpandViewport' scrollSensitivity='10'
         scrollbarBackgroundImage='Slide_Back' scrollbarImage='Slide_Font' />
@@ -45,34 +46,40 @@
 </Panel>
 
 <!--GM UI-->
-<Panel id='BlackmainPanel' width='400' height='200' active='false' visibility='Black' color='Black'>
-    <!--Initiative tracker-->
-    <VerticalScrollView width='400' height='200' image='TableLayout_Back'>
-        <TableLayout width='375' height='440'>
-            <Row preferredHeight='40'>
-                <Cell>
-                    <TableLayout padding='5 0 0 0'>
-                        <Row>
-                            <Cell columnSpan='3'>
-                                <Text id='rounds' alignment='MiddleLeft' text='Rounds:1' />
-                            </Cell>
-                            <Cell columnSpan='3'>
-                                <Text id='members' alignment='MiddleLeft' text='Members:1' />
-                            </Cell>
-                            <Cell columnSpan='2'>
-                                <Button text='Reset' textColor='Red' color='#ffffff00' onClick='' />
-                            </Cell>
-                        </Row>
-                    </TableLayout>
-                </Cell>
-            </Row>
-            <Row>
-                <Cell>
-                    <TableLayout padding='0 0 0 5' columnWidths='50 0 50 50 50' />
-                </Cell>
-            </Row>
-        </TableLayout>
-    </VerticalScrollView>
+<Panel id='BlackmainPanel' width='803' height='403' active='false' visibility='Black' color='Black'>
+    <GridLayout cellSize='400 200'>
+        <!--Initiative tracker-->
+        <VerticalScrollView image='TableLayout_Back'>
+            <TableLayout width='375' height='440'>
+                <Row preferredHeight='40'>
+                    <Cell>
+                        <TableLayout padding='5 0 0 0'>
+                            <Row>
+                                <Cell columnSpan='3'>
+                                    <Text id='rounds' alignment='MiddleLeft' text='Rounds:1' />
+                                </Cell>
+                                <Cell columnSpan='3'>
+                                    <Text id='members' alignment='MiddleLeft' text='Members:1' />
+                                </Cell>
+                                <Cell columnSpan='2'>
+                                    <Button text='Reset' textColor='Red' color='#ffffff00' onClick='' />
+                                </Cell>
+                            </Row>
+                        </TableLayout>
+                    </Cell>
+                </Row>
+                <Row>
+                    <Cell>
+                        <TableLayout padding='0 0 0 5' columnWidths='50 0 50 50 50' />
+                    </Cell>
+                </Row>
+            </TableLayout>
+        </VerticalScrollView>
+        <!--Spawner items-->
+        <VerticalScrollView image='TableLayout_Back'>
+            <TableLayout width='375' height='440' columnWidths='0 50' />
+        </VerticalScrollView>
+    </GridLayout>
 </Panel>
 
 <!--xml billet for players-->
@@ -165,5 +172,15 @@
     </Cell>
     <Cell>
         <Button id='part' class='part' />
+    </Cell>
+</Row>
+
+<!--xml billet for item spawner-->
+<Row active='false' preferredHeight='50'>
+    <Cell>
+        <Text id='itemName' text='name item' />
+    </Cell>
+    <Cell>
+        <Button id='itemSpawn' class='itemSpawn' />
     </Cell>
 </Row>

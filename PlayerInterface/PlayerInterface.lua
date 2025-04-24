@@ -390,8 +390,8 @@ end
 local function rebuildXMLTable()
     local xmlTable = self.UI.getXmlTable()
     local mainPanel, gmPanel = xmlTable[2].children, xmlTable[3]
-    gmPanel.children[1].children[1].children[1].children[1].children[1].children[1].children[2].children[1].attributes.text = "Members:" .. #listColor
-    local initiativePanel = gmPanel.children[1].children[1].children[2].children[1].children[1].children
+    gmPanel.children[1].children[1].children[1].children[1].children[1].children[1].children[1].children[2].children[1].attributes.text = "Members:" .. #listColor
+    local initiativePanel = gmPanel.children[1].children[1].children[1].children[2].children[1].children[1].children
     for i, colorPlayer in ipairs(listColor) do
         -- GM UI
         local initiativeRow = deepCopy(xmlTable[5])
@@ -441,6 +441,19 @@ local function rebuildXMLTable()
 
         table.insert(mainPanel, newPanel)
     end
+
+    -- Spawner items
+    local spawnItemPanel = gmPanel.children[1].children[2].children[1].children
+    for name, item in pairs(jsonItems) do
+        local spawnItem, iItem = deepCopy(xmlTable[6]), #spawnItemPanel + 1
+        spawnItem.attributes.active = "true"
+        spawnItem.children[1].children[1].attributes.id = "itemName" .. iItem
+        spawnItem.children[1].children[1].attributes.text = name
+        spawnItem.children[2].children[1].attributes.id = "itemSpawn" .. iItem
+        spawnItem.children[2].children[1].attributes.image = item.image_url
+        table.insert(spawnItemPanel, spawnItem)
+    end
+    gmPanel.children[1].children[2].children[1].attributes.height = #spawnItemPanel * (xmlTable[6].attributes.preferredHeight + 5)
 
     self.UI.setXmlTable(xmlTable)
 end
@@ -715,6 +728,19 @@ end
 function updateSave()
     local savedData = JSON.encode(saveInfoPlayer)
     getObjectFromGUID(SAVE_CUBE_GUID).setGMNotes(savedData)
+end
+
+function spawnItem(player, alt, id)
+    local positionCub = getObjectFromGUID(SAVE_CUBE_GUID).getPosition()
+    positionCub = {positionCub.x, positionCub.y + 1, positionCub.z - 2}
+    id = id:match("(%d+)")
+    for name, item in pairs(jsonItems) do
+        if self.UI.getAttribute("itemName" .. id, "text") == name then
+            local params = {image = item.image_url, thickness = 0.1}
+            local o = spawnObject({type = "Custom_Token", position = positionCub, rotation = {0, 180, 0}, scale = {0.5, 0.5, 0.5}})
+            o.addTag("item") o.setDescription(item.description) o.setName(name) o.setCustomObject(params)
+        end
+    end
 end
 
 -- Function to set the player's race
