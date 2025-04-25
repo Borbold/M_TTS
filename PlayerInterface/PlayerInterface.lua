@@ -448,6 +448,18 @@ local function rebuildXMLTable()
             elementId = newPanel.children[1].children[3].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id
             newPanel.children[1].children[3].children[1].children[4].children[1].children[1].children[j].children[2].children[1].children[1].attributes.id = colorPlayer .. elementId
         end
+        -- Equipments
+        local equipmentsRow = deepCopy(xmlTable[7])
+        equipmentsRow.attributes.active = "true"
+        equipmentsRow.children[1].children[2].children[1].attributes.id = colorPlayer .. "helmet"
+        equipmentsRow.children[2].children[1].children[1].attributes.id = colorPlayer .. "lShoulderplate"
+        equipmentsRow.children[2].children[2].children[1].attributes.id = colorPlayer .. "chest"
+        equipmentsRow.children[2].children[3].children[1].attributes.id = colorPlayer .. "rShoulderplate"
+        equipmentsRow.children[3].children[1].children[1].attributes.id = colorPlayer .. "lHand"
+        equipmentsRow.children[3].children[2].children[1].attributes.id = colorPlayer .. "greaves"
+        equipmentsRow.children[3].children[3].children[1].attributes.id = colorPlayer .. "rHand"
+        equipmentsRow.children[4].children[2].children[1].attributes.id = colorPlayer .. "boots"
+        table.insert(newPanel.children[1].children[1].children[1].children[3].children, equipmentsRow)
         -- items
         for _, item in ipairs(saveInfoPlayer[colorPlayer].items) do
             table.insert(newPanel.children[1].children[2].children[1].children,
@@ -487,7 +499,16 @@ local function takeItem(colorPlayer, object)
     end
 end
 
-local function equipItem(player)
+local function equipItem(itemName, item, colorPlayer)
+    local player = saveInfoPlayer[colorPlayer]
+    local relatedSkill, whearToWear = item.type:match("(%D+)%s+(%w+)")
+    if relatedSkill:find("armor") then
+        self.UI.setAttribute(colorPlayer .. whearToWear, "image", item.image_url)
+    end
+end
+
+function removeItem(player, alt, id)
+    self.UI.setAttribute(id, "image", "")
 end
 
 local function useItem(itemName, item, colorPlayer)
@@ -514,7 +535,7 @@ local function checkItem(itemName, colorPlayer)
         if name == itemName then
             if item.equipped then
                 flag = false
-                equipItem(colorPlayer)
+                equipItem(name, item, colorPlayer)
             elseif item.used then
                 useItem(name, item, colorPlayer)
             end
@@ -534,10 +555,10 @@ function putItem(player, alt, nameItem)
             if alt == "-2" then
                 removeFlag = checkItem(item.name, colorPlayer)
             end
-            if removeFlag then
+            if alt == "-1" or removeFlag then
                 table.remove(locPlayer.items, i)
+                updateUpdatableXML(colorPlayer)
             end
-            updateUpdatableXML(colorPlayer)
             return
         end
     end

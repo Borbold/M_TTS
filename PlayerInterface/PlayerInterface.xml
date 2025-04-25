@@ -16,6 +16,7 @@
     <!---->
     <Button class='effect' onClick='terminateEffect' />
     <Button class='item' onClick='putItem' />
+    <Button class='equipItem' onClick='removeItem' />
     <Button class='itemSpawn' onClick='spawnItem' />
     <!---->
     <Button class='mageSkill' offsetXY='40 0' textAlignment='MiddleRight' textColor='#dfaf37' onClick='throwMageSkill' color='#ffffff00' />
@@ -95,44 +96,7 @@
                     <GridLayout cellSize='30 30' color='#ffffff00' />
                 </Row>
                 <Row>
-                    <TableLayout padding='5 5 5 5' image='TableLayout_Back_Long'>
-                        <Row>
-                            <Cell />
-                            <Cell>
-                                <Button id='helmet' image='https://cdn2.iconfinder.com/data/icons/rpg-fantasy-game-basic-ui/512/head_helmet_armor_warrior_knight_helm-1024.png' />
-                            </Cell>
-                            <Cell />
-                        </Row>
-                        <Row>
-                            <Cell>
-                                <Button id='lShoulderplate' image='https://e7.pngegg.com/pngimages/869/735/png-clipart-shoulder-joint-deltoid-muscle-computer-icons-biceps-arm-people-anatomy.png' />
-                            </Cell>
-                            <Cell>
-                                <Button id='chest' image='https://cdn2.iconfinder.com/data/icons/rpg-fantasy-game-basic-ui/512/equipment_costume_armor_glove_body_metal_knight_warrior_protection-1024.png' />
-                            </Cell>
-                            <Cell>
-                                <Button id='rShoulderplate' image='https://e7.pngegg.com/pngimages/869/735/png-clipart-shoulder-joint-deltoid-muscle-computer-icons-biceps-arm-people-anatomy.png' />
-                            </Cell>
-                        </Row>
-                        <Row>
-                            <Cell>
-                                <Button id='lHand' image='https://w7.pngwing.com/pngs/636/141/png-transparent-glove-computer-icons-gauntlet-armour-boxing-glove-hand-armor.png' />
-                            </Cell>
-                            <Cell>
-                                <Button id='greaves' image='https://game-icons.net/icons/ffffff/000000/1x1/delapouite/greaves.png' />
-                            </Cell>
-                            <Cell>
-                                <Button id='rHand' image='https://w7.pngwing.com/pngs/636/141/png-transparent-glove-computer-icons-gauntlet-armour-boxing-glove-hand-armor.png' />
-                            </Cell>
-                        </Row>
-                        <Row>
-                            <Cell />
-                            <Cell>
-                                <Button id='boots' image='https://cdn1.iconfinder.com/data/icons/working-tools-3/64/x-02-1024.png' />
-                            </Cell>
-                            <Cell />
-                        </Row>
-                    </TableLayout>
+                    <!--Equipments-->
                 </Row>
             </TableLayout>
         </Cell>
@@ -184,3 +148,43 @@
         <Button id='itemSpawn' class='itemSpawn' />
     </Cell>
 </Row>
+
+<!--xml billet for equipments info-->
+<TableLayout active='false' padding='5 5 5 5' image='TableLayout_Back_Long'>
+    <Row>
+        <Cell />
+        <Cell>
+            <Button class='equipItem' id='helmet' image='https://cdn2.iconfinder.com/data/icons/rpg-fantasy-game-basic-ui/512/head_helmet_armor_warrior_knight_helm-1024.png' />
+        </Cell>
+        <Cell />
+    </Row>
+    <Row>
+        <Cell>
+            <Button class='equipItem' id='lShoulderplate' image='https://e7.pngegg.com/pngimages/869/735/png-clipart-shoulder-joint-deltoid-muscle-computer-icons-biceps-arm-people-anatomy.png' />
+        </Cell>
+        <Cell>
+            <Button class='equipItem' id='chest' image='https://cdn2.iconfinder.com/data/icons/rpg-fantasy-game-basic-ui/512/equipment_costume_armor_glove_body_metal_knight_warrior_protection-1024.png' />
+        </Cell>
+        <Cell>
+            <Button class='equipItem' id='rShoulderplate' image='https://e7.pngegg.com/pngimages/869/735/png-clipart-shoulder-joint-deltoid-muscle-computer-icons-biceps-arm-people-anatomy.png' />
+        </Cell>
+    </Row>
+    <Row>
+        <Cell>
+            <Button class='equipItem' id='lHand' image='https://w7.pngwing.com/pngs/636/141/png-transparent-glove-computer-icons-gauntlet-armour-boxing-glove-hand-armor.png' />
+        </Cell>
+        <Cell>
+            <Button class='equipItem' id='greaves' image='https://game-icons.net/icons/ffffff/000000/1x1/delapouite/greaves.png' />
+        </Cell>
+        <Cell>
+            <Button class='equipItem' id='rHand' image='https://w7.pngwing.com/pngs/636/141/png-transparent-glove-computer-icons-gauntlet-armour-boxing-glove-hand-armor.png' />
+        </Cell>
+    </Row>
+    <Row>
+        <Cell />
+        <Cell>
+            <Button class='equipItem' id='boots' image='https://cdn1.iconfinder.com/data/icons/working-tools-3/64/x-02-1024.png' />
+        </Cell>
+        <Cell />
+    </Row>
+</TableLayout>
