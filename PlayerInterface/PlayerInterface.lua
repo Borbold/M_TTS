@@ -277,6 +277,21 @@ local function MessageStep(name1, name2)
     broadcastToAll(info:format(name1, name2, name1, name2))
 end
 
+local function updateAllActiveEffects()
+    local xmlTable = self.UI.getXmlTable()
+    for i, colorPlayer in ipairs(listColor) do
+        local player = saveInfoPlayer[colorPlayer]
+        local rowEffects = {}
+        for _, effect in ipairs(player.active_effects) do
+            table.insert(rowEffects, uiElementFunctions["effect"](effect.name, effect.image, effect.description))
+        end
+        xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
+        xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
+        Wait.time(|| updatePlayer(colorPlayer), i / 10)
+    end
+    self.UI.setXmlTable(xmlTable)
+end
+
 local function updateUpdatableXML(colorPlayer)
     local player = saveInfoPlayer[colorPlayer]
     local rowItems = {}
@@ -293,7 +308,7 @@ local function updateUpdatableXML(colorPlayer)
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
     self.UI.setXmlTable(xmlTable)
-    updatePlayer(colorPlayer)
+    Wait.time(|| updatePlayer(colorPlayer), 0.1)
 end
 
 local function checkActiveEffects()
@@ -317,8 +332,8 @@ local function checkActiveEffects()
         for _, i in ipairs(delId) do
             table.remove(player.active_effects, i)
         end
-        Wait.time(|| updateUpdatableXML(colorPlayer), index)
     end
+    updateAllActiveEffects()
 end
 
 local function changeInitiativeUI(countMember)
