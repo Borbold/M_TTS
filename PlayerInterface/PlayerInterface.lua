@@ -287,9 +287,9 @@ local function updateAllActiveEffects()
         end
         xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
         xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
-        Wait.time(|| updatePlayer(colorPlayer), i / 10)
     end
     self.UI.setXmlTable(xmlTable)
+    Wait.time(|| updatePlayer(), 0.1)
 end
 
 local function updateUpdatableXML(colorPlayer)
@@ -308,7 +308,7 @@ local function updateUpdatableXML(colorPlayer)
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[1].children[1].children[2].children[1].children = rowEffects
     xmlTable[2].children[enumColor[colorPlayer]].children[1].children[2].children[1].children = rowItems
     self.UI.setXmlTable(xmlTable)
-    Wait.time(|| updatePlayer(colorPlayer), 0.1)
+    Wait.time(|| updatePlayer(), 0.1)
 end
 
 local function checkActiveEffects()
@@ -920,7 +920,7 @@ end
 local function wasteStamina(player, colorPlayer, valueChange)
     player.stamina.current = player.stamina.current - valueChange
     player.stamina.current = checkValue({player.stamina.current, player.stamina.max})
-    updatePlayer(colorPlayer)
+    updatePlayer()
 end
 -- Function to throw a skill check
 function throwSkill(player, alt, id)
@@ -1046,8 +1046,11 @@ end
 
 -- Use in GameLogic --
 -- Update player data
-function updatePlayer(colorPlayer)
-    setUI(colorPlayer) updateSave()
+function updatePlayer()
+    for _, colorPlayer in ipairs(listColor) do
+        setUI(colorPlayer)
+    end
+    updateSave()
 end
 -- Check for exceeding limits
 function checkValue(state)
