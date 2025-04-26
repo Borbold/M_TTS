@@ -1,7 +1,7 @@
 {
     "Cheap Restore Health": {
         "type": "potion",
-        "description": "text",
+        "description": "Cheap potion",
         "weight": 1,
         "base_cost": 15,
         "effects": {
@@ -12,7 +12,7 @@
     },
     "Standard Restore Health Potion": {
         "type": "potion",
-        "description": "text",
+        "description": "Standart potion",
         "weight": 1,
         "base_cost": 35,
         "effects": {
@@ -23,7 +23,7 @@
     },
     "Sujamma": {
         "type": "potion",
-        "description": "text",
+        "description": "Alchogol",
         "weight": 1,
         "base_cost": 20,
         "effects": {
@@ -35,7 +35,7 @@
     },
     "Fork": {
         "type": "other",
-        "description": "text",
+        "description": "Fork",
         "base_cost": 2,
         "weight": 1,
         "effects": {
