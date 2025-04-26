@@ -1,138 +1,25 @@
 {
-    "Iron Longsword": {
-        "type": "long_blade one_handed",
-        "description": "text",
-        "weight": 1,
-        "base_cost": 30,
-        "damage_range": {
-            "min": 5,
-            "max": 10
-        },
-        "durability": 100,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/34/M_IronLongsword.png/revision/latest?cb=20120301212953"
-    },
-    "Iron Cuirass": {
-        "type": "heavy_armor chest",
-        "description": "text",
-        "weight": 1,
-        "base_cost": 20,
-        "defense": 20,
-        "durability": 150,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Boots": {
-        "type": "heavy_armor boot",
-        "description": "text",
-        "weight": 1,
-        "base_cost": 20,
-        "defense": 20,
-        "durability": 150,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/IronBootsMW.png/revision/latest?cb=20120328233649"
-    },
-    "Iron Greaves": {
-        "type": "heavy_armor greaves",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 18,
-        "defense": 25,
-        "durability": 100,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1b/Iron_Greaves_%28Morrowind%29.png/revision/latest?cb=20141214173548"
-    },
-    "Iron Helmet": {
-        "type": "heavy_armor helmet",
-        "description": "text",
-        "weight": 11,
-        "base_cost": 5,
-        "defense": 25,
-        "durability": 300,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Left Bracer": {
-        "type": "heavy_armor lHand",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 5,
-        "defense": 200,
-        "durability": 50,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Left Gauntlet": {
-        "type": "heavy_armor lHand",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 7,
-        "defense": 25,
-        "durability": 50,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Left Pauldron": {
-        "type": "heavy_armor lShoulderplate",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 10,
-        "defense": 20,
-        "durability": 100,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Right Bracer": {
-        "type": "heavy_armor rHand",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 5,
-        "defense": 200,
-        "durability": 50,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Right Gauntlet": {
-        "type": "heavy_armor rHand",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 7,
-        "defense": 25,
-        "durability": 50,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Iron Right Pauldron": {
-        "type": "heavy_armor rShoulderplate",
-        "description": "text",
-        "weight": 10,
-        "base_cost": 10,
-        "defense": 20,
-        "durability": 100,
-        "effects": {},
-        "equipped": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png/revision/latest?cb=20120613235014"
-    },
-    "Healing Potion": {
+    "Cheap Restore Health": {
         "type": "potion",
         "description": "text",
         "weight": 1,
-        "base_cost": 50,
+        "base_cost": 15,
         "effects": {
             "restore": ["health", 5, "time", 1]
         },
         "used": true,
-        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/8/81/BargainPotionMW.png/revision/latest?cb=20120512204207"
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/f/f2/CheapPotion.png/revision/latest?cb=20120512221941"
+    },
+    "Standard Restore Health Potion": {
+        "type": "potion",
+        "description": "text",
+        "weight": 1,
+        "base_cost": 35,
+        "effects": {
+            "restore": ["health", 25, "time", 1]
+        },
+        "used": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/c/cf/StandardPotion.png/revision/latest?cb=20120513073401"
     },
     "Sujamma": {
         "type": "potion",
@@ -156,20 +43,362 @@
         },
         "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/2/21/ForkMorrowind.png/revision/latest?cb=20160716154933"
     },
-    "Test item 1": {
-        "type": "other",
-        "description": "Description",
-        "base_cost": 2,
-        "weight": 1,
+    "Iron Longsword": {
+        "type": "long_blade one_handed",
+        "description": "Long sword",
+        "weight": 5,
+        "base_cost": 30,
+        "damage_range": {
+            "min": 5,
+            "max": 10
+        },
+        "durability": 100,
         "effects": {},
-        "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2501279124984811299/1EEB4DB597DB674A3AEC94CC8EDB2509F29B891C/"
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/34/M_IronLongsword.png/revision/latest?cb=20120301212953"
     },
-    "Test item 2": {
-        "type": "other",
-        "description": "Description",
-        "base_cost": 2,
-        "weight": 1,
+    "Iron Dagger": {
+        "type": "short_blade one_handed",
+        "description": "Short blade",
+        "weight": 3,
+        "base_cost": 10,
+        "damage_range": {
+            "min": 4,
+            "max": 5
+        },
+        "durability": 400,
         "effects": {},
-        "image_url": "https://steamusercontent-a.akamaihd.net/ugc/2022717763431760419/C2F1EC7F4CB4A3874D500B4CBDFF9ABC6FC56B0B/"
+        "equipped": true,
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1e/M_IronDagger.png/revision/latest?cb=20120301212952"
+    },
+    "Chitin Helm": {
+        "type": "light_armor helmet",
+        "description": "A lightweight helmet made from insect chitin",
+        "weight": 10,
+        "base_cost": 1.00,
+        "defense": 19,
+        "durability": 100,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/ChitinHelm.png"
+      },
+    "Chitin Cuirass": {
+        "type": "light_armor chest",
+        "description": "Chest armor crafted from hardened insect shells",
+        "weight": 10,
+        "base_cost": 6.00,
+        "defense": 45,
+        "durability": 300,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/4/4f/ChitinArmor.png"
+    },
+    "Chitin Left Gauntlet": {
+        "type": "light_armor lHand",
+        "description": "Left hand protection made from chitin",
+        "weight": 10,
+        "base_cost": 1.00,
+        "defense": 9,
+        "durability": 50,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/9/9d/Chitin_Gauntlets_MW.png"
+    },
+    "Chitin Right Gauntlet": {
+        "type": "light_armor rHand",
+        "description": "Right hand protection made from chitin",
+        "weight": 10,
+        "base_cost": 1.00,
+        "defense": 9,
+        "durability": 50,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/9/9d/Chitin_Gauntlets_MW.png"
+    },
+    "Chitin Greaves": {
+        "type": "light_armor greaves",
+        "description": "Leg armor made from layered chitin plates",
+        "weight": 10,
+        "base_cost": 5.40,
+        "defense": 45,
+        "durability": 100,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/7/7a/Chitin_Greaves_MW.png"
+    },
+    "Chitin Boots": {
+        "type": "light_armor boot",
+        "description": "Boots crafted from durable insect shells",
+        "weight": 10,
+        "base_cost": 6.00,
+        "defense": 13,
+        "durability": 100,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/c/cf/Chitin_Boots_MW.png"
+    },
+    "Chitin Left Pauldron": {
+        "type": "light_armor lShoulderplate",
+        "description": "Left shoulder protection made from chitin",
+        "weight": 10,
+        "base_cost": 2.00,
+        "defense": 16,
+        "durability": 100,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3b/Chitin_Pauldron_MW.png"
+    },
+    "Chitin Right Pauldron": {
+        "type": "light_armor rShoulderplate",
+        "description": "Right shoulder protection made from chitin",
+        "weight": 10,
+        "base_cost": 2.00,
+        "defense": 16,
+        "durability": 100,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3b/Chitin_Pauldron_MW.png"
+    },
+    "Chitin Shield": {
+        "type": "light_armor shield",
+        "description": "A lightweight shield made from reinforced chitin",
+        "weight": 10,
+        "base_cost": 4.00,
+        "defense": 22,
+        "durability": 200,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/7/7f/Chitin_Shield_MW.png"
+    },
+    "Glass Helm": {
+        "type": "light_armor helmet",
+        "description": "A transparent helmet made from volcanic glass",
+        "weight": 3.0,
+        "base_cost": 500,
+        "defense": 50,
+        "durability": 12000,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/9/9c/Glass_Helm_MW.png"
+    },
+    "Glass Cuirass": {
+        "type": "light_armor chest",
+        "description": "Breastplate crafted from rare volcanic glass",
+        "weight": 30.0,
+        "base_cost": 12000,
+        "defense": 50,
+        "durability": 500,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/4/4a/Glass_Armor_MW.png"
+    },
+    "Glass Left Bracer": {
+        "type": "light_armor lHand",
+        "description": "Left arm protection made from glass",
+        "weight": 3.0,
+        "base_cost": 4000,
+        "defense": 50,
+        "durability": 400,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1a/Glass_Bracer_MW.png"
+    },
+    "Glass Right Bracer": {
+        "type": "light_armor rHand",
+        "description": "Right arm protection made from glass",
+        "weight": 3.0,
+        "base_cost": 4000,
+        "defense": 50,
+        "durability": 400,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1a/Glass_Bracer_MW.png"
+    },
+    "Glass Greaves": {
+        "type": "light_armor greaves",
+        "description": "Leg armor made from flexible glass plates",
+        "weight": 15.0,
+        "base_cost": 8000,
+        "defense": 50,
+        "durability": 300,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/0/0f/Glass_Greaves_MW.png"
+    },
+    "Glass Boots": {
+        "type": "light_armor boot",
+        "description": "Boots crafted from resilient glass",
+        "weight": 8.0,
+        "base_cost": 6000,
+        "defense": 50,
+        "durability": 200,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/4/4c/Glass_Boots_MW.png"
+    },
+    "Glass Left Pauldron": {
+        "type": "light_armor lShoulderplate",
+        "description": "Left shoulder protection made from glass",
+        "weight": 6.0,
+        "base_cost": 5000,
+        "defense": 50,
+        "durability": 250,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3e/Glass_Pauldron_MW.png"
+    },
+    "Glass Right Pauldron": {
+        "type": "light_armor rShoulderplate",
+        "description": "Right shoulder protection made from glass",
+        "weight": 6.0,
+        "base_cost": 5000,
+        "defense": 50,
+        "durability": 250,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3e/Glass_Pauldron_MW.png"
+    },
+    "Netch Leather Helm": {
+        "type": "light_armor helmet",
+        "description": "A helmet crafted from the tough hide of netches, providing good protection while remaining lightweight.",
+        "weight": 2.0,
+        "base_cost": 120,
+        "defense": 10,
+        "durability": 400,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/MW-icon-apparel-Netch_Leather_Helm.png"
+    },
+    "Netch Leather Cuirass": {
+        "type": "light_armor chest",
+        "description": "Armor made from the cured hide of netches, favored by Ashlanders for its durability and flexibility.",
+        "weight": 15.0,
+        "base_cost": 350,
+        "defense": 20,
+        "durability": 800,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/7/7e/MW-icon-apparel-Netch_Leather_Armor.png"
+    },
+    "Netch Leather Left Gauntlet": {
+        "type": "light_armor lHand",
+        "description": "Left hand protection made from netch leather, offering good dexterity.",
+        "weight": 1.5,
+        "base_cost": 75,
+        "defense": 5,
+        "durability": 300,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3a/MW-icon-apparel-Netch_Leather_Bracer.png"
+    },
+    "Netch Leather Right Gauntlet": {
+        "type": "light_armor rHand",
+        "description": "Right hand protection made from netch leather, offering good dexterity.",
+        "weight": 1.5,
+        "base_cost": 75,
+        "defense": 5,
+        "durability": 300,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3a/MW-icon-apparel-Netch_Leather_Bracer.png"
+    },
+    "Netch Leather Greaves": {
+        "type": "light_armor greaves",
+        "description": "Leg armor crafted from layered netch leather strips.",
+        "weight": 8.0,
+        "base_cost": 200,
+        "defense": 15,
+        "durability": 600,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/7/7e/MW-icon-apparel-Netch_Leather_Greaves.png"
+    },
+    "Netch Leather Boots": {
+        "type": "light_armor boot",
+        "description": "Boots made from durable netch leather, comfortable for long travels.",
+        "weight": 4.0,
+        "base_cost": 150,
+        "defense": 8,
+        "durability": 500,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/5/5e/MW-icon-apparel-Netch_Leather_Boots.png"
+    },
+    "Netch Leather Shield": {
+        "type": "light_armor shield",
+        "description": "A lightweight shield made from reinforced netch leather.",
+        "weight": 10.0,
+        "base_cost": 250,
+        "defense": 12,
+        "durability": 700,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1e/MW-icon-weapon-Netch_Leather_Shield.png"
+    },
+    "Iron Helm": {
+        "type": "heavy_armor helmet",
+        "description": "A basic iron helmet offering decent head protection.",
+        "weight": 10.0,
+        "base_cost": 50,
+        "defense": 15,
+        "durability": 600,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/Iron_Helm_MW.png"
+    },
+    "Iron Cuirass": {
+        "type": "heavy_armor chest",
+        "description": "Standard iron breastplate providing good torso protection.",
+        "weight": 40.0,
+        "base_cost": 200,
+        "defense": 25,
+        "durability": 1000,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1f/IronCuirass_MW.png"
+    },
+    "Iron Left Pauldron": {
+        "type": "heavy_armor lShoulder",
+        "description": "Left shoulder protection made of iron plates.",
+        "weight": 15.0,
+        "base_cost": 100,
+        "defense": 10,
+        "durability": 800,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/3/3b/Iron_Pauldron_Left_MW.png"
+    },
+    "Iron Right Pauldron": {
+        "type": "heavy_armor rShoulder",
+        "description": "Right shoulder protection made of iron plates.",
+        "weight": 15.0,
+        "base_cost": 100,
+        "defense": 10,
+        "durability": 800,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/Iron_Pauldron_Right_MW.png"
+    },
+    "Iron Gauntlets": {
+        "type": "heavy_armor hands",
+        "description": "Iron gauntlets protecting the hands and forearms.",
+        "weight": 8.0,
+        "base_cost": 75,
+        "defense": 8,
+        "durability": 500,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/9/9e/Iron_Gauntlets_MW.png"
+    },
+    "Iron Greaves": {
+        "type": "heavy_armor legs",
+        "description": "Iron leg armor offering solid lower body protection.",
+        "weight": 25.0,
+        "base_cost": 150,
+        "defense": 20,
+        "durability": 900,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1b/Iron_Greaves_%28Morrowind%29.png"
+    },
+    "Iron Boots": {
+        "type": "heavy_armor feet",
+        "description": "Sturdy iron boots that protect the feet.",
+        "weight": 12.0,
+        "base_cost": 80,
+        "defense": 12,
+        "durability": 700,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/1/1c/IronBootsMW.png"
+    },
+    "Iron Shield": {
+        "type": "heavy_armor shield",
+        "description": "A basic iron shield offering decent protection.",
+        "weight": 20.0,
+        "base_cost": 120,
+        "defense": 15,
+        "durability": 750,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/2/2e/Iron_Shield_MW.png"
+    },
+    "Iron Tower Shield": {
+        "type": "heavy_armor shield",
+        "description": "A large iron tower shield providing excellent defense.",
+        "weight": 30.0,
+        "base_cost": 180,
+        "defense": 25,
+        "durability": 900,
+        "effects": {},
+        "image_url": "https://static.wikia.nocookie.net/elderscrolls/images/5/5b/Iron_Tower_Shield_MW.png"
     }
 }
