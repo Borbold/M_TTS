@@ -23,7 +23,7 @@
     },
     "Sujamma": {
         "type": "potion",
-        "description": "Alchogol",
+        "description": "Is a Dunmer liquor which gives you unprecedented power, but hits you very hard in the head.",
         "weight": 1,
         "base_cost": 20,
         "effects": {
