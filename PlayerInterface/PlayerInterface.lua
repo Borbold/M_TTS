@@ -775,7 +775,7 @@ function spawnItem(player, alt, id)
             local params = {image = item.image_url, thickness = 0.1}
             local description = string.format("%s\nWeight: %s\nBase cost: %s", item.description, item.weight, item.base_cost)
             local o = spawnObject({type = "Custom_Token", position = positionCub, rotation = {0, 180, 0}, scale = {0.5, 0.5, 0.5}})
-            o.addTag("item") o.setDescription(item.description) o.setName(name) o.setCustomObject(params)
+            o.addTag("item") o.setDescription(description) o.setName(name) o.setCustomObject(params)
         end
     end
 end
